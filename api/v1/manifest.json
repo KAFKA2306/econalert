@@ -1,0 +1,37 @@
+{
+  "api_version": "v1",
+  "cache": {
+    "revalidate_seconds": 3600,
+    "validator": "sha256"
+  },
+  "dataset": "bls-cpi",
+  "files": {
+    "categories.csv": {
+      "bytes": 2609,
+      "sha256": "ebda4c721d9b69ec9ddb8ff23aeda2b191f9e7c55c541c3cde912e043c1bf38e"
+    },
+    "categories.json": {
+      "bytes": 2371,
+      "sha256": "2a10c156b7117f1e822cc27e38076ffe5a65f1cdcfc741c2903a12ca5cfd19e7"
+    },
+    "latest.json": {
+      "bytes": 570,
+      "sha256": "2cd56b760e50ad610627fe82c3ca38ba2afd4daadec1452d37a675a5c5a78249"
+    }
+  },
+  "period": "2026-06",
+  "record_count": 38,
+  "release_date": "2026-07-14",
+  "retrieved_at": "2026-08-07T19:15:38Z",
+  "rights": {
+    "copyright_url": "https://www.bls.gov/opub/copyright-information.htm",
+    "note": "BLS-published material is public domain except previously copyrighted photographs and illustrations; cite BLS as source.",
+    "terms_url": "https://www.bls.gov/developers/termsOfService.htm"
+  },
+  "source": {
+    "publisher": "U.S. Bureau of Labor Statistics",
+    "sha256": "3394bcf56065d1ce1f39683c48de7f82bddc72954fe8fa878891dad0745066cb",
+    "snapshot": "data/official/bls-cpi-2026-06.json",
+    "url": "https://www.bls.gov/news.release/cpi.nr0.htm"
+  }
+}
