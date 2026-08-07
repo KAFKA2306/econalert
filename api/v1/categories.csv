@@ -1,0 +1,39 @@
+period,category,value,unit,seasonal_adjustment
+2026-06,Airline fare,26.5,percent,not_seasonally_adjusted
+2026-06,Alcoholic beverages,2.0,percent,not_seasonally_adjusted
+2026-06,All items,3.5,percent,not_seasonally_adjusted
+2026-06,All items less food and energy,2.6,percent,not_seasonally_adjusted
+2026-06,Apparel,3.9,percent,not_seasonally_adjusted
+2026-06,Cereals and bakery products,2.4,percent,not_seasonally_adjusted
+2026-06,Commodities less food and energy commodities,0.8,percent,not_seasonally_adjusted
+2026-06,Dairy and related products,0.4,percent,not_seasonally_adjusted
+2026-06,Electricity,4.0,percent,not_seasonally_adjusted
+2026-06,Energy,15.7,percent,not_seasonally_adjusted
+2026-06,Energy commodities,27.1,percent,not_seasonally_adjusted
+2026-06,Energy services,3.9,percent,not_seasonally_adjusted
+2026-06,Food,3.0,percent,not_seasonally_adjusted
+2026-06,Food at home,2.7,percent,not_seasonally_adjusted
+2026-06,Food away from home,3.4,percent,not_seasonally_adjusted
+2026-06,Fruits and vegetables,5.3,percent,not_seasonally_adjusted
+2026-06,Fuel oil,42.9,percent,not_seasonally_adjusted
+2026-06,Full service meals and snacks,3.7,percent,not_seasonally_adjusted
+2026-06,Gasoline (all types),26.7,percent,not_seasonally_adjusted
+2026-06,Hospital services,5.1,percent,not_seasonally_adjusted
+2026-06,Limited service meals and snacks,3.1,percent,not_seasonally_adjusted
+2026-06,"Meats, poultry, fish, and eggs",2.6,percent,not_seasonally_adjusted
+2026-06,Medical care commodities,-2.1,percent,not_seasonally_adjusted
+2026-06,Medical care services,2.9,percent,not_seasonally_adjusted
+2026-06,Motor vehicle insurance,-4.1,percent,not_seasonally_adjusted
+2026-06,Motor vehicle maintenance and repair,7.0,percent,not_seasonally_adjusted
+2026-06,Natural gas (piped),3.0,percent,not_seasonally_adjusted
+2026-06,New vehicles,0.5,percent,not_seasonally_adjusted
+2026-06,Nonalcoholic beverages and beverage materials,2.9,percent,not_seasonally_adjusted
+2026-06,Other food at home,2.4,percent,not_seasonally_adjusted
+2026-06,Owners' equivalent rent of residences,3.3,percent,not_seasonally_adjusted
+2026-06,Physicians' services,2.4,percent,not_seasonally_adjusted
+2026-06,Rent of primary residence,2.8,percent,not_seasonally_adjusted
+2026-06,Services less energy services,3.2,percent,not_seasonally_adjusted
+2026-06,Shelter,3.3,percent,not_seasonally_adjusted
+2026-06,Tobacco and smoking products,6.5,percent,not_seasonally_adjusted
+2026-06,Transportation services,3.4,percent,not_seasonally_adjusted
+2026-06,Used cars and trucks,-1.8,percent,not_seasonally_adjusted
