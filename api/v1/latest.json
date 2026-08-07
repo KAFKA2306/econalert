@@ -1,0 +1,22 @@
+{
+  "headline": {
+    "all_items_12m_nsa_pct": 3.5,
+    "all_items_monthly_sa_pct": -0.4,
+    "core_12m_nsa_pct": 2.6,
+    "core_monthly_sa_pct": 0.0
+  },
+  "next_release": {
+    "period": "2026-07",
+    "scheduled_at": "2026-08-12T08:30:00-04:00",
+    "timezone": "America/New_York"
+  },
+  "period": "2026-06",
+  "release_date": "2026-07-14",
+  "schema_version": "1.0",
+  "series": "bls-cpi-u",
+  "source": {
+    "publisher": "U.S. Bureau of Labor Statistics",
+    "retrieved_at": "2026-08-07T19:15:38Z",
+    "url": "https://www.bls.gov/news.release/cpi.nr0.htm"
+  }
+}
