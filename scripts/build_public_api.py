@@ -53,7 +53,20 @@ def build() -> None:
         "seasonal_adjustment": "not_seasonally_adjusted",
         "observations": sorted(data["categories_12m_nsa_pct"], key=lambda x: x["category"]),
     }
-    (OUT / "categories.json").write_bytes(canonical_bytes(categories))
+    lines = ["{", '  "observations": [']
+    for i, row in enumerate(categories["observations"]):
+        comma = "," if i < len(categories["observations"]) - 1 else ""
+        lines.append("    " + json.dumps(row, ensure_ascii=False) + comma)
+    lines.extend([
+        "  ],",
+        f'  "period": {json.dumps(categories["period"])},',
+        f'  "schema_version": {json.dumps(categories["schema_version"])},',
+        f'  "seasonal_adjustment": {json.dumps(categories["seasonal_adjustment"])},',
+        f'  "series": {json.dumps(categories["series"])},',
+        f'  "unit": {json.dumps(categories["unit"])}',
+        "}",
+    ])
+    (OUT / "categories.json").write_text("\n".join(lines) + "\n", encoding="utf-8")
 
     csv_path = OUT / "categories.csv"
     with csv_path.open("w", newline="", encoding="utf-8") as f:
