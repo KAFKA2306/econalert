@@ -20,12 +20,26 @@ jobs:
       - name: Install test dependency
         run: python -m pip install pytest
       - name: Compile
-        run: python -m py_compile scripts/build_public_api.py tests/test_public_api.py
+        run: python -m py_compile scripts/build_public_api.py scripts/contract_escalation.py tests/test_public_api.py tests/test_contract_escalation.py
       - name: Rebuild API
         run: python scripts/build_public_api.py
       - name: Test
         run: python -m pytest -q
+      - name: Synthetic contract escalation E2E
+        run: |
+          python scripts/contract_escalation.py contracts/synthetic-demo.json data/synthetic/cpi-index-demo.json --output /tmp/contract-escalation-report.json
+          python -m json.tool /tmp/contract-escalation-report.json >/dev/null
+          python - <<'PY'
+          import json
+          report = json.load(open('/tmp/contract-escalation-report.json'))
+          assert report['status'] == 'READY_FOR_HUMAN_REVIEW'
+          assert report['source']['series_id'] == 'CUUR0000SA0'
+          assert report['calculation']['raw_percent_change'] == 5.0
+          assert report['calculation']['adjustment_percent'] == 4.0
+          PY
       - name: Ensure committed distribution is deterministic
         run: git diff --exit-code -- api/v1
       - name: JSON smoke test
         run: python -m json.tool api/v1/manifest.json >/dev/null && python -m json.tool api/v1/latest.json >/dev/null && python -m json.tool api/v1/categories.json >/dev/null
+      - name: Ensure checkout remains clean
+        run: test -z "$(git status --porcelain)"
