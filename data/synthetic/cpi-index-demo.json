@@ -1,0 +1,14 @@
+{
+  "schema_version": "cpi-series-snapshot.v1",
+  "publisher": "U.S. Bureau of Labor Statistics",
+  "series_id": "CUUR0000SA0",
+  "series_title": "Synthetic values for contract-engine demonstration only",
+  "source_url": "https://www.bls.gov/developers/api_signature_v2.htm",
+  "rights_url": "https://www.bls.gov/opub/copyright-information.htm",
+  "retrieved_at": "SYNTHETIC_FIXTURE_NOT_RETRIEVED_FROM_BLS",
+  "synthetic": true,
+  "observations": [
+    {"period": "2025-M06", "value": 100.0},
+    {"period": "2026-M06", "value": 105.0}
+  ]
+}
