@@ -41,5 +41,7 @@ jobs:
         run: git diff --exit-code -- api/v1
       - name: JSON smoke test
         run: python -m json.tool api/v1/manifest.json >/dev/null && python -m json.tool api/v1/latest.json >/dev/null && python -m json.tool api/v1/categories.json >/dev/null
+      - name: Remove runtime cache
+        run: find . -type d -name __pycache__ -prune -exec rm -rf {} +
       - name: Ensure checkout remains clean
         run: test -z "$(git status --porcelain)"
