@@ -27,7 +27,7 @@ jobs:
         run: python -m pytest -q
       - name: Synthetic contract escalation E2E
         run: |
-          python scripts/contract_escalation.py contracts/synthetic-demo.json data/synthetic/cpi-index-demo.json --output /tmp/contract-escalation-report.json
+          python scripts/contract_escalation.py contracts/synthetic-demo.json data/synthetic/cpi-index-demo.json --as-of-date 2026-08-15 --output /tmp/contract-escalation-report.json
           python -m json.tool /tmp/contract-escalation-report.json >/dev/null
           python - <<'PY'
           import json
@@ -36,6 +36,8 @@ jobs:
           assert report['source']['series_id'] == 'CUUR0000SA0'
           assert report['calculation']['raw_percent_change'] == 5.0
           assert report['calculation']['adjustment_percent'] == 4.0
+          assert report['decision']['notice']['state'] == 'NOT_DUE'
+          assert report['decision']['notice']['notice_deadline'] == '2026-09-02'
           PY
       - name: Ensure committed distribution is deterministic
         run: git diff --exit-code -- api/v1
