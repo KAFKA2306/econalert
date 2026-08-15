@@ -4,6 +4,10 @@ import unittest
 
 from scripts.contract_escalation import (
     MISSING_TERM,
+    NOTICE_DUE,
+    NOTICE_NOT_CONFIGURED,
+    NOTICE_NOT_DUE,
+    NOTICE_WINDOW_PASSED,
     READY,
     SOURCE_MISMATCH,
     WAITING,
@@ -21,6 +25,8 @@ def profile(**overrides):
         "clause_verified": True,
         "floor_percent": 1.0,
         "cap_percent": 4.0,
+        "adjustment_date": "2026-11-01",
+        "notice_lead_days": 60,
     }
     value.update(overrides)
     return value
@@ -49,13 +55,36 @@ def sha(value):
 class ContractEscalationTests(unittest.TestCase):
     def test_exact_series_and_cap(self):
         source = snapshot()
-        result = calculate(profile(), source, sha(source))
+        result = calculate(profile(), source, sha(source), as_of_date="2026-08-15")
         self.assertEqual(READY, result["status"])
+        self.assertEqual("contract-escalation-report.v2", result["schema_version"])
         self.assertEqual(5.0, result["calculation"]["raw_percent_change"])
         self.assertEqual(4.0, result["calculation"]["adjustment_percent"])
         self.assertEqual("CUUR0000SA0", result["source"]["series_id"])
+        self.assertEqual(NOTICE_NOT_DUE, result["decision"]["notice"]["state"])
+        self.assertEqual("2026-09-02", result["decision"]["notice"]["notice_deadline"])
+        self.assertEqual(18, result["decision"]["notice"]["days_until_notice_deadline"])
         self.assertEqual(64, len(result["source"]["snapshot_sha256"]))
         self.assertEqual(64, len(result["calculation_revision"]))
+
+    def test_notice_window_states_are_explicit(self):
+        source = snapshot()
+        self.assertEqual(NOTICE_NOT_DUE, calculate(profile(), source, sha(source), as_of_date="2026-09-01")["decision"]["notice"]["state"])
+        self.assertEqual(NOTICE_DUE, calculate(profile(), source, sha(source), as_of_date="2026-09-02")["decision"]["notice"]["state"])
+        self.assertEqual(NOTICE_WINDOW_PASSED, calculate(profile(), source, sha(source), as_of_date="2026-09-03")["decision"]["notice"]["state"])
+
+    def test_notice_timing_is_optional_and_never_inferred(self):
+        source = snapshot()
+        result = calculate(profile(adjustment_date=None, notice_lead_days=None), source, sha(source), as_of_date="2026-08-15")
+        self.assertEqual(READY, result["status"])
+        self.assertEqual(NOTICE_NOT_CONFIGURED, result["decision"]["notice"]["state"])
+        self.assertIsNone(result["decision"]["notice"]["notice_deadline"])
+
+    def test_invalid_notice_timing_fails_closed(self):
+        source = snapshot()
+        result = calculate(profile(adjustment_date="not-a-date"), source, sha(source), as_of_date="2026-08-15")
+        self.assertEqual(MISSING_TERM, result["status"])
+        self.assertEqual("invalid_notice_timing", result["reason"])
 
     def test_floor_applies_only_when_declared(self):
         source = snapshot(observations=[

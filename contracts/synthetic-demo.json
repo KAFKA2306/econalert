@@ -6,6 +6,7 @@
   "formula": "percent_change",
   "floor_percent": 0.0,
   "cap_percent": 4.0,
+  "adjustment_date": "2026-11-01",
   "notice_lead_days": 60,
   "clause_verified": true,
   "synthetic": true
