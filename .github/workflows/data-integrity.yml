@@ -39,6 +39,22 @@ jobs:
           assert report['decision']['notice']['state'] == 'NOT_DUE'
           assert report['decision']['notice']['notice_deadline'] == '2026-09-02'
           PY
+      - name: Official CPI-U index-level contract E2E
+        run: |
+          python scripts/contract_escalation.py contracts/synthetic-demo.json data/official/bls-cpi-u-all-items-index-2025-06-2026-06.json --as-of-date 2026-08-15 --output /tmp/official-contract-escalation-report.json
+          python -m json.tool /tmp/official-contract-escalation-report.json >/dev/null
+          python - <<'PY'
+          import json
+          report = json.load(open('/tmp/official-contract-escalation-report.json'))
+          assert report['status'] == 'READY_FOR_HUMAN_REVIEW'
+          assert report['source']['series_id'] == 'CUUR0000SA0'
+          assert report['calculation']['base_index'] == 322.561
+          assert report['calculation']['comparison_index'] == 333.952
+          assert report['calculation']['raw_percent_change'] == 3.53142506
+          assert report['calculation']['adjustment_percent'] == 3.53142506
+          assert report['decision']['notice']['state'] == 'NOT_DUE'
+          assert report['decision']['notice']['notice_deadline'] == '2026-09-02'
+          PY
       - name: Ensure committed distribution is deterministic
         run: git diff --exit-code -- api/v1
       - name: JSON smoke test
