@@ -1,6 +1,8 @@
 import json
 from pathlib import Path
+from tempfile import TemporaryDirectory
 
+from scripts.build_productivity_views import build
 from scripts.collect_productivity import SERIES, parse
 
 
@@ -44,3 +46,22 @@ def test_seeded_release_vintages_have_complete_primary_source_rows():
         assert release["source_section"] == "Table B1"
         assert set(release["revised"]) == metrics
         assert set(release["previously_published"]) == metrics
+
+
+def test_distribution_views_are_deterministic_and_include_revisions():
+    current = Path("data/official/bls-productivity-current")
+    vintages = Path("data/official/bls-productivity-vintages.json")
+    with TemporaryDirectory() as first_tmp, TemporaryDirectory() as second_tmp:
+        first = Path(first_tmp)
+        second = Path(second_tmp)
+        build(current, vintages, first)
+        build(current, vintages, second)
+        assert {p.name: p.read_bytes() for p in first.iterdir()} == {
+            p.name: p.read_bytes() for p in second.iterdir()
+        }
+        manifest = json.loads((first / "manifest.json").read_text(encoding="utf-8"))
+        revisions = json.loads((first / "revisions.json").read_text(encoding="utf-8"))
+        assert manifest["observation_count"] >= 8
+        assert set(manifest["outputs"]) == {"latest.json", "latest.csv", "revisions.json"}
+        assert len(revisions["revisions"]) == 7
+        assert revisions["revisions"][-1]["revision_percentage_points"]["labor_productivity"] == -0.5
