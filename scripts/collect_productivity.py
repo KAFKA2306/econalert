@@ -2,7 +2,8 @@
 """Collect BLS Productivity and Costs bulk time-series data.
 
 The collector discovers series from BLS metadata instead of hard-coding series IDs.
-It keeps source hashes and does not infer missing observations.
+It keeps source hashes, does not infer missing observations, and stores current-series
+snapshots by source content so prior source states are not overwritten.
 """
 from __future__ import annotations
 
@@ -31,10 +32,17 @@ TARGET_MEASURES = (
     "unit labor cost",
     "real hourly compensation",
 )
+CORE_NONFARM = (
+    "labor_productivity",
+    "output",
+    "hours_worked",
+    "hourly_compensation",
+    "unit_labor_costs",
+)
 
 
 def fetch(url: str) -> bytes:
-    req = Request(url, headers={"User-Agent": "econalert/1.0 contact: github.com/KAFKA2306/econalert"})
+    req = Request(url, headers={"User-Agent": "economic-releases/1.0 github.com/KAFKA2306/econalert"})
     with urlopen(req, timeout=60) as response:
         return response.read()
 
@@ -86,6 +94,49 @@ def select_series(series_rows: list[dict[str, str]], sectors: list[dict[str, str
     return selected
 
 
+def canonical_measure(name: str) -> str | None:
+    value = name.lower()
+    if "output per hour" in value or "labor productivity" in value:
+        return "labor_productivity"
+    if "real hourly compensation" in value:
+        return "real_hourly_compensation"
+    if "hourly compensation" in value:
+        return "hourly_compensation"
+    if "unit labor cost" in value:
+        return "unit_labor_costs"
+    if "hours" in value:
+        return "hours_worked"
+    if "output" in value:
+        return "output"
+    return None
+
+
+def coverage(payload: dict[str, object]) -> dict[str, int]:
+    metadata = {row["series_id"]: row for row in payload["series"]}
+    periods: dict[str, dict[str, set[tuple[str, str]]]] = {}
+    for row in payload["observations"]:
+        meta = metadata.get(row["series_id"])
+        if not meta or "nonfarm business" not in meta["sector"].lower():
+            continue
+        measure = canonical_measure(meta["measure"])
+        if measure is None:
+            continue
+        series_periods = periods.setdefault(measure, {}).setdefault(row["series_id"], set())
+        if str(row.get("period", "")).upper().startswith("Q"):
+            series_periods.add((str(row.get("year", "")), str(row.get("period", ""))))
+    return {
+        measure: max((len(values) for values in periods.get(measure, {}).values()), default=0)
+        for measure in CORE_NONFARM
+    }
+
+
+def validate_coverage(payload: dict[str, object], minimum_quarters: int = 8) -> None:
+    counts = coverage(payload)
+    short = {measure: count for measure, count in counts.items() if count < minimum_quarters}
+    if short:
+        raise ValueError(f"nonfarm business quarterly coverage below {minimum_quarters}: {short}")
+
+
 def collect() -> dict[str, object]:
     raw = {name: fetch(url) for name, url in URLS.items()}
     series_rows = rows(raw["series"])
@@ -108,7 +159,7 @@ def collect() -> dict[str, object]:
         })
 
     return {
-        "schema_version": 1,
+        "schema_version": 2,
         "publisher": "U.S. Bureau of Labor Statistics",
         "dataset": "Productivity and Costs",
         "retrieved_at": datetime.now(timezone.utc).isoformat(),
@@ -121,16 +172,29 @@ def collect() -> dict[str, object]:
     }
 
 
+def source_fingerprint(payload: dict[str, object]) -> str:
+    hashes = [f"{name}:{source['sha256']}" for name, source in sorted(payload["sources"].items())]
+    return hashlib.sha256("\n".join(hashes).encode()).hexdigest()[:16]
+
+
+def write_snapshot(payload: dict[str, object], output_dir: Path) -> Path:
+    validate_coverage(payload)
+    output_dir.mkdir(parents=True, exist_ok=True)
+    path = output_dir / f"{source_fingerprint(payload)}.json"
+    if not path.exists():
+        path.write_text(json.dumps(payload, ensure_ascii=False, indent=2) + "\n", encoding="utf-8")
+    return path
+
+
 def main() -> None:
     parser = argparse.ArgumentParser()
-    parser.add_argument("--output", type=Path, default=Path("data/official/bls-productivity-current.json"))
+    parser.add_argument("--output-dir", type=Path, default=Path("data/official/bls-productivity-current"))
     args = parser.parse_args()
     payload = collect()
     if not payload["series"] or not payload["observations"]:
         raise SystemExit("BLS productivity selection returned no data")
-    args.output.parent.mkdir(parents=True, exist_ok=True)
-    args.output.write_text(json.dumps(payload, ensure_ascii=False, indent=2) + "\n", encoding="utf-8")
-    print(f"wrote {len(payload['series'])} series / {len(payload['observations'])} observations -> {args.output}")
+    path = write_snapshot(payload, args.output_dir)
+    print(f"wrote {len(payload['series'])} series / {len(payload['observations'])} observations -> {path}")
 
 
 if __name__ == "__main__":
