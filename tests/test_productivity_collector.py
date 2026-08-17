@@ -1,15 +1,46 @@
-from scripts.collect_productivity import select_series
+import json
+from pathlib import Path
+
+from scripts.collect_productivity import SERIES, parse
 
 
-def test_selects_nonfarm_productivity_without_hardcoded_series_id():
-    series = [
-        {"series_id": "X1", "sector_code": "01", "measure_code": "10", "seasonal": "S", "duration_code": "Q", "base_year": "2017"},
-        {"series_id": "X2", "sector_code": "02", "measure_code": "10", "seasonal": "S", "duration_code": "Q", "base_year": "2017"},
-    ]
-    sectors = [
-        {"sector_code": "01", "sector_name": "Nonfarm Business"},
-        {"sector_code": "02", "sector_name": "Government"},
-    ]
-    measures = [{"measure_code": "10", "measure_name": "Output per hour"}]
-    selected = select_series(series, sectors, measures)
-    assert [row["series_id"] for row in selected] == ["X1"]
+def test_public_api_requires_and_parses_eight_complete_quarters():
+    series = []
+    for series_id in SERIES:
+        data = []
+        for index in range(8):
+            year = 2024 + index // 4
+            quarter = index % 4 + 1
+            data.append(
+                {
+                    "year": str(year),
+                    "period": f"Q{quarter:02d}",
+                    "value": str(index + 0.5),
+                    "footnotes": [{"text": "Revised."}] if index == 7 else [{}],
+                }
+            )
+        series.append({"seriesID": series_id, "data": data})
+    raw = json.dumps(
+        {"status": "REQUEST_SUCCEEDED", "message": [], "Results": {"series": series}}
+    ).encode()
+    rows = parse(raw)
+    assert len(rows) == 8
+    assert rows[0]["period"] == "2024-Q1"
+    assert rows[-1]["period"] == "2025-Q4"
+    assert rows[-1]["labor_productivity"] == 7.5
+    assert rows[-1]["footnotes"]["labor_productivity"] == ["Revised."]
+
+
+def test_seeded_release_vintages_have_complete_primary_source_rows():
+    payload = json.loads(
+        Path("data/official/bls-productivity-vintages.json").read_text(encoding="utf-8")
+    )
+    metrics = set(payload["metrics"])
+    assert len(payload["releases"]) == 7
+    assert payload["releases"][0]["quarter"] == "2024-Q3"
+    assert payload["releases"][-1]["quarter"] == "2026-Q1"
+    for release in payload["releases"]:
+        assert release["source_url"].startswith("https://www.bls.gov/news.release/archives/")
+        assert release["source_section"] == "Table B1"
+        assert set(release["revised"]) == metrics
+        assert set(release["previously_published"]) == metrics
