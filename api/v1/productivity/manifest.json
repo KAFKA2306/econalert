@@ -1,0 +1,24 @@
+{
+  "schema_version": 1,
+  "source_snapshot": "data/official/bls-productivity-current/737a28df2c681448.json",
+  "source_snapshot_sha256": "f673cf28b56c8a26fce72b421bfbcf8cf7fdef6c0743a3bb6f1385ae905cb33a",
+  "historical_vintages": "data/official/bls-productivity-vintages.json",
+  "historical_vintages_sha256": "144730a7b56d8569a288e383c81d98b142b960db9699d645815896a70f1d559d",
+  "period_start": "2024-Q1",
+  "period_end": "2026-Q2",
+  "observation_count": 10,
+  "outputs": {
+    "latest.json": {
+      "bytes": 3154,
+      "sha256": "c708c0900567efa89ff1be0f254eea10a14b0a69118b468f289f2055da6dd846"
+    },
+    "latest.csv": {
+      "bytes": 446,
+      "sha256": "51ea3c46537d4e08f8ec4f232da38d0c49af6b502bff5254dee68df555c6d6d8"
+    },
+    "revisions.json": {
+      "bytes": 3329,
+      "sha256": "b8b3c7be10e83d14eca1a7678562fdca65d48cad7fefca59d2ec2df76a00e625"
+    }
+  }
+}
