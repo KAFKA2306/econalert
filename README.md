@@ -1,5 +1,7 @@
 # EconAlert — 公式経済指標を発表回ごとに確認できるデータ基盤
 
+[![Data integrity](https://github.com/KAFKA2306/econalert/actions/workflows/data-integrity.yml/badge.svg)](https://github.com/KAFKA2306/econalert/actions/workflows/data-integrity.yml)
+
 EconAlertは、経済指標を公式発表から保存し、**どの発表回の・どの対象期間の・いつ取得した値か**を確認したうえでJSON/CSVとして利用できるようにする小さなデータ基盤です。現在の中心は通知botではなく、後段の分析や通知へ渡せる再現可能な公式データです。
 
 ## 目的
