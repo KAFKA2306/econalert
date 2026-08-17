@@ -14,12 +14,12 @@ ARK Big Ideas 2026 の `AI Productivity` を実体経済側から検証するた
 一次情報:
 
 - https://www.bls.gov/productivity/
-- https://download.bls.gov/pub/time.series/pr/
+- https://www.bls.gov/news.release/prod2.t02.htm
 - https://www.bls.gov/bls/news-release/prod.htm
 
 ### Current revised series
 
-[`scripts/collect_productivity.py`](scripts/collect_productivity.py) はBLS bulk metadataからseriesを発見し、nonfarm business / manufacturing の productivity、output、hours、hourly compensation、unit labor costs、real hourly compensationを取得します。
+[`scripts/collect_productivity.py`](scripts/collect_productivity.py) はBLS公式releaseの Table 2 から、nonfarm business の productivity、output、hours、hourly compensation、real hourly compensation、unit labor costsを取得します。
 
 保存先:
 
@@ -27,7 +27,7 @@ ARK Big Ideas 2026 の `AI Productivity` を実体経済側から検証するた
 data/official/bls-productivity-current/<source-fingerprint>.json
 ```
 
-BLSの4つのbulk sourceのSHA-256からpathを決めるため、同じsourceを重複保存せず、sourceが改訂された場合は以前のsnapshotを上書きしません。nonfarm businessの主要5指標について、それぞれ8四半期以上のquarterly observationがなければ収集を失敗させます。
+source HTMLのSHA-256からpathを決めるため、同じreleaseを重複保存せず、BLSが表を更新した場合も以前のsnapshotを上書きしません。`Percent change from previous quarter at annual rate` のquarterly observationが8四半期未満なら収集を失敗させます。
 
 ### Release vintage / revision
 
@@ -58,7 +58,7 @@ python scripts/collect_productivity.py
 python scripts/collect_productivity_vintages.py
 ```
 
-Pull Requestではlive BLS sourceまで取得して、HTML tableやbulk schemaの変化をfail closedで検出します。
+Pull Requestではlive BLS HTMLを実取得し、Table 2 / Table B1の構造変化をfail closedで検出します。
 
 ## CPI
 
