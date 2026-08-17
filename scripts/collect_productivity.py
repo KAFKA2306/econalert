@@ -1,96 +1,88 @@
 #!/usr/bin/env python3
-"""Collect the current BLS nonfarm-business productivity table."""
+"""Collect current BLS nonfarm-business productivity series through the Public Data API."""
 from __future__ import annotations
 
 import argparse
 import hashlib
 import json
-import re
 from datetime import datetime, timezone
-from html.parser import HTMLParser
 from pathlib import Path
 from urllib.request import Request, urlopen
 
-SOURCE_URL = "https://www.bls.gov/news.release/prod2.t02.htm"
-NUMBER = r"[-+]?\d+(?:\.\d+)?"
-METRICS = (
-    "labor_productivity",
-    "output",
-    "hours_worked",
-    "hourly_compensation",
-    "real_hourly_compensation",
-    "unit_labor_costs",
-    "unit_nonlabor_payments",
-    "output_price_deflator",
-)
-ROMAN_QUARTER = {"I": 1, "II": 2, "III": 3, "IV": 4}
+API_URL = "https://api.bls.gov/publicAPI/v2/timeseries/data/"
+SERIES = {
+    "PRS85006092": "labor_productivity",
+    "PRS85006042": "output",
+    "PRS85006032": "hours_worked",
+    "PRS85006102": "hourly_compensation",
+    "PRS85006152": "real_hourly_compensation",
+    "PRS85006112": "unit_labor_costs",
+}
 
 
-class TextExtractor(HTMLParser):
-    def __init__(self) -> None:
-        super().__init__()
-        self.parts: list[str] = []
-
-    def handle_data(self, data: str) -> None:
-        self.parts.append(data)
-
-
-def fetch(url: str) -> bytes:
-    request = Request(url, headers={"User-Agent": "economic-releases/1.0 github.com/KAFKA2306/econalert"})
+def fetch(start_year: int, end_year: int) -> bytes:
+    body = json.dumps(
+        {"seriesid": list(SERIES), "startyear": str(start_year), "endyear": str(end_year)}
+    ).encode()
+    request = Request(
+        API_URL,
+        data=body,
+        headers={
+            "Content-Type": "application/json",
+            "User-Agent": "economic-releases/1.0 github.com/KAFKA2306/econalert",
+        },
+        method="POST",
+    )
     with urlopen(request, timeout=60) as response:
         return response.read()
 
 
-def html_text(raw: bytes) -> str:
-    parser = TextExtractor()
-    parser.feed(raw.decode("utf-8", errors="replace"))
-    return re.sub(r"\s+", " ", " ".join(parser.parts)).strip()
-
-
-def parse_current_table(raw: bytes) -> list[dict[str, object]]:
-    text = html_text(raw)
-    start = text.find("Percent change from previous quarter at annual rate")
-    end = text.find("Percent change from corresponding quarter of previous year", start)
-    if start < 0 or end < 0:
-        raise ValueError("BLS Table 2 quarterly-change section not found")
-    section = text[start:end]
-    value = rf"({NUMBER})(?:\s+r)?"
-    pattern = re.compile(
-        rf"(?:(20\d{{2}})\s+)?(IV|III|II|I)\s+"
-        + r"\s+".join([value] * len(METRICS))
-    )
-    observations: list[dict[str, object]] = []
-    year: int | None = None
-    for match in pattern.finditer(section):
-        if match.group(1):
-            year = int(match.group(1))
-        if year is None:
-            raise ValueError("quarter row appeared before a year")
-        quarter = ROMAN_QUARTER[match.group(2)]
-        values = [float(item) for item in match.groups()[2:]]
-        observations.append(
-            {
-                "period": f"{year}-Q{quarter}",
-                **dict(zip(METRICS, values, strict=True)),
-            }
-        )
+def parse(raw: bytes) -> list[dict[str, object]]:
+    response = json.loads(raw)
+    if response.get("status") != "REQUEST_SUCCEEDED":
+        raise ValueError(f"BLS API request failed: {response.get('message')}")
+    by_period: dict[str, dict[str, object]] = {}
+    returned = set()
+    for series in response.get("Results", {}).get("series", []):
+        series_id = series.get("seriesID")
+        if series_id not in SERIES:
+            continue
+        returned.add(series_id)
+        metric = SERIES[series_id]
+        for item in series.get("data", []):
+            period = str(item.get("period", ""))
+            if not period.startswith("Q"):
+                continue
+            key = f"{item['year']}-Q{int(period[1:])}"
+            row = by_period.setdefault(key, {"period": key})
+            row[metric] = float(item["value"])
+            footnotes = [note.get("text") for note in item.get("footnotes", []) if note.get("text")]
+            if footnotes:
+                row.setdefault("footnotes", {})[metric] = footnotes
+    missing_series = set(SERIES) - returned
+    if missing_series:
+        raise ValueError(f"BLS API omitted series: {sorted(missing_series)}")
+    required = set(SERIES.values())
+    observations = [row for row in by_period.values() if required.issubset(row)]
+    observations.sort(key=lambda row: row["period"])
     if len(observations) < 8:
-        raise ValueError(f"expected at least 8 quarterly observations, found {len(observations)}")
+        raise ValueError(f"expected at least 8 complete quarters, found {len(observations)}")
     return observations
 
 
 def collect() -> dict[str, object]:
-    raw = fetch(SOURCE_URL)
-    observations = parse_current_table(raw)
+    year = datetime.now(timezone.utc).year
+    raw = fetch(year - 2, year)
+    observations = parse(raw)
     return {
-        "schema_version": 1,
+        "schema_version": 2,
         "publisher": "U.S. Bureau of Labor Statistics",
         "dataset": "Productivity and Costs",
-        "table": "2",
         "sector": "Nonfarm business",
         "rate_basis": "percent change from previous quarter at annual rate",
         "retrieved_at": datetime.now(timezone.utc).isoformat(),
-        "source_url": SOURCE_URL,
+        "source_url": API_URL,
+        "series": SERIES,
         "source_sha256": hashlib.sha256(raw).hexdigest(),
         "observations": observations,
     }
