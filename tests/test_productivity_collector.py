@@ -1,12 +1,12 @@
 import json
+from pathlib import Path
 
 from scripts.collect_productivity import SERIES, parse
-from scripts.collect_productivity_vintages import parse_nonfarm_b1
 
 
 def test_public_api_requires_and_parses_eight_complete_quarters():
     series = []
-    for series_id, metric in SERIES.items():
+    for series_id in SERIES:
         data = []
         for index in range(8):
             year = 2024 + index // 4
@@ -31,14 +31,16 @@ def test_public_api_requires_and_parses_eight_complete_quarters():
     assert rows[-1]["footnotes"]["labor_productivity"] == ["Revised."]
 
 
-def test_parse_nonfarm_revision_table():
-    raw = b"""<html><body><pre>
-Table B1. Labor productivity growth and related measures - revised and previously published first-quarter 2026
-Sector Labor productivity Output Hours worked Hourly compensation Real hourly compensation Unit labor costs
-Nonfarm business Revised 0.3 1.0 0.7 2.1 -1.4 1.8
-Previously published 0.8 1.5 0.7 3.1 -0.5 2.3
-</pre></body></html>"""
-    result = parse_nonfarm_b1(raw)
-    assert result["revised"]["labor_productivity"] == 0.3
-    assert result["previously_published"]["hourly_compensation"] == 3.1
-    assert result["revised"]["unit_labor_costs"] == 1.8
+def test_seeded_release_vintages_have_complete_primary_source_rows():
+    payload = json.loads(
+        Path("data/official/bls-productivity-vintages.json").read_text(encoding="utf-8")
+    )
+    metrics = set(payload["metrics"])
+    assert len(payload["releases"]) == 7
+    assert payload["releases"][0]["quarter"] == "2024-Q3"
+    assert payload["releases"][-1]["quarter"] == "2026-Q1"
+    for release in payload["releases"]:
+        assert release["source_url"].startswith("https://www.bls.gov/news.release/archives/")
+        assert release["source_section"] == "Table B1"
+        assert set(release["revised"]) == metrics
+        assert set(release["previously_published"]) == metrics
