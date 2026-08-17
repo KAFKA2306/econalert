@@ -13,13 +13,20 @@ ARK Big Ideas 2026 の `AI Productivity` を実体経済側から検証するた
 
 一次情報:
 
-- https://www.bls.gov/productivity/
-- https://www.bls.gov/news.release/prod2.t02.htm
+- https://api.bls.gov/publicAPI/v2/timeseries/data/
+- https://www.bls.gov/developers/home.htm
 - https://www.bls.gov/bls/news-release/prod.htm
 
 ### Current revised series
 
-[`scripts/collect_productivity.py`](scripts/collect_productivity.py) はBLS公式releaseの Table 2 から、nonfarm business の productivity、output、hours、hourly compensation、real hourly compensation、unit labor costsを取得します。
+[`scripts/collect_productivity.py`](scripts/collect_productivity.py) はBLS Public Data APIから、nonfarm business の次の公式seriesを取得します。
+
+- labor productivity: `PRS85006092`
+- output: `PRS85006042`
+- hours worked: `PRS85006032`
+- hourly compensation: `PRS85006102`
+- real hourly compensation: `PRS85006152`
+- unit labor costs: `PRS85006112`
 
 保存先:
 
@@ -27,38 +34,27 @@ ARK Big Ideas 2026 の `AI Productivity` を実体経済側から検証するた
 data/official/bls-productivity-current/<source-fingerprint>.json
 ```
 
-source HTMLのSHA-256からpathを決めるため、同じreleaseを重複保存せず、BLSが表を更新した場合も以前のsnapshotを上書きしません。`Percent change from previous quarter at annual rate` のquarterly observationが8四半期未満なら収集を失敗させます。
+API responseのSHA-256からpathを決めるため、同じresponseを重複保存せず、BLSが過去値を改訂した場合も以前のsnapshotを上書きしません。6指標が揃ったquarterly observationが8四半期未満なら収集を失敗させます。単位は `percent change from previous quarter at annual rate` として固定し、別単位のseriesを混ぜません。
 
-### Release vintage / revision
+### Historical release vintage / revision
 
-[`scripts/collect_productivity_vintages.py`](scripts/collect_productivity_vintages.py) はBLS公式archiveのrevised releaseにある Table B1 から、nonfarm businessの次を保存します。
+[`data/official/bls-productivity-vintages.json`](data/official/bls-productivity-vintages.json) はBLS公式archiveの Table B1 にある `revised` と `previously published` を保存します。
 
-- revised value
-- previously published value
-- revision in percentage points
-- quarter / release date / status
-- source URL / source SHA-256
+対象は2024-Q3から2026-Q1までの7 revised releasesです。各rowにquarter、release date、source URL、source sectionと6指標の両値を保持します。archiveをGitHub Actionsから再取得する処理は、BLSがGitHub-hosted runnerからの `www.bls.gov` accessを403で拒否するため置きません。
 
-保存先:
-
-```text
-data/official/bls-productivity-vintages.json
-```
-
-対象は2024-Q3から2026-Q1までの7 revised releasesです。2026-Q2以降は同じworkflowで継続追加します。BLS archive自身が、archive値は後続releaseで改訂される場合があると明記しているため、current revised seriesとrelease vintageは同じ値として扱いません。
+以後のvintageは、Public Data API responseをcontent-addressed snapshotとして蓄積することで保持します。過去snapshotを更新しないため、同じquarterの値が後続releaseで変わった場合にcommit間でrevisionを再構成できます。
 
 ### 自動取得と検証
 
-[`BLS productivity`](https://github.com/KAFKA2306/econalert/actions/workflows/productivity.yml) は毎週BLS一次情報を確認し、source内容が変わったときだけsnapshotをcommitします。collector変更がmainへ入った直後にも実行するため、実データをseedします。
+[`BLS productivity`](https://github.com/KAFKA2306/econalert/actions/workflows/productivity.yml) は毎週BLS Public Data APIを確認し、response内容が変わったときだけ新しいsnapshotをcommitします。collector変更がmainへ入った直後にも実行するため、初回実データもseedします。
 
 ```bash
 python -m pip install pytest
 python -m pytest -q tests/test_productivity_collector.py
 python scripts/collect_productivity.py
-python scripts/collect_productivity_vintages.py
 ```
 
-Pull Requestではlive BLS HTMLを実取得し、Table 2 / Table B1の構造変化をfail closedで検出します。
+Pull Requestでは同じPublic Data APIを実取得し、series欠落・8四半期未満・API failureをfail closedで検出します。
 
 ## CPI
 
@@ -76,9 +72,10 @@ Pull Requestではlive BLS HTMLを実取得し、Table 2 / Table B1の構造変�
 ## データ契約
 
 - official sourceだけをfactとして保存する
-- release時点のsnapshotを上書きしない
-- current revised seriesとrelease vintageを区別する
-- source URL、対象期間、取得日時またはrelease date、SHA-256を保持する
+- release/API snapshotを上書きしない
+- current revised seriesとhistorical release vintageを区別する
+- source URL、対象期間、取得日時またはrelease dateを保持する
+- live API responseはSHA-256を保持する
 - percent change、index、level、annualized rateを混在させない
 - 欠損・revision・series変更を推測で補完しない
 - 同じcommitの保存済み入力からderived outputを再生成できるようにする
@@ -95,7 +92,7 @@ python -m pytest -q
 
 ## 出典・利用条件
 
-- BLS Productivity: https://www.bls.gov/productivity/
+- BLS Public Data API: https://www.bls.gov/developers/home.htm
 - BLS Productivity archive: https://www.bls.gov/bls/news-release/prod.htm
 - BLS CPI: https://www.bls.gov/cpi/
 - Copyright: https://www.bls.gov/opub/copyright-information.htm
