@@ -5,12 +5,14 @@ on:
     branches: [main]
     paths:
       - 'scripts/collect_productivity.py'
+      - 'scripts/build_productivity_views.py'
       - 'data/official/bls-productivity-vintages.json'
       - 'tests/test_productivity_collector.py'
       - '.github/workflows/productivity.yml'
   pull_request:
     paths:
       - 'scripts/collect_productivity.py'
+      - 'scripts/build_productivity_views.py'
       - 'data/official/bls-productivity-vintages.json'
       - 'tests/test_productivity_collector.py'
       - '.github/workflows/productivity.yml'
@@ -38,15 +40,18 @@ jobs:
       - name: Collect current BLS productivity snapshot
         if: github.event_name != 'pull_request'
         run: python scripts/collect_productivity.py
-      - name: Commit new API snapshot
+      - name: Build distribution files
+        if: github.event_name != 'pull_request'
+        run: python scripts/build_productivity_views.py
+      - name: Commit evidence and views
         if: github.event_name != 'pull_request'
         run: |
-          if test -z "$(git status --porcelain -- data/official/bls-productivity-current)"; then
-            echo 'No BLS productivity source changes.'
+          if test -z "$(git status --porcelain -- data/official/bls-productivity-current api/v1/productivity)"; then
+            echo 'No BLS productivity source or view changes.'
             exit 0
           fi
           git config user.name 'github-actions[bot]'
           git config user.email '41898282+github-actions[bot]@users.noreply.github.com'
-          git add data/official/bls-productivity-current
-          git commit -m 'data: update BLS productivity snapshot'
+          git add data/official/bls-productivity-current api/v1/productivity
+          git commit -m 'data: update BLS productivity views'
           git push
