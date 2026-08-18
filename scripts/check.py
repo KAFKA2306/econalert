@@ -1,6 +1,7 @@
 from __future__ import annotations
 
 import json
+import shutil
 import subprocess
 import sys
 from pathlib import Path
@@ -69,6 +70,9 @@ def main() -> None:
     run("git", "diff", "--exit-code", "--", "api/v1")
     for path in ("api/v1/manifest.json", "api/v1/latest.json", "api/v1/categories.json"):
         json.loads((ROOT / path).read_text(encoding="utf-8"))
+
+    for cache in ROOT.rglob("__pycache__"):
+        shutil.rmtree(cache)
     status = subprocess.check_output(["git", "status", "--porcelain"], cwd=ROOT, text=True)
     if status.strip():
         raise SystemExit(f"working tree is not clean after checks:\n{status}")
