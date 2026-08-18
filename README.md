@@ -69,6 +69,16 @@ Pull Requestでは同じPublic Data APIを実取得し、series欠落・8四半�
 
 `api/v1/latest.json` はrepositoryに保存されている最新CPI snapshotを表し、BLSが公表済みの最新月を推測で補完しません。
 
+### CPI連動契約の計算PoC
+
+契約書に明記されたBLS CPI series IDと観測期間を使い、更新時の計算根拠を人がレビューできる形で出力するsynthetic demoがあります。
+
+- [PoCの範囲・入力・保証しないこと](docs/business/cpi-contract-escalation.md)
+- [synthetic contract profile](contracts/synthetic-demo.json)
+- [synthetic CPI fixture](data/synthetic/cpi-index-demo.json)
+
+series IDを推測で選ばず、契約profileとsource snapshotが一致しない場合や必要な観測値が未公表の場合は成功値を返しません。実顧客の契約本文・価格・社名・連絡先はpublic repositoryへ保存しません。
+
 ## データ契約
 
 - official sourceだけをfactとして保存する
