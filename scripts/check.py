@@ -8,6 +8,8 @@ from pathlib import Path
 
 ROOT = Path(__file__).resolve().parents[1]
 PYTHON = sys.executable
+POC_DOC = "docs/business/cpi-contract-escalation.md"
+POC_INQUIRY_PATH = "https://github.com/KAFKA2306/econalert/issues/new?title="
 
 
 def run(*args: str) -> None:
@@ -35,6 +37,14 @@ def contract_report(snapshot: str, output: str, expected: dict[str, object]) -> 
     assert report["decision"]["notice"]["notice_deadline"] == "2026-09-02"
 
 
+def check_poc_entrypoint() -> None:
+    readme = (ROOT / "README.md").read_text(encoding="utf-8")
+    business_doc = (ROOT / POC_DOC).read_text(encoding="utf-8")
+    assert f"]({POC_DOC})" in readme
+    assert POC_INQUIRY_PATH in business_doc
+    assert "個人情報、契約本文、価格、認証情報は記載しないでください" in business_doc
+
+
 def main() -> None:
     python_files = [
         "scripts/build_public_api.py",
@@ -47,6 +57,7 @@ def main() -> None:
     run(PYTHON, "-m", "py_compile", *python_files)
     run(PYTHON, "scripts/build_public_api.py")
     run(PYTHON, "-m", "pytest", "-q")
+    check_poc_entrypoint()
 
     contract_report(
         "data/synthetic/cpi-index-demo.json",
