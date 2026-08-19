@@ -1,0 +1,29 @@
+{
+  "schema_version": "cpi-series-snapshot.v1",
+  "publisher": "U.S. Bureau of Labor Statistics",
+  "series_id": "CUUR0000SA0",
+  "series_title": "All items in U.S. city average, all urban consumers, not seasonally adjusted",
+  "base_period": "1982-84=100",
+  "source_url": "https://www.bls.gov/news.release/cpi.t01.htm",
+  "series_definition_url": "https://www.bls.gov/cpi/factsheets/cpi-series-ids.htm",
+  "rights_url": "https://www.bls.gov/opub/copyright-information.htm",
+  "retrieved_at": "2026-08-19T10:02:49Z",
+  "synthetic": false,
+  "observations": [
+    {
+      "period": "2025-M07",
+      "value": 323.048,
+      "source_url": "https://www.bls.gov/news.release/cpi.t01.htm"
+    },
+    {
+      "period": "2026-M06",
+      "value": 333.952,
+      "source_url": "https://www.bls.gov/news.release/cpi.t01.htm"
+    },
+    {
+      "period": "2026-M07",
+      "value": 333.918,
+      "source_url": "https://www.bls.gov/news.release/cpi.t01.htm"
+    }
+  ]
+}
