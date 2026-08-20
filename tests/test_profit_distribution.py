@@ -1,0 +1,145 @@
+import json
+from pathlib import Path
+from tempfile import TemporaryDirectory
+
+import pytest
+
+from scripts.build_profit_distribution_views import build
+from scripts.collect_profit_distribution import (
+    contract_series,
+    load_bls_contract,
+    parse_bls,
+    parse_fred,
+    write_snapshot,
+)
+
+
+def test_committed_bls_series_contract_has_expected_primary_source_identity():
+    payload = load_bls_contract()
+    series = contract_series()
+    assert payload["publisher"] == "U.S. Bureau of Labor Statistics"
+    assert payload["source_urls"]["series"] == "https://download.bls.gov/pub/time.series/pr/pr.series"
+    assert series["PRS85006141"]["measure"] == "Value-added output price deflator"
+    assert series["PRS88003192"]["measure"] == "Unit profits"
+    assert series["PRS88003192"]["duration"] == "% Change from previous quarter"
+
+
+def test_bls_series_contract_missing_series_fails_closed(tmp_path):
+    payload = load_bls_contract()
+    payload["series"] = {}
+    path = tmp_path / "contract.json"
+    path.write_text(json.dumps(payload), encoding="utf-8")
+    with pytest.raises(ValueError, match="no series"):
+        load_bls_contract(path)
+
+
+def test_fred_profit_share_and_yoy_calculation():
+    raw = b"""observation_date,CPROFIT,GDI
+2025-01-01,3922.871,29895.650
+2025-04-01,3929.661,30244.878
+2025-07-01,4105.221,30789.434
+2025-10-01,4352.096,31199.940
+2026-01-01,4426.485,31574.222
+"""
+    rows = parse_fred(raw, min_observations=5)
+    latest = rows[-1]
+    assert latest["period"] == "2026-Q1"
+    assert latest["corporate_profits_gdi_pct"] == pytest.approx(14.019300, abs=1e-6)
+    assert latest["corporate_profits_yoy_pct"] == pytest.approx(12.837893, abs=1e-6)
+    assert latest["gdi_yoy_pct"] == pytest.approx(5.614770, abs=1e-6)
+
+
+def bls_fixture(quarters=8):
+    series = []
+    for series_id, definition in contract_series().items():
+        data = []
+        for index in range(quarters):
+            year = 2024 + index // 4
+            quarter = index % 4 + 1
+            value = float(index + 1)
+            if definition["metric"] == "unit_labor_costs_yoy_pct" and index == quarters - 1:
+                value = 1.4 if definition["sector_code"] == "8500" else -0.2
+            if definition["metric"] == "value_added_output_price_yoy_pct" and index == quarters - 1:
+                value = 4.9 if definition["sector_code"] == "8500" else 2.4
+            if definition["metric"] == "unit_profits_qoq_annualized_pct" and index == quarters - 1:
+                value = 18.6
+            if definition["metric"] == "unit_profits_yoy_pct" and index == quarters - 1:
+                value = 6.8
+            data.append(
+                {
+                    "year": str(year),
+                    "period": f"Q{quarter:02d}",
+                    "value": str(value),
+                    "footnotes": [{}],
+                }
+            )
+        data.append({"year": "2025", "period": "Q05", "value": "999", "footnotes": [{}]})
+        series.append({"seriesID": series_id, "data": data})
+    return json.dumps(
+        {"status": "REQUEST_SUCCEEDED", "message": [], "Results": {"series": series}}
+    ).encode()
+
+
+def test_bls_distribution_parses_only_quarters_and_derives_labor_share_change():
+    payload = parse_bls(bls_fixture())
+    nonfarm = payload["nonfarm_business"]
+    assert len(nonfarm) == 8
+    assert nonfarm[-1]["period"] == "2025-Q4"
+    assert nonfarm[-1]["labor_share_yoy_log_approx_pct"] == pytest.approx(-3.5)
+    assert nonfarm[-1]["labor_share_yoy_from_rounded_rates_pct"] == pytest.approx(
+        -3.336511, abs=1e-6
+    )
+    nonfinancial = payload["nonfinancial_corporations"][-1]
+    assert nonfinancial["unit_profits_qoq_annualized_pct"] == 18.6
+    assert nonfinancial["unit_profits_yoy_pct"] == 6.8
+
+
+def test_bls_missing_series_fails_closed():
+    payload = json.loads(bls_fixture())
+    payload["Results"]["series"].pop()
+    with pytest.raises(ValueError, match="omitted series"):
+        parse_bls(json.dumps(payload).encode())
+
+
+def test_snapshot_and_views_are_content_addressed_and_deterministic():
+    profits = parse_fred(
+        b"""observation_date,CPROFIT,GDI
+2024-01-01,3500,28000
+2024-04-01,3600,28200
+2024-07-01,3700,28400
+2024-10-01,3800,28600
+2025-01-01,3900,29000
+2025-04-01,4000,29500
+2025-07-01,4100,30000
+2025-10-01,4200,30500
+""",
+        min_observations=8,
+    )
+    payload = {
+        "schema_version": 1,
+        "dataset": "U.S. corporate profit share and productivity distribution",
+        "retrieved_at": "2026-08-21T00:00:00+00:00",
+        "source_fingerprint_sha256": "a" * 64,
+        "sources": {"fixture": {"raw_sha256": "b" * 64}},
+        "formulas": {"corporate_profits_gdi_pct": "100 * CPROFIT / GDI"},
+        "corporate_profit_share": profits,
+        "productivity_distribution": parse_bls(bls_fixture()),
+    }
+    with TemporaryDirectory() as snapshot_tmp, TemporaryDirectory() as first_tmp, TemporaryDirectory() as second_tmp:
+        snapshot_dir = Path(snapshot_tmp)
+        path = write_snapshot(payload, snapshot_dir)
+        assert path.name == f"{'a' * 16}.json"
+        build(snapshot_dir, Path(first_tmp))
+        build(snapshot_dir, Path(second_tmp))
+        first = {p.name: p.read_bytes() for p in Path(first_tmp).iterdir()}
+        second = {p.name: p.read_bytes() for p in Path(second_tmp).iterdir()}
+        assert first == second
+        summary = json.loads(first["summary.json"])
+        assert summary["corporate_profit_share"]["period"] == "2025-Q4"
+        assert set(first) == {
+            "latest.json",
+            "summary.json",
+            "corporate-profit-share.csv",
+            "productivity-distribution.csv",
+            "manifest.json",
+        }
