@@ -1,0 +1,16 @@
+{
+  "schema_version": "econalert.world-gdp-growth.v1",
+  "indicator_id": "NY.GDP.MKTP.KD.ZG",
+  "indicator_name": "GDP growth (annual %)",
+  "geography": "World",
+  "period": "2024",
+  "value": 2.9,
+  "unit": "percent",
+  "source": {
+    "publisher": "World Bank",
+    "dataset": "World Development Indicators",
+    "url": "https://data.worldbank.org/?locations=1W-CN-CG-WS-CR-AS",
+    "snapshot": "data/official/world-bank-world-gdp-growth-2024.json"
+  },
+  "precision_note": "The cited World Bank public data page displays the World value rounded to one decimal place."
+}
