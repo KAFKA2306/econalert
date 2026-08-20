@@ -27,7 +27,7 @@ The U.S. Bureau of Labor Statistics (BLS) is the original publisher and retrieva
 - Major Sector Productivity bulk files: https://download.bls.gov/pub/time.series/pr/
 - Current Productivity and Costs release: https://www.bls.gov/news.release/prod2.nr0.htm
 
-Every live collection verifies the pinned series IDs against BLS's current `pr.series`, `pr.measure`, `pr.sector`, and `pr.duration` metadata before accepting values. If an upstream definition changes, collection fails rather than silently remapping the series.
+The selected series identities are pinned in `data/official/bls-profit-distribution-series-contract.json`, which was verified against BLS's official `pr.series`, `pr.measure`, `pr.sector`, and `pr.duration` metadata on 2026-08-21. GitHub-hosted runners receive HTTP 403 from the BLS bulk-download host, so scheduled runs do not pretend to revalidate those metadata files. They retrieve current values from the BLS Public Data API using the versioned contract. A metadata refresh is a separate reviewed change to the contract.
 
 ## Stored evidence
 
@@ -37,7 +37,7 @@ Content-addressed snapshots:
 data/official/us-profit-distribution-current/<source-fingerprint>.json
 ```
 
-The source fingerprint covers the FRED CPROFIT/GDI response, BLS API response, and the BLS metadata files used to validate series identity. The snapshot retains retrieval time, source URLs, original publisher, series IDs, units, formula definitions, and SHA-256 hashes of every raw response used to build the selected dataset.
+The source fingerprint covers the FRED CPROFIT/GDI response, BLS API response, and the committed BLS series contract. The snapshot retains retrieval time, source URLs, original publisher, series IDs, units, formula definitions, and SHA-256 hashes of every live response plus the exact contract used to build the selected dataset.
 
 A changed response creates a new snapshot. Existing snapshots are never overwritten.
 
@@ -113,6 +113,6 @@ Collection fails when any of the following occur:
 - FRED no longer returns both `CPROFIT` and `GDI`
 - a value is missing or malformed for a supposedly complete row
 - BLS omits any required series
-- BLS series metadata no longer match the pinned sector/measure/duration definitions
+- the committed BLS series contract is missing, empty, or malformed
 - there are fewer than eight complete quarterly observations in the requested BLS window
 - there are fewer than eight complete CPROFIT/GDI observations

@@ -6,12 +6,14 @@ on:
     paths:
       - 'scripts/collect_profit_distribution.py'
       - 'scripts/build_profit_distribution_views.py'
+      - 'data/official/bls-profit-distribution-series-contract.json'
       - 'tests/test_profit_distribution.py'
       - '.github/workflows/profit-distribution.yml'
   pull_request:
     paths:
       - 'scripts/collect_profit_distribution.py'
       - 'scripts/build_profit_distribution_views.py'
+      - 'data/official/bls-profit-distribution-series-contract.json'
       - 'tests/test_profit_distribution.py'
       - '.github/workflows/profit-distribution.yml'
   schedule:
@@ -32,7 +34,7 @@ jobs:
           python-version: '3.12'
       - name: Tests
         run: python -m pip install pytest && python -m pytest -q tests/test_profit_distribution.py
-      - name: Verify live official endpoints
+      - name: Verify live data endpoints
         if: github.event_name == 'pull_request'
         run: python scripts/collect_profit_distribution.py --output-dir /tmp/us-profit-distribution-current
       - name: Collect current snapshot

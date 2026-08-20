@@ -1,0 +1,31 @@
+{
+  "schema_version": 1,
+  "publisher": "U.S. Bureau of Labor Statistics",
+  "dataset": "Major Sector Productivity and Costs",
+  "verified_at": "2026-08-21",
+  "source_urls": {
+    "series": "https://download.bls.gov/pub/time.series/pr/pr.series",
+    "measure": "https://download.bls.gov/pub/time.series/pr/pr.measure",
+    "sector": "https://download.bls.gov/pub/time.series/pr/pr.sector",
+    "duration": "https://download.bls.gov/pub/time.series/pr/pr.duration",
+    "api": "https://api.bls.gov/publicAPI/v2/timeseries/data/"
+  },
+  "series": {
+    "PRS85006091": {"sector_code":"8500","sector":"Nonfarm Business","measure_code":"09","measure":"Labor productivity (output per hour)","duration_code":"1","duration":"% Change same quarter 1 year ago","metric":"labor_productivity_yoy_pct"},
+    "PRS85006092": {"sector_code":"8500","sector":"Nonfarm Business","measure_code":"09","measure":"Labor productivity (output per hour)","duration_code":"2","duration":"% Change from previous quarter","metric":"labor_productivity_qoq_annualized_pct"},
+    "PRS85006101": {"sector_code":"8500","sector":"Nonfarm Business","measure_code":"10","measure":"Hourly compensation","duration_code":"1","duration":"% Change same quarter 1 year ago","metric":"hourly_compensation_yoy_pct"},
+    "PRS85006102": {"sector_code":"8500","sector":"Nonfarm Business","measure_code":"10","measure":"Hourly compensation","duration_code":"2","duration":"% Change from previous quarter","metric":"hourly_compensation_qoq_annualized_pct"},
+    "PRS85006111": {"sector_code":"8500","sector":"Nonfarm Business","measure_code":"11","measure":"Unit labor costs","duration_code":"1","duration":"% Change same quarter 1 year ago","metric":"unit_labor_costs_yoy_pct"},
+    "PRS85006112": {"sector_code":"8500","sector":"Nonfarm Business","measure_code":"11","measure":"Unit labor costs","duration_code":"2","duration":"% Change from previous quarter","metric":"unit_labor_costs_qoq_annualized_pct"},
+    "PRS85006141": {"sector_code":"8500","sector":"Nonfarm Business","measure_code":"14","measure":"Value-added output price deflator","duration_code":"1","duration":"% Change same quarter 1 year ago","metric":"value_added_output_price_yoy_pct"},
+    "PRS85006142": {"sector_code":"8500","sector":"Nonfarm Business","measure_code":"14","measure":"Value-added output price deflator","duration_code":"2","duration":"% Change from previous quarter","metric":"value_added_output_price_qoq_annualized_pct"},
+    "PRS88003091": {"sector_code":"8800","sector":"Nonfinancial Corporations","measure_code":"09","measure":"Labor productivity (output per hour)","duration_code":"1","duration":"% Change same quarter 1 year ago","metric":"labor_productivity_yoy_pct"},
+    "PRS88003092": {"sector_code":"8800","sector":"Nonfinancial Corporations","measure_code":"09","measure":"Labor productivity (output per hour)","duration_code":"2","duration":"% Change from previous quarter","metric":"labor_productivity_qoq_annualized_pct"},
+    "PRS88003111": {"sector_code":"8800","sector":"Nonfinancial Corporations","measure_code":"11","measure":"Unit labor costs","duration_code":"1","duration":"% Change same quarter 1 year ago","metric":"unit_labor_costs_yoy_pct"},
+    "PRS88003112": {"sector_code":"8800","sector":"Nonfinancial Corporations","measure_code":"11","measure":"Unit labor costs","duration_code":"2","duration":"% Change from previous quarter","metric":"unit_labor_costs_qoq_annualized_pct"},
+    "PRS88003141": {"sector_code":"8800","sector":"Nonfinancial Corporations","measure_code":"14","measure":"Value-added output price deflator","duration_code":"1","duration":"% Change same quarter 1 year ago","metric":"value_added_output_price_yoy_pct"},
+    "PRS88003142": {"sector_code":"8800","sector":"Nonfinancial Corporations","measure_code":"14","measure":"Value-added output price deflator","duration_code":"2","duration":"% Change from previous quarter","metric":"value_added_output_price_qoq_annualized_pct"},
+    "PRS88003191": {"sector_code":"8800","sector":"Nonfinancial Corporations","measure_code":"19","measure":"Unit profits","duration_code":"1","duration":"% Change same quarter 1 year ago","metric":"unit_profits_yoy_pct"},
+    "PRS88003192": {"sector_code":"8800","sector":"Nonfinancial Corporations","measure_code":"19","measure":"Unit profits","duration_code":"2","duration":"% Change from previous quarter","metric":"unit_profits_qoq_annualized_pct"}
+  }
+}

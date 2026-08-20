@@ -6,77 +6,31 @@ import pytest
 
 from scripts.build_profit_distribution_views import build
 from scripts.collect_profit_distribution import (
-    BLS_SERIES,
+    contract_series,
+    load_bls_contract,
     parse_bls,
     parse_fred,
-    verify_bls_metadata,
     write_snapshot,
 )
 
 
-def metadata_fixture():
-    measures = (
-        "measure_code\tmeasure_text\tdisplay_level\tselectable\tsort_sequence\n"
-        "09\tLabor productivity (output per hour)\t0\tT\t1\n"
-        "10\tHourly compensation\t0\tT\t5\n"
-        "11\tUnit labor costs\t0\tT\t7\n"
-        "14\tValue-added output price deflator\t0\tT\t9\n"
-        "19\tUnit profits\t0\tT\t21\n"
-    ).encode()
-    sectors = (
-        "sector_code\tsector_name\tdisplay_level\tselectable\tsort_sequence\n"
-        "8500\tNonfarm Business\t0\tT\t1\n"
-        "8800\tNonfinancial Corporations\t0\tT\t3\n"
-    ).encode()
-    durations = (
-        "duration_code\tduration_text\tdisplay_level\tselectable\tsort_sequence\n"
-        "1\t% Change same quarter 1 year ago\t0\tT\t1\n"
-        "2\t% Change from previous quarter\t0\tT\t2\n"
-    ).encode()
-    lines = [
-        "series_id\tsector_code\tclass_code\tmeasure_code\tduration_code\tseasonal\tbase_year\tfootnote_codes\tbegin_year\tbegin_period\tend_year\tend_period"
-    ]
-    for series_id, definition in BLS_SERIES.items():
-        class_code = "6" if definition["sector_code"] == "8500" else "3"
-        lines.append(
-            "\t".join(
-                [
-                    series_id,
-                    definition["sector_code"],
-                    class_code,
-                    definition["measure_code"],
-                    definition["duration_code"],
-                    "S",
-                    "-",
-                    "",
-                    "1947",
-                    "Q01",
-                    "2026",
-                    "Q02",
-                ]
-            )
-        )
-    return {
-        "measure": measures,
-        "sector": sectors,
-        "duration": durations,
-        "series": ("\n".join(lines) + "\n").encode(),
-    }
+def test_committed_bls_series_contract_has_expected_primary_source_identity():
+    payload = load_bls_contract()
+    series = contract_series()
+    assert payload["publisher"] == "U.S. Bureau of Labor Statistics"
+    assert payload["source_urls"]["series"] == "https://download.bls.gov/pub/time.series/pr/pr.series"
+    assert series["PRS85006141"]["measure"] == "Value-added output price deflator"
+    assert series["PRS88003192"]["measure"] == "Unit profits"
+    assert series["PRS88003192"]["duration"] == "% Change from previous quarter"
 
 
-def test_bls_series_contract_matches_official_metadata_shape():
-    selected = verify_bls_metadata(metadata_fixture())
-    assert len(selected) == len(BLS_SERIES)
-    by_id = {row["series_id"]: row for row in selected}
-    assert by_id["PRS85006141"]["measure"] == "Value-added output price deflator"
-    assert by_id["PRS88003192"]["measure"] == "Unit profits"
-
-
-def test_bls_metadata_change_fails_closed():
-    raws = metadata_fixture()
-    raws["measure"] = raws["measure"].replace(b"Unit profits", b"Renamed profits")
-    with pytest.raises(ValueError, match="metadata changed"):
-        verify_bls_metadata(raws)
+def test_bls_series_contract_missing_series_fails_closed(tmp_path):
+    payload = load_bls_contract()
+    payload["series"] = {}
+    path = tmp_path / "contract.json"
+    path.write_text(json.dumps(payload), encoding="utf-8")
+    with pytest.raises(ValueError, match="no series"):
+        load_bls_contract(path)
 
 
 def test_fred_profit_share_and_yoy_calculation():
@@ -97,7 +51,7 @@ def test_fred_profit_share_and_yoy_calculation():
 
 def bls_fixture(quarters=8):
     series = []
-    for series_id, definition in BLS_SERIES.items():
+    for series_id, definition in contract_series().items():
         data = []
         for index in range(quarters):
             year = 2024 + index // 4

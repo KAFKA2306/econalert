@@ -13,113 +13,22 @@ from urllib.request import Request, urlopen
 
 FRED_CSV_URL = "https://fred.stlouisfed.org/graph/fredgraph.csv?id=CPROFIT,GDI"
 BLS_API_URL = "https://api.bls.gov/publicAPI/v2/timeseries/data/"
-BLS_BULK_BASE = "https://download.bls.gov/pub/time.series/pr"
-BLS_METADATA_URLS = {
-    "measure": f"{BLS_BULK_BASE}/pr.measure",
-    "sector": f"{BLS_BULK_BASE}/pr.sector",
-    "duration": f"{BLS_BULK_BASE}/pr.duration",
-    "series": f"{BLS_BULK_BASE}/pr.series",
-}
+BLS_CONTRACT_PATH = Path("data/official/bls-profit-distribution-series-contract.json")
 
-# Definitions are checked against BLS's official pr.series/pr.measure/pr.sector/pr.duration files on every live run.
-BLS_SERIES = {
-    "PRS85006091": {
-        "sector_code": "8500", "sector": "Nonfarm Business",
-        "measure_code": "09", "measure": "Labor productivity (output per hour)",
-        "duration_code": "1", "duration": "% Change same quarter 1 year ago",
-        "metric": "labor_productivity_yoy_pct",
-    },
-    "PRS85006092": {
-        "sector_code": "8500", "sector": "Nonfarm Business",
-        "measure_code": "09", "measure": "Labor productivity (output per hour)",
-        "duration_code": "2", "duration": "% Change from previous quarter",
-        "metric": "labor_productivity_qoq_annualized_pct",
-    },
-    "PRS85006101": {
-        "sector_code": "8500", "sector": "Nonfarm Business",
-        "measure_code": "10", "measure": "Hourly compensation",
-        "duration_code": "1", "duration": "% Change same quarter 1 year ago",
-        "metric": "hourly_compensation_yoy_pct",
-    },
-    "PRS85006102": {
-        "sector_code": "8500", "sector": "Nonfarm Business",
-        "measure_code": "10", "measure": "Hourly compensation",
-        "duration_code": "2", "duration": "% Change from previous quarter",
-        "metric": "hourly_compensation_qoq_annualized_pct",
-    },
-    "PRS85006111": {
-        "sector_code": "8500", "sector": "Nonfarm Business",
-        "measure_code": "11", "measure": "Unit labor costs",
-        "duration_code": "1", "duration": "% Change same quarter 1 year ago",
-        "metric": "unit_labor_costs_yoy_pct",
-    },
-    "PRS85006112": {
-        "sector_code": "8500", "sector": "Nonfarm Business",
-        "measure_code": "11", "measure": "Unit labor costs",
-        "duration_code": "2", "duration": "% Change from previous quarter",
-        "metric": "unit_labor_costs_qoq_annualized_pct",
-    },
-    "PRS85006141": {
-        "sector_code": "8500", "sector": "Nonfarm Business",
-        "measure_code": "14", "measure": "Value-added output price deflator",
-        "duration_code": "1", "duration": "% Change same quarter 1 year ago",
-        "metric": "value_added_output_price_yoy_pct",
-    },
-    "PRS85006142": {
-        "sector_code": "8500", "sector": "Nonfarm Business",
-        "measure_code": "14", "measure": "Value-added output price deflator",
-        "duration_code": "2", "duration": "% Change from previous quarter",
-        "metric": "value_added_output_price_qoq_annualized_pct",
-    },
-    "PRS88003091": {
-        "sector_code": "8800", "sector": "Nonfinancial Corporations",
-        "measure_code": "09", "measure": "Labor productivity (output per hour)",
-        "duration_code": "1", "duration": "% Change same quarter 1 year ago",
-        "metric": "labor_productivity_yoy_pct",
-    },
-    "PRS88003092": {
-        "sector_code": "8800", "sector": "Nonfinancial Corporations",
-        "measure_code": "09", "measure": "Labor productivity (output per hour)",
-        "duration_code": "2", "duration": "% Change from previous quarter",
-        "metric": "labor_productivity_qoq_annualized_pct",
-    },
-    "PRS88003111": {
-        "sector_code": "8800", "sector": "Nonfinancial Corporations",
-        "measure_code": "11", "measure": "Unit labor costs",
-        "duration_code": "1", "duration": "% Change same quarter 1 year ago",
-        "metric": "unit_labor_costs_yoy_pct",
-    },
-    "PRS88003112": {
-        "sector_code": "8800", "sector": "Nonfinancial Corporations",
-        "measure_code": "11", "measure": "Unit labor costs",
-        "duration_code": "2", "duration": "% Change from previous quarter",
-        "metric": "unit_labor_costs_qoq_annualized_pct",
-    },
-    "PRS88003141": {
-        "sector_code": "8800", "sector": "Nonfinancial Corporations",
-        "measure_code": "14", "measure": "Value-added output price deflator",
-        "duration_code": "1", "duration": "% Change same quarter 1 year ago",
-        "metric": "value_added_output_price_yoy_pct",
-    },
-    "PRS88003142": {
-        "sector_code": "8800", "sector": "Nonfinancial Corporations",
-        "measure_code": "14", "measure": "Value-added output price deflator",
-        "duration_code": "2", "duration": "% Change from previous quarter",
-        "metric": "value_added_output_price_qoq_annualized_pct",
-    },
-    "PRS88003191": {
-        "sector_code": "8800", "sector": "Nonfinancial Corporations",
-        "measure_code": "19", "measure": "Unit profits",
-        "duration_code": "1", "duration": "% Change same quarter 1 year ago",
-        "metric": "unit_profits_yoy_pct",
-    },
-    "PRS88003192": {
-        "sector_code": "8800", "sector": "Nonfinancial Corporations",
-        "measure_code": "19", "measure": "Unit profits",
-        "duration_code": "2", "duration": "% Change from previous quarter",
-        "metric": "unit_profits_qoq_annualized_pct",
-    },
-}
+
+def load_bls_contract(path: Path = BLS_CONTRACT_PATH) -> dict[str, object]:
+    payload = json.loads(path.read_text(encoding="utf-8"))
+    if payload.get("publisher") != "U.S. Bureau of Labor Statistics":
+        raise ValueError("BLS series contract has unexpected publisher")
+    series = payload.get("series")
+    if not isinstance(series, dict) or not series:
+        raise ValueError("BLS series contract has no series")
+    return payload
+
+
+def contract_series(path: Path = BLS_CONTRACT_PATH) -> dict[str, dict[str, str]]:
+    payload = load_bls_contract(path)
+    return payload["series"]  # type: ignore[return-value]
 
 
 def sha256_bytes(content: bytes) -> str:
@@ -135,10 +44,10 @@ def fetch_url(url: str) -> bytes:
         return response.read()
 
 
-def fetch_bls(start_year: int, end_year: int) -> bytes:
+def fetch_bls(series_contract: dict[str, dict[str, str]], start_year: int, end_year: int) -> bytes:
     body = json.dumps(
         {
-            "seriesid": list(BLS_SERIES),
+            "seriesid": list(series_contract),
             "startyear": str(start_year),
             "endyear": str(end_year),
         }
@@ -154,41 +63,6 @@ def fetch_bls(start_year: int, end_year: int) -> bytes:
     )
     with urlopen(request, timeout=60) as response:
         return response.read()
-
-
-def parse_tsv(raw: bytes) -> list[dict[str, str]]:
-    reader = csv.DictReader(io.StringIO(raw.decode("utf-8-sig")), delimiter="\t")
-    rows = []
-    for row in reader:
-        rows.append({str(key).strip(): str(value or "").strip() for key, value in row.items()})
-    return rows
-
-
-def verify_bls_metadata(raws: dict[str, bytes]) -> list[dict[str, str]]:
-    measures = {row["measure_code"]: row["measure_text"] for row in parse_tsv(raws["measure"])}
-    sectors = {row["sector_code"]: row["sector_name"] for row in parse_tsv(raws["sector"])}
-    durations = {row["duration_code"]: row["duration_text"] for row in parse_tsv(raws["duration"])}
-    series_rows = {row["series_id"]: row for row in parse_tsv(raws["series"])}
-    selected = []
-    for series_id, expected in BLS_SERIES.items():
-        row = series_rows.get(series_id)
-        if row is None:
-            raise ValueError(f"BLS metadata missing series {series_id}")
-        actual = {
-            "sector_code": row["sector_code"],
-            "sector": sectors.get(row["sector_code"]),
-            "measure_code": row["measure_code"],
-            "measure": measures.get(row["measure_code"]),
-            "duration_code": row["duration_code"],
-            "duration": durations.get(row["duration_code"]),
-        }
-        expected_identity = {key: expected[key] for key in actual}
-        if actual != expected_identity:
-            raise ValueError(
-                f"BLS metadata changed for {series_id}: expected={expected_identity!r} actual={actual!r}"
-            )
-        selected.append({"series_id": series_id, **actual, "metric": expected["metric"]})
-    return selected
 
 
 def quarter_from_date(date_text: str) -> str:
@@ -240,8 +114,13 @@ def parse_fred(raw: bytes, min_observations: int = 8) -> list[dict[str, float | 
     return base
 
 
-def parse_bls(raw: bytes, min_complete_periods: int = 8) -> dict[str, list[dict[str, float | str]]]:
+def parse_bls(
+    raw: bytes,
+    series_contract: dict[str, dict[str, str]] | None = None,
+    min_complete_periods: int = 8,
+) -> dict[str, list[dict[str, float | str]]]:
     response = json.loads(raw)
+    series_contract = series_contract or contract_series()
     if response.get("status") != "REQUEST_SUCCEEDED":
         raise ValueError(f"BLS API request failed: {response.get('message')}")
     returned = set()
@@ -255,10 +134,10 @@ def parse_bls(raw: bytes, min_complete_periods: int = 8) -> dict[str, list[dict[
     }
     for series in response.get("Results", {}).get("series", []):
         series_id = series.get("seriesID")
-        if series_id not in BLS_SERIES:
+        if series_id not in series_contract:
             continue
         returned.add(series_id)
-        definition = BLS_SERIES[series_id]
+        definition = series_contract[series_id]
         metric = definition["metric"]
         target = by_sector[sector_key[definition["sector_code"]]]
         for item in series.get("data", []):
@@ -271,7 +150,7 @@ def parse_bls(raw: bytes, min_complete_periods: int = 8) -> dict[str, list[dict[
             if value_text in {"", "."}:
                 continue
             row[metric] = float(value_text)
-    missing = set(BLS_SERIES) - returned
+    missing = set(series_contract) - returned
     if missing:
         raise ValueError(f"BLS API omitted series: {sorted(missing)}")
 
@@ -279,7 +158,7 @@ def parse_bls(raw: bytes, min_complete_periods: int = 8) -> dict[str, list[dict[
     required_by_sector = {
         key: {
             definition["metric"]
-            for definition in BLS_SERIES.values()
+            for definition in series_contract.values()
             if sector_key[definition["sector_code"]] == key
         }
         for key in sector_key.values()
@@ -322,13 +201,14 @@ def source_fingerprint(raws: dict[str, bytes]) -> str:
 def collect() -> dict[str, object]:
     now = datetime.now(timezone.utc)
     year = now.year
+    contract_bytes = BLS_CONTRACT_PATH.read_bytes()
+    contract = load_bls_contract()
+    series_contract = contract_series()
     raws: dict[str, bytes] = {
         "fred_cprofit_gdi": fetch_url(FRED_CSV_URL),
-        "bls_api": fetch_bls(year - 3, year),
+        "bls_api": fetch_bls(series_contract, year - 3, year),
+        "bls_series_contract": contract_bytes,
     }
-    metadata_raws = {name: fetch_url(url) for name, url in BLS_METADATA_URLS.items()}
-    raws.update({f"bls_{name}": content for name, content in metadata_raws.items()})
-    selected_metadata = verify_bls_metadata(metadata_raws)
     return {
         "schema_version": 1,
         "dataset": "U.S. corporate profit share and productivity distribution",
@@ -358,12 +238,12 @@ def collect() -> dict[str, object]:
             "bls_productivity": {
                 "publisher": "U.S. Bureau of Labor Statistics",
                 "retrieval_url": BLS_API_URL,
-                "metadata_urls": BLS_METADATA_URLS,
-                "series": selected_metadata,
+                "series_contract_path": str(BLS_CONTRACT_PATH),
+                "series_contract_verified_at": contract["verified_at"],
+                "metadata_urls": contract["source_urls"],
+                "series": [{"series_id": series_id, **definition} for series_id, definition in series_contract.items()],
                 "raw_sha256": sha256_bytes(raws["bls_api"]),
-                "metadata_sha256": {
-                    name: sha256_bytes(content) for name, content in metadata_raws.items()
-                },
+                "series_contract_sha256": sha256_bytes(contract_bytes),
                 "quarterly_change_semantics": "BLS quarterly percent changes are seasonally adjusted annualized rates.",
             },
         },
@@ -375,7 +255,7 @@ def collect() -> dict[str, object]:
             "labor_share_yoy_from_rounded_rates_pct": "100 * ((1 + ULC_yoy/100) / (1 + value_added_price_yoy/100) - 1)",
         },
         "corporate_profit_share": parse_fred(raws["fred_cprofit_gdi"]),
-        "productivity_distribution": parse_bls(raws["bls_api"]),
+        "productivity_distribution": parse_bls(raws["bls_api"], series_contract),
     }
 
 
