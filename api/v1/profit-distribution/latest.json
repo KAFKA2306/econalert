@@ -1,0 +1,3110 @@
+{
+  "schema_version": 1,
+  "dataset": "U.S. corporate profit share and productivity distribution",
+  "retrieved_at": "2026-08-20T23:56:48.036744+00:00",
+  "sources": {
+    "fred_cprofit_gdi": {
+      "retrieval_provider": "Federal Reserve Bank of St. Louis (FRED)",
+      "original_publisher": "U.S. Bureau of Economic Analysis",
+      "retrieval_url": "https://fred.stlouisfed.org/graph/fredgraph.csv?id=CPROFIT,GDI",
+      "primary_source_urls": [
+        "https://www.bea.gov/data/income-saving/corporate-profits",
+        "https://www.bea.gov/data/income-saving/gross-domestic-income"
+      ],
+      "series": {
+        "CPROFIT": {
+          "title": "Corporate Profits with Inventory Valuation Adjustment (IVA) and Capital Consumption Adjustment (CCAdj)",
+          "units": "Billions of Dollars, Seasonally Adjusted Annual Rate"
+        },
+        "GDI": {
+          "title": "Gross Domestic Income",
+          "units": "Billions of Dollars, Seasonally Adjusted Annual Rate"
+        }
+      },
+      "raw_sha256": "358b0d31c20863e44366acf7fe8947b4b28211a244281bf5930de2d01504f2c6"
+    },
+    "bls_productivity": {
+      "publisher": "U.S. Bureau of Labor Statistics",
+      "retrieval_url": "https://api.bls.gov/publicAPI/v2/timeseries/data/",
+      "series_contract_path": "data/official/bls-profit-distribution-series-contract.json",
+      "series_contract_verified_at": "2026-08-21",
+      "metadata_urls": {
+        "series": "https://download.bls.gov/pub/time.series/pr/pr.series",
+        "measure": "https://download.bls.gov/pub/time.series/pr/pr.measure",
+        "sector": "https://download.bls.gov/pub/time.series/pr/pr.sector",
+        "duration": "https://download.bls.gov/pub/time.series/pr/pr.duration",
+        "api": "https://api.bls.gov/publicAPI/v2/timeseries/data/"
+      },
+      "series": [
+        {
+          "series_id": "PRS85006091",
+          "sector_code": "8500",
+          "sector": "Nonfarm Business",
+          "measure_code": "09",
+          "measure": "Labor productivity (output per hour)",
+          "duration_code": "1",
+          "duration": "% Change same quarter 1 year ago",
+          "metric": "labor_productivity_yoy_pct"
+        },
+        {
+          "series_id": "PRS85006092",
+          "sector_code": "8500",
+          "sector": "Nonfarm Business",
+          "measure_code": "09",
+          "measure": "Labor productivity (output per hour)",
+          "duration_code": "2",
+          "duration": "% Change from previous quarter",
+          "metric": "labor_productivity_qoq_annualized_pct"
+        },
+        {
+          "series_id": "PRS85006101",
+          "sector_code": "8500",
+          "sector": "Nonfarm Business",
+          "measure_code": "10",
+          "measure": "Hourly compensation",
+          "duration_code": "1",
+          "duration": "% Change same quarter 1 year ago",
+          "metric": "hourly_compensation_yoy_pct"
+        },
+        {
+          "series_id": "PRS85006102",
+          "sector_code": "8500",
+          "sector": "Nonfarm Business",
+          "measure_code": "10",
+          "measure": "Hourly compensation",
+          "duration_code": "2",
+          "duration": "% Change from previous quarter",
+          "metric": "hourly_compensation_qoq_annualized_pct"
+        },
+        {
+          "series_id": "PRS85006111",
+          "sector_code": "8500",
+          "sector": "Nonfarm Business",
+          "measure_code": "11",
+          "measure": "Unit labor costs",
+          "duration_code": "1",
+          "duration": "% Change same quarter 1 year ago",
+          "metric": "unit_labor_costs_yoy_pct"
+        },
+        {
+          "series_id": "PRS85006112",
+          "sector_code": "8500",
+          "sector": "Nonfarm Business",
+          "measure_code": "11",
+          "measure": "Unit labor costs",
+          "duration_code": "2",
+          "duration": "% Change from previous quarter",
+          "metric": "unit_labor_costs_qoq_annualized_pct"
+        },
+        {
+          "series_id": "PRS85006141",
+          "sector_code": "8500",
+          "sector": "Nonfarm Business",
+          "measure_code": "14",
+          "measure": "Value-added output price deflator",
+          "duration_code": "1",
+          "duration": "% Change same quarter 1 year ago",
+          "metric": "value_added_output_price_yoy_pct"
+        },
+        {
+          "series_id": "PRS85006142",
+          "sector_code": "8500",
+          "sector": "Nonfarm Business",
+          "measure_code": "14",
+          "measure": "Value-added output price deflator",
+          "duration_code": "2",
+          "duration": "% Change from previous quarter",
+          "metric": "value_added_output_price_qoq_annualized_pct"
+        },
+        {
+          "series_id": "PRS88003091",
+          "sector_code": "8800",
+          "sector": "Nonfinancial Corporations",
+          "measure_code": "09",
+          "measure": "Labor productivity (output per hour)",
+          "duration_code": "1",
+          "duration": "% Change same quarter 1 year ago",
+          "metric": "labor_productivity_yoy_pct"
+        },
+        {
+          "series_id": "PRS88003092",
+          "sector_code": "8800",
+          "sector": "Nonfinancial Corporations",
+          "measure_code": "09",
+          "measure": "Labor productivity (output per hour)",
+          "duration_code": "2",
+          "duration": "% Change from previous quarter",
+          "metric": "labor_productivity_qoq_annualized_pct"
+        },
+        {
+          "series_id": "PRS88003111",
+          "sector_code": "8800",
+          "sector": "Nonfinancial Corporations",
+          "measure_code": "11",
+          "measure": "Unit labor costs",
+          "duration_code": "1",
+          "duration": "% Change same quarter 1 year ago",
+          "metric": "unit_labor_costs_yoy_pct"
+        },
+        {
+          "series_id": "PRS88003112",
+          "sector_code": "8800",
+          "sector": "Nonfinancial Corporations",
+          "measure_code": "11",
+          "measure": "Unit labor costs",
+          "duration_code": "2",
+          "duration": "% Change from previous quarter",
+          "metric": "unit_labor_costs_qoq_annualized_pct"
+        },
+        {
+          "series_id": "PRS88003141",
+          "sector_code": "8800",
+          "sector": "Nonfinancial Corporations",
+          "measure_code": "14",
+          "measure": "Value-added output price deflator",
+          "duration_code": "1",
+          "duration": "% Change same quarter 1 year ago",
+          "metric": "value_added_output_price_yoy_pct"
+        },
+        {
+          "series_id": "PRS88003142",
+          "sector_code": "8800",
+          "sector": "Nonfinancial Corporations",
+          "measure_code": "14",
+          "measure": "Value-added output price deflator",
+          "duration_code": "2",
+          "duration": "% Change from previous quarter",
+          "metric": "value_added_output_price_qoq_annualized_pct"
+        },
+        {
+          "series_id": "PRS88003191",
+          "sector_code": "8800",
+          "sector": "Nonfinancial Corporations",
+          "measure_code": "19",
+          "measure": "Unit profits",
+          "duration_code": "1",
+          "duration": "% Change same quarter 1 year ago",
+          "metric": "unit_profits_yoy_pct"
+        },
+        {
+          "series_id": "PRS88003192",
+          "sector_code": "8800",
+          "sector": "Nonfinancial Corporations",
+          "measure_code": "19",
+          "measure": "Unit profits",
+          "duration_code": "2",
+          "duration": "% Change from previous quarter",
+          "metric": "unit_profits_qoq_annualized_pct"
+        }
+      ],
+      "raw_sha256": "2f3d22dd97da1d077fa45320c552130bc81cbce9872e78f081c5c3a25f091d1f",
+      "series_contract_sha256": "7ab85522ad1a206d31867a1a407e0818df5bf5fa42d82f62fdb71aae7f4b7c24",
+      "quarterly_change_semantics": "BLS quarterly percent changes are seasonally adjusted annualized rates."
+    }
+  },
+  "formulas": {
+    "corporate_profits_gdi_pct": "100 * CPROFIT / GDI",
+    "corporate_profits_yoy_pct": "100 * (CPROFIT_t / CPROFIT_t-4 - 1)",
+    "gdi_yoy_pct": "100 * (GDI_t / GDI_t-4 - 1)",
+    "labor_share_yoy_log_approx_pct": "unit_labor_costs_yoy_pct - value_added_output_price_yoy_pct",
+    "labor_share_yoy_from_rounded_rates_pct": "100 * ((1 + ULC_yoy/100) / (1 + value_added_price_yoy/100) - 1)"
+  },
+  "summary": {
+    "schema_version": 1,
+    "retrieved_at": "2026-08-20T23:56:48.036744+00:00",
+    "corporate_profit_share": {
+      "period": "2026-Q1",
+      "corporate_profits_billion_usd_saar": 4426.485,
+      "gdi_billion_usd_saar": 31574.222,
+      "corporate_profits_gdi_pct": 14.0193,
+      "corporate_profits_yoy_pct": 12.837893,
+      "gdi_yoy_pct": 5.61477
+    },
+    "nonfarm_business": {
+      "period": "2026-Q2",
+      "labor_productivity_yoy_pct": 2.2,
+      "labor_productivity_qoq_annualized_pct": 1.4,
+      "hourly_compensation_yoy_pct": 3.7,
+      "hourly_compensation_qoq_annualized_pct": 2.7,
+      "unit_labor_costs_yoy_pct": 1.4,
+      "unit_labor_costs_qoq_annualized_pct": 1.3,
+      "value_added_output_price_yoy_pct": 4.9,
+      "value_added_output_price_qoq_annualized_pct": 7.0,
+      "labor_share_yoy_log_approx_pct": -3.5,
+      "labor_share_yoy_from_rounded_rates_pct": -3.336511
+    },
+    "nonfinancial_corporations": {
+      "period": "2026-Q1",
+      "labor_productivity_yoy_pct": 3.7,
+      "labor_productivity_qoq_annualized_pct": 1.4,
+      "unit_labor_costs_yoy_pct": -0.2,
+      "unit_labor_costs_qoq_annualized_pct": 0.7,
+      "value_added_output_price_yoy_pct": 2.4,
+      "value_added_output_price_qoq_annualized_pct": 3.7,
+      "unit_profits_yoy_pct": 6.8,
+      "unit_profits_qoq_annualized_pct": 18.6
+    },
+    "source_fingerprint_sha256": "8f60754a6890f6b821a683b0cd9916ea67651a9984fca1c175b742724d68f77b"
+  },
+  "corporate_profit_share": [
+    {
+      "period": "1947-Q1",
+      "corporate_profits_billion_usd_saar": 21.455,
+      "gdi_billion_usd_saar": 240.092,
+      "corporate_profits_gdi_pct": 8.936158
+    },
+    {
+      "period": "1947-Q2",
+      "corporate_profits_billion_usd_saar": 24.483,
+      "gdi_billion_usd_saar": 243.209,
+      "corporate_profits_gdi_pct": 10.06665
+    },
+    {
+      "period": "1947-Q3",
+      "corporate_profits_billion_usd_saar": 24.592,
+      "gdi_billion_usd_saar": 247.579,
+      "corporate_profits_gdi_pct": 9.932991
+    },
+    {
+      "period": "1947-Q4",
+      "corporate_profits_billion_usd_saar": 26.127,
+      "gdi_billion_usd_saar": 256.122,
+      "corporate_profits_gdi_pct": 10.200998
+    },
+    {
+      "period": "1948-Q1",
+      "corporate_profits_billion_usd_saar": 29.979,
+      "gdi_billion_usd_saar": 265.07,
+      "corporate_profits_gdi_pct": 11.309843,
+      "corporate_profits_yoy_pct": 39.729667,
+      "gdi_yoy_pct": 10.403512
+    },
+    {
+      "period": "1948-Q2",
+      "corporate_profits_billion_usd_saar": 31.757,
+      "gdi_billion_usd_saar": 273.654,
+      "corporate_profits_gdi_pct": 11.6048,
+      "corporate_profits_yoy_pct": 29.710411,
+      "gdi_yoy_pct": 12.51804
+    },
+    {
+      "period": "1948-Q3",
+      "corporate_profits_billion_usd_saar": 31.17,
+      "gdi_billion_usd_saar": 278.941,
+      "corporate_profits_gdi_pct": 11.174406,
+      "corporate_profits_yoy_pct": 26.748536,
+      "gdi_yoy_pct": 12.667472
+    },
+    {
+      "period": "1948-Q4",
+      "corporate_profits_billion_usd_saar": 32.665,
+      "gdi_billion_usd_saar": 281.223,
+      "corporate_profits_gdi_pct": 11.615337,
+      "corporate_profits_yoy_pct": 25.023922,
+      "gdi_yoy_pct": 9.800408
+    },
+    {
+      "period": "1949-Q1",
+      "corporate_profits_billion_usd_saar": 31.004,
+      "gdi_billion_usd_saar": 274.18,
+      "corporate_profits_gdi_pct": 11.3079,
+      "corporate_profits_yoy_pct": 3.41906,
+      "gdi_yoy_pct": 3.436828
+    },
+    {
+      "period": "1949-Q2",
+      "corporate_profits_billion_usd_saar": 28.664,
+      "gdi_billion_usd_saar": 270.661,
+      "corporate_profits_gdi_pct": 10.59037,
+      "corporate_profits_yoy_pct": -9.739585,
+      "gdi_yoy_pct": -1.093717
+    },
+    {
+      "period": "1949-Q3",
+      "corporate_profits_billion_usd_saar": 29.923,
+      "gdi_billion_usd_saar": 270.863,
+      "corporate_profits_gdi_pct": 11.047282,
+      "corporate_profits_yoy_pct": -4.000642,
+      "gdi_yoy_pct": -2.895953
+    },
+    {
+      "period": "1949-Q4",
+      "corporate_profits_billion_usd_saar": 26.64,
+      "gdi_billion_usd_saar": 267.232,
+      "corporate_profits_gdi_pct": 9.968866,
+      "corporate_profits_yoy_pct": -18.444819,
+      "gdi_yoy_pct": -4.975055
+    },
+    {
+      "period": "1950-Q1",
+      "corporate_profits_billion_usd_saar": 30.056,
+      "gdi_billion_usd_saar": 277.506,
+      "corporate_profits_gdi_pct": 10.830757,
+      "corporate_profits_yoy_pct": -3.05767,
+      "gdi_yoy_pct": 1.213072
+    },
+    {
+      "period": "1950-Q2",
+      "corporate_profits_billion_usd_saar": 33.889,
+      "gdi_billion_usd_saar": 289.932,
+      "corporate_profits_gdi_pct": 11.688603,
+      "corporate_profits_yoy_pct": 18.22844,
+      "gdi_yoy_pct": 7.119977
+    },
+    {
+      "period": "1950-Q3",
+      "corporate_profits_billion_usd_saar": 38.441,
+      "gdi_billion_usd_saar": 307.524,
+      "corporate_profits_gdi_pct": 12.500163,
+      "corporate_profits_yoy_pct": 28.466397,
+      "gdi_yoy_pct": 13.534887
+    },
+    {
+      "period": "1950-Q4",
+      "corporate_profits_billion_usd_saar": 41.848,
+      "gdi_billion_usd_saar": 319.297,
+      "corporate_profits_gdi_pct": 13.106293,
+      "corporate_profits_yoy_pct": 57.087087,
+      "gdi_yoy_pct": 19.483071
+    },
+    {
+      "period": "1951-Q1",
+      "corporate_profits_billion_usd_saar": 40.716,
+      "gdi_billion_usd_saar": 332.534,
+      "corporate_profits_gdi_pct": 12.244161,
+      "corporate_profits_yoy_pct": 35.467128,
+      "gdi_yoy_pct": 19.829481
+    },
+    {
+      "period": "1951-Q2",
+      "corporate_profits_billion_usd_saar": 40.568,
+      "gdi_billion_usd_saar": 340.649,
+      "corporate_profits_gdi_pct": 11.909032,
+      "corporate_profits_yoy_pct": 19.70846,
+      "gdi_yoy_pct": 17.492722
+    },
+    {
+      "period": "1951-Q3",
+      "corporate_profits_billion_usd_saar": 41.117,
+      "gdi_billion_usd_saar": 346.823,
+      "corporate_profits_gdi_pct": 11.855327,
+      "corporate_profits_yoy_pct": 6.961317,
+      "gdi_yoy_pct": 12.779165
+    },
+    {
+      "period": "1951-Q4",
+      "corporate_profits_billion_usd_saar": 42.39,
+      "gdi_billion_usd_saar": 353.871,
+      "corporate_profits_gdi_pct": 11.978941,
+      "corporate_profits_yoy_pct": 1.295163,
+      "gdi_yoy_pct": 10.828163
+    },
+    {
+      "period": "1952-Q1",
+      "corporate_profits_billion_usd_saar": 40.026,
+      "gdi_billion_usd_saar": 356.053,
+      "corporate_profits_gdi_pct": 11.241585,
+      "corporate_profits_yoy_pct": -1.694665,
+      "gdi_yoy_pct": 7.07266
+    },
+    {
+      "period": "1952-Q2",
+      "corporate_profits_billion_usd_saar": 38.129,
+      "gdi_billion_usd_saar": 358.604,
+      "corporate_profits_gdi_pct": 10.63262,
+      "corporate_profits_yoy_pct": -6.012128,
+      "gdi_yoy_pct": 5.270821
+    },
+    {
+      "period": "1952-Q3",
+      "corporate_profits_billion_usd_saar": 38.072,
+      "gdi_billion_usd_saar": 365.999,
+      "corporate_profits_gdi_pct": 10.402214,
+      "corporate_profits_yoy_pct": -7.405696,
+      "gdi_yoy_pct": 5.529045
+    },
+    {
+      "period": "1952-Q4",
+      "corporate_profits_billion_usd_saar": 42.432,
+      "gdi_billion_usd_saar": 378.271,
+      "corporate_profits_gdi_pct": 11.217355,
+      "corporate_profits_yoy_pct": 0.09908,
+      "gdi_yoy_pct": 6.895168
+    },
+    {
+      "period": "1953-Q1",
+      "corporate_profits_billion_usd_saar": 43.34,
+      "gdi_billion_usd_saar": 385.073,
+      "corporate_profits_gdi_pct": 11.255009,
+      "corporate_profits_yoy_pct": 8.279618,
+      "gdi_yoy_pct": 8.150472
+    },
+    {
+      "period": "1953-Q2",
+      "corporate_profits_billion_usd_saar": 42.509,
+      "gdi_billion_usd_saar": 388.515,
+      "corporate_profits_gdi_pct": 10.941405,
+      "corporate_profits_yoy_pct": 11.487319,
+      "gdi_yoy_pct": 8.340955
+    },
+    {
+      "period": "1953-Q3",
+      "corporate_profits_billion_usd_saar": 41.31,
+      "gdi_billion_usd_saar": 387.598,
+      "corporate_profits_gdi_pct": 10.65795,
+      "corporate_profits_yoy_pct": 8.504938,
+      "gdi_yoy_pct": 5.901382
+    },
+    {
+      "period": "1953-Q4",
+      "corporate_profits_billion_usd_saar": 34.017,
+      "gdi_billion_usd_saar": 380.524,
+      "corporate_profits_gdi_pct": 8.939515,
+      "corporate_profits_yoy_pct": -19.831731,
+      "gdi_yoy_pct": 0.595605
+    },
+    {
+      "period": "1954-Q1",
+      "corporate_profits_billion_usd_saar": 36.508,
+      "gdi_billion_usd_saar": 382.558,
+      "corporate_profits_gdi_pct": 9.543128,
+      "corporate_profits_yoy_pct": -15.763729,
+      "gdi_yoy_pct": -0.653123
+    },
+    {
+      "period": "1954-Q2",
+      "corporate_profits_billion_usd_saar": 37.847,
+      "gdi_billion_usd_saar": 383.6,
+      "corporate_profits_gdi_pct": 9.866267,
+      "corporate_profits_yoy_pct": -10.967089,
+      "gdi_yoy_pct": -1.265073
+    },
+    {
+      "period": "1954-Q3",
+      "corporate_profits_billion_usd_saar": 39.895,
+      "gdi_billion_usd_saar": 387.551,
+      "corporate_profits_gdi_pct": 10.294129,
+      "corporate_profits_yoy_pct": -3.425321,
+      "gdi_yoy_pct": -0.012126
+    },
+    {
+      "period": "1954-Q4",
+      "corporate_profits_billion_usd_saar": 43.589,
+      "gdi_billion_usd_saar": 396.846,
+      "corporate_profits_gdi_pct": 10.983858,
+      "corporate_profits_yoy_pct": 28.138872,
+      "gdi_yoy_pct": 4.289348
+    },
+    {
+      "period": "1955-Q1",
+      "corporate_profits_billion_usd_saar": 48.804,
+      "gdi_billion_usd_saar": 409.644,
+      "corporate_profits_gdi_pct": 11.913759,
+      "corporate_profits_yoy_pct": 33.680289,
+      "gdi_yoy_pct": 7.080234
+    },
+    {
+      "period": "1955-Q2",
+      "corporate_profits_billion_usd_saar": 50.107,
+      "gdi_billion_usd_saar": 419.737,
+      "corporate_profits_gdi_pct": 11.937713,
+      "corporate_profits_yoy_pct": 32.393585,
+      "gdi_yoy_pct": 9.42049
+    },
+    {
+      "period": "1955-Q3",
+      "corporate_profits_billion_usd_saar": 50.177,
+      "gdi_billion_usd_saar": 428.228,
+      "corporate_profits_gdi_pct": 11.717356,
+      "corporate_profits_yoy_pct": 25.772653,
+      "gdi_yoy_pct": 10.495909
+    },
+    {
+      "period": "1955-Q4",
+      "corporate_profits_billion_usd_saar": 51.582,
+      "gdi_billion_usd_saar": 435.768,
+      "corporate_profits_gdi_pct": 11.837033,
+      "corporate_profits_yoy_pct": 18.337195,
+      "gdi_yoy_pct": 9.807835
+    },
+    {
+      "period": "1956-Q1",
+      "corporate_profits_billion_usd_saar": 49.42,
+      "gdi_billion_usd_saar": 440.533,
+      "corporate_profits_gdi_pct": 11.218229,
+      "corporate_profits_yoy_pct": 1.262192,
+      "gdi_yoy_pct": 7.54045
+    },
+    {
+      "period": "1956-Q2",
+      "corporate_profits_billion_usd_saar": 49.642,
+      "gdi_billion_usd_saar": 447.678,
+      "corporate_profits_gdi_pct": 11.088774,
+      "corporate_profits_yoy_pct": -0.928014,
+      "gdi_yoy_pct": 6.656787
+    },
+    {
+      "period": "1956-Q3",
+      "corporate_profits_billion_usd_saar": 49.309,
+      "gdi_billion_usd_saar": 453.772,
+      "corporate_profits_gdi_pct": 10.86647,
+      "corporate_profits_yoy_pct": -1.729876,
+      "gdi_yoy_pct": 5.965047
+    },
+    {
+      "period": "1956-Q4",
+      "corporate_profits_billion_usd_saar": 50.214,
+      "gdi_billion_usd_saar": 463.554,
+      "corporate_profits_gdi_pct": 10.832395,
+      "corporate_profits_yoy_pct": -2.652088,
+      "gdi_yoy_pct": 6.376329
+    },
+    {
+      "period": "1957-Q1",
+      "corporate_profits_billion_usd_saar": 51.659,
+      "gdi_billion_usd_saar": 471.077,
+      "corporate_profits_gdi_pct": 10.966148,
+      "corporate_profits_yoy_pct": 4.530554,
+      "gdi_yoy_pct": 6.933419
+    },
+    {
+      "period": "1957-Q2",
+      "corporate_profits_billion_usd_saar": 50.289,
+      "gdi_billion_usd_saar": 473.964,
+      "corporate_profits_gdi_pct": 10.6103,
+      "corporate_profits_yoy_pct": 1.303332,
+      "gdi_yoy_pct": 5.871631
+    },
+    {
+      "period": "1957-Q3",
+      "corporate_profits_billion_usd_saar": 49.34,
+      "gdi_billion_usd_saar": 478.836,
+      "corporate_profits_gdi_pct": 10.304154,
+      "corporate_profits_yoy_pct": 0.062869,
+      "gdi_yoy_pct": 5.523479
+    },
+    {
+      "period": "1957-Q4",
+      "corporate_profits_billion_usd_saar": 45.271,
+      "gdi_billion_usd_saar": 473.699,
+      "corporate_profits_gdi_pct": 9.556913,
+      "corporate_profits_yoy_pct": -9.843868,
+      "gdi_yoy_pct": 2.188526
+    },
+    {
+      "period": "1958-Q1",
+      "corporate_profits_billion_usd_saar": 39.466,
+      "gdi_billion_usd_saar": 468.148,
+      "corporate_profits_gdi_pct": 8.43024,
+      "corporate_profits_yoy_pct": -23.602857,
+      "gdi_yoy_pct": -0.621767
+    },
+    {
+      "period": "1958-Q2",
+      "corporate_profits_billion_usd_saar": 40.608,
+      "gdi_billion_usd_saar": 470.909,
+      "corporate_profits_gdi_pct": 8.623322,
+      "corporate_profits_yoy_pct": -19.250731,
+      "gdi_yoy_pct": -0.644564
+    },
+    {
+      "period": "1958-Q3",
+      "corporate_profits_billion_usd_saar": 44.759,
+      "gdi_billion_usd_saar": 484.819,
+      "corporate_profits_gdi_pct": 9.232105,
+      "corporate_profits_yoy_pct": -9.284556,
+      "gdi_yoy_pct": 1.249488
+    },
+    {
+      "period": "1958-Q4",
+      "corporate_profits_billion_usd_saar": 50.593,
+      "gdi_billion_usd_saar": 498.445,
+      "corporate_profits_gdi_pct": 10.150167,
+      "corporate_profits_yoy_pct": 11.75587,
+      "gdi_yoy_pct": 5.223992
+    },
+    {
+      "period": "1959-Q1",
+      "corporate_profits_billion_usd_saar": 54.265,
+      "gdi_billion_usd_saar": 510.145,
+      "corporate_profits_gdi_pct": 10.637172,
+      "corporate_profits_yoy_pct": 37.4981,
+      "gdi_yoy_pct": 8.970881
+    },
+    {
+      "period": "1959-Q2",
+      "corporate_profits_billion_usd_saar": 59.067,
+      "gdi_billion_usd_saar": 524.882,
+      "corporate_profits_gdi_pct": 11.253386,
+      "corporate_profits_yoy_pct": 45.45656,
+      "gdi_yoy_pct": 11.46145
+    },
+    {
+      "period": "1959-Q3",
+      "corporate_profits_billion_usd_saar": 54.19,
+      "gdi_billion_usd_saar": 522.572,
+      "corporate_profits_gdi_pct": 10.369863,
+      "corporate_profits_yoy_pct": 21.070623,
+      "gdi_yoy_pct": 7.78703
+    },
+    {
+      "period": "1959-Q4",
+      "corporate_profits_billion_usd_saar": 54.535,
+      "gdi_billion_usd_saar": 528.21,
+      "corporate_profits_gdi_pct": 10.324492,
+      "corporate_profits_yoy_pct": 7.791592,
+      "gdi_yoy_pct": 5.971572
+    },
+    {
+      "period": "1960-Q1",
+      "corporate_profits_billion_usd_saar": 58.609,
+      "gdi_billion_usd_saar": 542.125,
+      "corporate_profits_gdi_pct": 10.810975,
+      "corporate_profits_yoy_pct": 8.00516,
+      "gdi_yoy_pct": 6.268806
+    },
+    {
+      "period": "1960-Q2",
+      "corporate_profits_billion_usd_saar": 54.796,
+      "gdi_billion_usd_saar": 543.396,
+      "corporate_profits_gdi_pct": 10.08399,
+      "corporate_profits_yoy_pct": -7.230772,
+      "gdi_yoy_pct": 3.527269
+    },
+    {
+      "period": "1960-Q3",
+      "corporate_profits_billion_usd_saar": 53.807,
+      "gdi_billion_usd_saar": 545.291,
+      "corporate_profits_gdi_pct": 9.867575,
+      "corporate_profits_yoy_pct": -0.706772,
+      "gdi_yoy_pct": 4.347535
+    },
+    {
+      "period": "1960-Q4",
+      "corporate_profits_billion_usd_saar": 51.506,
+      "gdi_billion_usd_saar": 543.938,
+      "corporate_profits_gdi_pct": 9.469094,
+      "corporate_profits_yoy_pct": -5.554231,
+      "gdi_yoy_pct": 2.977604
+    },
+    {
+      "period": "1961-Q1",
+      "corporate_profits_billion_usd_saar": 50.242,
+      "gdi_billion_usd_saar": 546.222,
+      "corporate_profits_gdi_pct": 9.198092,
+      "corporate_profits_yoy_pct": -14.275964,
+      "gdi_yoy_pct": 0.75573
+    },
+    {
+      "period": "1961-Q2",
+      "corporate_profits_billion_usd_saar": 54.481,
+      "gdi_billion_usd_saar": 556.721,
+      "corporate_profits_gdi_pct": 9.786051,
+      "corporate_profits_yoy_pct": -0.574859,
+      "gdi_yoy_pct": 2.452171
+    },
+    {
+      "period": "1961-Q3",
+      "corporate_profits_billion_usd_saar": 57.243,
+      "gdi_billion_usd_saar": 567.148,
+      "corporate_profits_gdi_pct": 10.093133,
+      "corporate_profits_yoy_pct": 6.385786,
+      "gdi_yoy_pct": 4.008318
+    },
+    {
+      "period": "1961-Q4",
+      "corporate_profits_billion_usd_saar": 61.816,
+      "gdi_billion_usd_saar": 582.407,
+      "corporate_profits_gdi_pct": 10.613883,
+      "corporate_profits_yoy_pct": 20.017085,
+      "gdi_yoy_pct": 7.072313
+    },
+    {
+      "period": "1962-Q1",
+      "corporate_profits_billion_usd_saar": 62.551,
+      "gdi_billion_usd_saar": 592.505,
+      "corporate_profits_gdi_pct": 10.557042,
+      "corporate_profits_yoy_pct": 24.499423,
+      "gdi_yoy_pct": 8.473295
+    },
+    {
+      "period": "1962-Q2",
+      "corporate_profits_billion_usd_saar": 62.521,
+      "gdi_billion_usd_saar": 600.073,
+      "corporate_profits_gdi_pct": 10.418899,
+      "corporate_profits_yoy_pct": 14.757438,
+      "gdi_yoy_pct": 7.787024
+    },
+    {
+      "period": "1962-Q3",
+      "corporate_profits_billion_usd_saar": 64.244,
+      "gdi_billion_usd_saar": 607.427,
+      "corporate_profits_gdi_pct": 10.576415,
+      "corporate_profits_yoy_pct": 12.230316,
+      "gdi_yoy_pct": 7.102026
+    },
+    {
+      "period": "1962-Q4",
+      "corporate_profits_billion_usd_saar": 66.857,
+      "gdi_billion_usd_saar": 615.802,
+      "corporate_profits_gdi_pct": 10.856899,
+      "corporate_profits_yoy_pct": 8.154847,
+      "gdi_yoy_pct": 5.733963
+    },
+    {
+      "period": "1963-Q1",
+      "corporate_profits_billion_usd_saar": 67.197,
+      "gdi_billion_usd_saar": 623.85,
+      "corporate_profits_gdi_pct": 10.771339,
+      "corporate_profits_yoy_pct": 7.427539,
+      "gdi_yoy_pct": 5.290251
+    },
+    {
+      "period": "1963-Q2",
+      "corporate_profits_billion_usd_saar": 70.229,
+      "gdi_billion_usd_saar": 634.043,
+      "corporate_profits_gdi_pct": 11.076378,
+      "corporate_profits_yoy_pct": 12.328658,
+      "gdi_yoy_pct": 5.660978
+    },
+    {
+      "period": "1963-Q3",
+      "corporate_profits_billion_usd_saar": 71.657,
+      "gdi_billion_usd_saar": 643.45,
+      "corporate_profits_gdi_pct": 11.136374,
+      "corporate_profits_yoy_pct": 11.538821,
+      "gdi_yoy_pct": 5.930425
+    },
+    {
+      "period": "1963-Q4",
+      "corporate_profits_billion_usd_saar": 72.951,
+      "gdi_billion_usd_saar": 654.309,
+      "corporate_profits_gdi_pct": 11.149319,
+      "corporate_profits_yoy_pct": 9.114977,
+      "gdi_yoy_pct": 6.253146
+    },
+    {
+      "period": "1964-Q1",
+      "corporate_profits_billion_usd_saar": 77.053,
+      "gdi_billion_usd_saar": 667.299,
+      "corporate_profits_gdi_pct": 11.546998,
+      "corporate_profits_yoy_pct": 14.667321,
+      "gdi_yoy_pct": 6.964655
+    },
+    {
+      "period": "1964-Q2",
+      "corporate_profits_billion_usd_saar": 77.32,
+      "gdi_billion_usd_saar": 678.727,
+      "corporate_profits_gdi_pct": 11.391915,
+      "corporate_profits_yoy_pct": 10.096968,
+      "gdi_yoy_pct": 7.047472
+    },
+    {
+      "period": "1964-Q3",
+      "corporate_profits_billion_usd_saar": 78.439,
+      "gdi_billion_usd_saar": 691.1,
+      "corporate_profits_gdi_pct": 11.349877,
+      "corporate_profits_yoy_pct": 9.464532,
+      "gdi_yoy_pct": 7.405393
+    },
+    {
+      "period": "1964-Q4",
+      "corporate_profits_billion_usd_saar": 78.019,
+      "gdi_billion_usd_saar": 700.907,
+      "corporate_profits_gdi_pct": 11.131149,
+      "corporate_profits_yoy_pct": 6.947129,
+      "gdi_yoy_pct": 7.121712
+    },
+    {
+      "period": "1965-Q1",
+      "corporate_profits_billion_usd_saar": 85.843,
+      "gdi_billion_usd_saar": 720.152,
+      "corporate_profits_gdi_pct": 11.920122,
+      "corporate_profits_yoy_pct": 11.407732,
+      "gdi_yoy_pct": 7.920437
+    },
+    {
+      "period": "1965-Q2",
+      "corporate_profits_billion_usd_saar": 88.045,
+      "gdi_billion_usd_saar": 732.681,
+      "corporate_profits_gdi_pct": 12.016826,
+      "corporate_profits_yoy_pct": 13.870926,
+      "gdi_yoy_pct": 7.949293
+    },
+    {
+      "period": "1965-Q3",
+      "corporate_profits_billion_usd_saar": 89.261,
+      "gdi_billion_usd_saar": 745.903,
+      "corporate_profits_gdi_pct": 11.966838,
+      "corporate_profits_yoy_pct": 13.796708,
+      "gdi_yoy_pct": 7.929822
+    },
+    {
+      "period": "1965-Q4",
+      "corporate_profits_billion_usd_saar": 94.005,
+      "gdi_billion_usd_saar": 767.46,
+      "corporate_profits_gdi_pct": 12.248847,
+      "corporate_profits_yoy_pct": 20.489881,
+      "gdi_yoy_pct": 9.495268
+    },
+    {
+      "period": "1966-Q1",
+      "corporate_profits_billion_usd_saar": 97.376,
+      "gdi_billion_usd_saar": 789.329,
+      "corporate_profits_gdi_pct": 12.336554,
+      "corporate_profits_yoy_pct": 13.434992,
+      "gdi_yoy_pct": 9.605889
+    },
+    {
+      "period": "1966-Q2",
+      "corporate_profits_billion_usd_saar": 96.371,
+      "gdi_billion_usd_saar": 801.086,
+      "corporate_profits_gdi_pct": 12.030044,
+      "corporate_profits_yoy_pct": 9.456528,
+      "gdi_yoy_pct": 9.33626
+    },
+    {
+      "period": "1966-Q3",
+      "corporate_profits_billion_usd_saar": 94.828,
+      "gdi_billion_usd_saar": 814.396,
+      "corporate_profits_gdi_pct": 11.643967,
+      "corporate_profits_yoy_pct": 6.236766,
+      "gdi_yoy_pct": 9.182561
+    },
+    {
+      "period": "1966-Q4",
+      "corporate_profits_billion_usd_saar": 95.912,
+      "gdi_billion_usd_saar": 828.503,
+      "corporate_profits_gdi_pct": 11.576542,
+      "corporate_profits_yoy_pct": 2.028615,
+      "gdi_yoy_pct": 7.9539
+    },
+    {
+      "period": "1967-Q1",
+      "corporate_profits_billion_usd_saar": 93.326,
+      "gdi_billion_usd_saar": 836.797,
+      "corporate_profits_gdi_pct": 11.152765,
+      "corporate_profits_yoy_pct": -4.159136,
+      "gdi_yoy_pct": 6.013715
+    },
+    {
+      "period": "1967-Q2",
+      "corporate_profits_billion_usd_saar": 92.153,
+      "gdi_billion_usd_saar": 845.681,
+      "corporate_profits_gdi_pct": 10.896898,
+      "corporate_profits_yoy_pct": -4.376835,
+      "gdi_yoy_pct": 5.566818
+    },
+    {
+      "period": "1967-Q3",
+      "corporate_profits_billion_usd_saar": 93.216,
+      "gdi_billion_usd_saar": 862.763,
+      "corporate_profits_gdi_pct": 10.804358,
+      "corporate_profits_yoy_pct": -1.69992,
+      "gdi_yoy_pct": 5.939003
+    },
+    {
+      "period": "1967-Q4",
+      "corporate_profits_billion_usd_saar": 96.768,
+      "gdi_billion_usd_saar": 881.145,
+      "corporate_profits_gdi_pct": 10.982074,
+      "corporate_profits_yoy_pct": 0.892485,
+      "gdi_yoy_pct": 6.35387
+    },
+    {
+      "period": "1968-Q1",
+      "corporate_profits_billion_usd_saar": 98.123,
+      "gdi_billion_usd_saar": 904.129,
+      "corporate_profits_gdi_pct": 10.852765,
+      "corporate_profits_yoy_pct": 5.140047,
+      "gdi_yoy_pct": 8.046396
+    },
+    {
+      "period": "1968-Q2",
+      "corporate_profits_billion_usd_saar": 102.114,
+      "gdi_billion_usd_saar": 927.463,
+      "corporate_profits_gdi_pct": 11.010035,
+      "corporate_profits_yoy_pct": 10.809198,
+      "gdi_yoy_pct": 9.67055
+    },
+    {
+      "period": "1968-Q3",
+      "corporate_profits_billion_usd_saar": 102.643,
+      "gdi_billion_usd_saar": 949.276,
+      "corporate_profits_gdi_pct": 10.812767,
+      "corporate_profits_yoy_pct": 10.113071,
+      "gdi_yoy_pct": 10.027435
+    },
+    {
+      "period": "1968-Q4",
+      "corporate_profits_billion_usd_saar": 104.11,
+      "gdi_billion_usd_saar": 969.185,
+      "corporate_profits_gdi_pct": 10.742015,
+      "corporate_profits_yoy_pct": 7.587219,
+      "gdi_yoy_pct": 9.991545
+    },
+    {
+      "period": "1969-Q1",
+      "corporate_profits_billion_usd_saar": 103.475,
+      "gdi_billion_usd_saar": 988.736,
+      "corporate_profits_gdi_pct": 10.465382,
+      "corporate_profits_yoy_pct": 5.454379,
+      "gdi_yoy_pct": 9.357846
+    },
+    {
+      "period": "1969-Q2",
+      "corporate_profits_billion_usd_saar": 100.332,
+      "gdi_billion_usd_saar": 1007.398,
+      "corporate_profits_gdi_pct": 9.959519,
+      "corporate_profits_yoy_pct": -1.745108,
+      "gdi_yoy_pct": 8.618673
+    },
+    {
+      "period": "1969-Q3",
+      "corporate_profits_billion_usd_saar": 97.418,
+      "gdi_billion_usd_saar": 1028.459,
+      "corporate_profits_gdi_pct": 9.47223,
+      "corporate_profits_yoy_pct": -5.090459,
+      "gdi_yoy_pct": 8.34141
+    },
+    {
+      "period": "1969-Q4",
+      "corporate_profits_billion_usd_saar": 92.44,
+      "gdi_billion_usd_saar": 1039.539,
+      "corporate_profits_gdi_pct": 8.892403,
+      "corporate_profits_yoy_pct": -11.209298,
+      "gdi_yoy_pct": 7.259089
+    },
+    {
+      "period": "1970-Q1",
+      "corporate_profits_billion_usd_saar": 84.663,
+      "gdi_billion_usd_saar": 1047.063,
+      "corporate_profits_gdi_pct": 8.08576,
+      "corporate_profits_yoy_pct": -18.180237,
+      "gdi_yoy_pct": 5.899148
+    },
+    {
+      "period": "1970-Q2",
+      "corporate_profits_billion_usd_saar": 88.47,
+      "gdi_billion_usd_saar": 1061.858,
+      "corporate_profits_gdi_pct": 8.331622,
+      "corporate_profits_yoy_pct": -11.822748,
+      "gdi_yoy_pct": 5.406006
+    },
+    {
+      "period": "1970-Q3",
+      "corporate_profits_billion_usd_saar": 88.384,
+      "gdi_billion_usd_saar": 1079.478,
+      "corporate_profits_gdi_pct": 8.187661,
+      "corporate_profits_yoy_pct": -9.27344,
+      "gdi_yoy_pct": 4.960723
+    },
+    {
+      "period": "1970-Q4",
+      "corporate_profits_billion_usd_saar": 83.458,
+      "gdi_billion_usd_saar": 1083.461,
+      "corporate_profits_gdi_pct": 7.702908,
+      "corporate_profits_yoy_pct": -9.716573,
+      "gdi_yoy_pct": 4.225142
+    },
+    {
+      "period": "1971-Q1",
+      "corporate_profits_billion_usd_saar": 96.622,
+      "gdi_billion_usd_saar": 1121.847,
+      "corporate_profits_gdi_pct": 8.612761,
+      "corporate_profits_yoy_pct": 14.125415,
+      "gdi_yoy_pct": 7.142264
+    },
+    {
+      "period": "1971-Q2",
+      "corporate_profits_billion_usd_saar": 98.739,
+      "gdi_billion_usd_saar": 1143.994,
+      "corporate_profits_gdi_pct": 8.631077,
+      "corporate_profits_yoy_pct": 11.607325,
+      "gdi_yoy_pct": 7.735121
+    },
+    {
+      "period": "1971-Q3",
+      "corporate_profits_billion_usd_saar": 101.436,
+      "gdi_billion_usd_saar": 1165.451,
+      "corporate_profits_gdi_pct": 8.703583,
+      "corporate_profits_yoy_pct": 14.767379,
+      "gdi_yoy_pct": 7.964312
+    },
+    {
+      "period": "1971-Q4",
+      "corporate_profits_billion_usd_saar": 105.79,
+      "gdi_billion_usd_saar": 1190.035,
+      "corporate_profits_gdi_pct": 8.889655,
+      "corporate_profits_yoy_pct": 26.758369,
+      "gdi_yoy_pct": 9.836441
+    },
+    {
+      "period": "1972-Q1",
+      "corporate_profits_billion_usd_saar": 111.517,
+      "gdi_billion_usd_saar": 1225.632,
+      "corporate_profits_gdi_pct": 9.098734,
+      "corporate_profits_yoy_pct": 15.415744,
+      "gdi_yoy_pct": 9.251262
+    },
+    {
+      "period": "1972-Q2",
+      "corporate_profits_billion_usd_saar": 113.41,
+      "gdi_billion_usd_saar": 1249.073,
+      "corporate_profits_gdi_pct": 9.079533,
+      "corporate_profits_yoy_pct": 14.858364,
+      "gdi_yoy_pct": 9.185275
+    },
+    {
+      "period": "1972-Q3",
+      "corporate_profits_billion_usd_saar": 118.171,
+      "gdi_billion_usd_saar": 1281.679,
+      "corporate_profits_gdi_pct": 9.220015,
+      "corporate_profits_yoy_pct": 16.498087,
+      "gdi_yoy_pct": 9.972792
+    },
+    {
+      "period": "1972-Q4",
+      "corporate_profits_billion_usd_saar": 125.749,
+      "gdi_billion_usd_saar": 1331.426,
+      "corporate_profits_gdi_pct": 9.444686,
+      "corporate_profits_yoy_pct": 18.866623,
+      "gdi_yoy_pct": 11.881247
+    },
+    {
+      "period": "1973-Q1",
+      "corporate_profits_billion_usd_saar": 133.496,
+      "gdi_billion_usd_saar": 1370.82,
+      "corporate_profits_gdi_pct": 9.738405,
+      "corporate_profits_yoy_pct": 19.709103,
+      "gdi_yoy_pct": 11.84597
+    },
+    {
+      "period": "1973-Q2",
+      "corporate_profits_billion_usd_saar": 131.249,
+      "gdi_billion_usd_saar": 1399.511,
+      "corporate_profits_gdi_pct": 9.378204,
+      "corporate_profits_yoy_pct": 15.729653,
+      "gdi_yoy_pct": 12.043972
+    },
+    {
+      "period": "1973-Q3",
+      "corporate_profits_billion_usd_saar": 133.029,
+      "gdi_billion_usd_saar": 1431.358,
+      "corporate_profits_gdi_pct": 9.293901,
+      "corporate_profits_yoy_pct": 12.573305,
+      "gdi_yoy_pct": 11.678353
+    },
+    {
+      "period": "1973-Q4",
+      "corporate_profits_billion_usd_saar": 135.784,
+      "gdi_billion_usd_saar": 1475.234,
+      "corporate_profits_gdi_pct": 9.204235,
+      "corporate_profits_yoy_pct": 7.980183,
+      "gdi_yoy_pct": 10.801051
+    },
+    {
+      "period": "1974-Q1",
+      "corporate_profits_billion_usd_saar": 130.297,
+      "gdi_billion_usd_saar": 1491.146,
+      "corporate_profits_gdi_pct": 8.738044,
+      "corporate_profits_yoy_pct": -2.396326,
+      "gdi_yoy_pct": 8.777666
+    },
+    {
+      "period": "1974-Q2",
+      "corporate_profits_billion_usd_saar": 128.925,
+      "gdi_billion_usd_saar": 1520.365,
+      "corporate_profits_gdi_pct": 8.479872,
+      "corporate_profits_yoy_pct": -1.77068,
+      "gdi_yoy_pct": 8.635445
+    },
+    {
+      "period": "1974-Q3",
+      "corporate_profits_billion_usd_saar": 124.284,
+      "gdi_billion_usd_saar": 1556.456,
+      "corporate_profits_gdi_pct": 7.985064,
+      "corporate_profits_yoy_pct": -6.573755,
+      "gdi_yoy_pct": 8.739812
+    },
+    {
+      "period": "1974-Q4",
+      "corporate_profits_billion_usd_saar": 119.313,
+      "gdi_billion_usd_saar": 1583.154,
+      "corporate_profits_gdi_pct": 7.536411,
+      "corporate_profits_yoy_pct": -12.130295,
+      "gdi_yoy_pct": 7.31545
+    },
+    {
+      "period": "1975-Q1",
+      "corporate_profits_billion_usd_saar": 117.75,
+      "gdi_billion_usd_saar": 1600.724,
+      "corporate_profits_gdi_pct": 7.356046,
+      "corporate_profits_yoy_pct": -9.629539,
+      "gdi_yoy_pct": 7.348576
+    },
+    {
+      "period": "1975-Q2",
+      "corporate_profits_billion_usd_saar": 128.94,
+      "gdi_billion_usd_saar": 1637.971,
+      "corporate_profits_gdi_pct": 7.871934,
+      "corporate_profits_yoy_pct": 0.011635,
+      "gdi_yoy_pct": 7.735379
+    },
+    {
+      "period": "1975-Q3",
+      "corporate_profits_billion_usd_saar": 149.763,
+      "gdi_billion_usd_saar": 1700.816,
+      "corporate_profits_gdi_pct": 8.805362,
+      "corporate_profits_yoy_pct": 20.500628,
+      "gdi_yoy_pct": 9.274917
+    },
+    {
+      "period": "1975-Q4",
+      "corporate_profits_billion_usd_saar": 158.982,
+      "gdi_billion_usd_saar": 1746.705,
+      "corporate_profits_gdi_pct": 9.101823,
+      "corporate_profits_yoy_pct": 33.247844,
+      "gdi_yoy_pct": 10.330707
+    },
+    {
+      "period": "1976-Q1",
+      "corporate_profits_billion_usd_saar": 175.111,
+      "gdi_billion_usd_saar": 1801.802,
+      "corporate_profits_gdi_pct": 9.718659,
+      "corporate_profits_yoy_pct": 48.714225,
+      "gdi_yoy_pct": 12.561691
+    },
+    {
+      "period": "1976-Q2",
+      "corporate_profits_billion_usd_saar": 173.151,
+      "gdi_billion_usd_saar": 1831.4,
+      "corporate_profits_gdi_pct": 9.45457,
+      "corporate_profits_yoy_pct": 34.288041,
+      "gdi_yoy_pct": 11.809061
+    },
+    {
+      "period": "1976-Q3",
+      "corporate_profits_billion_usd_saar": 174.747,
+      "gdi_billion_usd_saar": 1869.193,
+      "corporate_profits_gdi_pct": 9.348794,
+      "corporate_profits_yoy_pct": 16.682358,
+      "gdi_yoy_pct": 9.899778
+    },
+    {
+      "period": "1976-Q4",
+      "corporate_profits_billion_usd_saar": 174.343,
+      "gdi_billion_usd_saar": 1908.639,
+      "corporate_profits_gdi_pct": 9.134415,
+      "corporate_profits_yoy_pct": 9.6621,
+      "gdi_yoy_pct": 9.270827
+    },
+    {
+      "period": "1977-Q1",
+      "corporate_profits_billion_usd_saar": 184.122,
+      "gdi_billion_usd_saar": 1960.906,
+      "corporate_profits_gdi_pct": 9.389639,
+      "corporate_profits_yoy_pct": 5.145879,
+      "gdi_yoy_pct": 8.830271
+    },
+    {
+      "period": "1977-Q2",
+      "corporate_profits_billion_usd_saar": 204.911,
+      "gdi_billion_usd_saar": 2035.208,
+      "corporate_profits_gdi_pct": 10.068308,
+      "corporate_profits_yoy_pct": 18.342372,
+      "gdi_yoy_pct": 11.128536
+    },
+    {
+      "period": "1977-Q3",
+      "corporate_profits_billion_usd_saar": 219.642,
+      "gdi_billion_usd_saar": 2097.868,
+      "corporate_profits_gdi_pct": 10.469772,
+      "corporate_profits_yoy_pct": 25.691428,
+      "gdi_yoy_pct": 12.233889
+    },
+    {
+      "period": "1977-Q4",
+      "corporate_profits_billion_usd_saar": 214.459,
+      "gdi_billion_usd_saar": 2155.534,
+      "corporate_profits_gdi_pct": 9.949228,
+      "corporate_profits_yoy_pct": 23.009814,
+      "gdi_yoy_pct": 12.935657
+    },
+    {
+      "period": "1978-Q1",
+      "corporate_profits_billion_usd_saar": 209.938,
+      "gdi_billion_usd_saar": 2199.97,
+      "corporate_profits_gdi_pct": 9.542766,
+      "corporate_profits_yoy_pct": 14.021138,
+      "gdi_yoy_pct": 12.191507
+    },
+    {
+      "period": "1978-Q2",
+      "corporate_profits_billion_usd_saar": 239.724,
+      "gdi_billion_usd_saar": 2309.587,
+      "corporate_profits_gdi_pct": 10.379518,
+      "corporate_profits_yoy_pct": 16.989327,
+      "gdi_yoy_pct": 13.48162
+    },
+    {
+      "period": "1978-Q3",
+      "corporate_profits_billion_usd_saar": 246.225,
+      "gdi_billion_usd_saar": 2365.857,
+      "corporate_profits_gdi_pct": 10.407434,
+      "corporate_profits_yoy_pct": 12.102876,
+      "gdi_yoy_pct": 12.77435
+    },
+    {
+      "period": "1978-Q4",
+      "corporate_profits_billion_usd_saar": 258.389,
+      "gdi_billion_usd_saar": 2437.684,
+      "corporate_profits_gdi_pct": 10.599774,
+      "corporate_profits_yoy_pct": 20.484102,
+      "gdi_yoy_pct": 13.089564
+    },
+    {
+      "period": "1979-Q1",
+      "corporate_profits_billion_usd_saar": 250.028,
+      "gdi_billion_usd_saar": 2501.832,
+      "corporate_profits_gdi_pct": 9.993797,
+      "corporate_profits_yoy_pct": 19.096114,
+      "gdi_yoy_pct": 13.721187
+    },
+    {
+      "period": "1979-Q2",
+      "corporate_profits_billion_usd_saar": 252.438,
+      "gdi_billion_usd_saar": 2550.227,
+      "corporate_profits_gdi_pct": 9.898648,
+      "corporate_profits_yoy_pct": 5.303599,
+      "gdi_yoy_pct": 10.419179
+    },
+    {
+      "period": "1979-Q3",
+      "corporate_profits_billion_usd_saar": 250.288,
+      "gdi_billion_usd_saar": 2609.135,
+      "corporate_profits_gdi_pct": 9.592758,
+      "corporate_profits_yoy_pct": 1.650117,
+      "gdi_yoy_pct": 10.28287
+    },
+    {
+      "period": "1979-Q4",
+      "corporate_profits_billion_usd_saar": 244.109,
+      "gdi_billion_usd_saar": 2668.123,
+      "corporate_profits_gdi_pct": 9.149091,
+      "corporate_profits_yoy_pct": -5.526551,
+      "gdi_yoy_pct": 9.453194
+    },
+    {
+      "period": "1980-Q1",
+      "corporate_profits_billion_usd_saar": 237.401,
+      "gdi_billion_usd_saar": 2722.05,
+      "corporate_profits_gdi_pct": 8.721405,
+      "corporate_profits_yoy_pct": -5.050234,
+      "gdi_yoy_pct": 8.80227
+    },
+    {
+      "period": "1980-Q2",
+      "corporate_profits_billion_usd_saar": 206.769,
+      "gdi_billion_usd_saar": 2741.686,
+      "corporate_profits_gdi_pct": 7.541673,
+      "corporate_profits_yoy_pct": -18.091175,
+      "gdi_yoy_pct": 7.507528
+    },
+    {
+      "period": "1980-Q3",
+      "corporate_profits_billion_usd_saar": 214.074,
+      "gdi_billion_usd_saar": 2823.75,
+      "corporate_profits_gdi_pct": 7.581195,
+      "corporate_profits_yoy_pct": -14.468932,
+      "gdi_yoy_pct": 8.225523
+    },
+    {
+      "period": "1980-Q4",
+      "corporate_profits_billion_usd_saar": 234.259,
+      "gdi_billion_usd_saar": 2964.663,
+      "corporate_profits_gdi_pct": 7.901708,
+      "corporate_profits_yoy_pct": -4.035083,
+      "gdi_yoy_pct": 11.11418
+    },
+    {
+      "period": "1981-Q1",
+      "corporate_profits_billion_usd_saar": 243.132,
+      "gdi_billion_usd_saar": 3064.9,
+      "corporate_profits_gdi_pct": 7.932787,
+      "corporate_profits_yoy_pct": 2.414059,
+      "gdi_yoy_pct": 12.595287
+    },
+    {
+      "period": "1981-Q2",
+      "corporate_profits_billion_usd_saar": 239.325,
+      "gdi_billion_usd_saar": 3127.116,
+      "corporate_profits_gdi_pct": 7.653218,
+      "corporate_profits_yoy_pct": 15.745107,
+      "gdi_yoy_pct": 14.058138
+    },
+    {
+      "period": "1981-Q3",
+      "corporate_profits_billion_usd_saar": 256.094,
+      "gdi_billion_usd_saar": 3231.849,
+      "corporate_profits_gdi_pct": 7.924071,
+      "corporate_profits_yoy_pct": 19.628727,
+      "gdi_yoy_pct": 14.452377
+    },
+    {
+      "period": "1981-Q4",
+      "corporate_profits_billion_usd_saar": 245.026,
+      "gdi_billion_usd_saar": 3253.483,
+      "corporate_profits_gdi_pct": 7.53119,
+      "corporate_profits_yoy_pct": 4.596195,
+      "gdi_yoy_pct": 9.742085
+    },
+    {
+      "period": "1982-Q1",
+      "corporate_profits_billion_usd_saar": 219.839,
+      "gdi_billion_usd_saar": 3272.128,
+      "corporate_profits_gdi_pct": 6.718533,
+      "corporate_profits_yoy_pct": -9.580393,
+      "gdi_yoy_pct": 6.76133
+    },
+    {
+      "period": "1982-Q2",
+      "corporate_profits_billion_usd_saar": 234.129,
+      "gdi_billion_usd_saar": 3326.727,
+      "corporate_profits_gdi_pct": 7.037818,
+      "corporate_profits_yoy_pct": -2.171106,
+      "gdi_yoy_pct": 6.38323
+    },
+    {
+      "period": "1982-Q3",
+      "corporate_profits_billion_usd_saar": 231.535,
+      "gdi_billion_usd_saar": 3360.833,
+      "corporate_profits_gdi_pct": 6.889215,
+      "corporate_profits_yoy_pct": -9.589838,
+      "gdi_yoy_pct": 3.991028
+    },
+    {
+      "period": "1982-Q4",
+      "corporate_profits_billion_usd_saar": 225.521,
+      "gdi_billion_usd_saar": 3380.87,
+      "corporate_profits_gdi_pct": 6.670502,
+      "corporate_profits_yoy_pct": -7.96038,
+      "gdi_yoy_pct": 3.915404
+    },
+    {
+      "period": "1983-Q1",
+      "corporate_profits_billion_usd_saar": 242.393,
+      "gdi_billion_usd_saar": 3442.826,
+      "corporate_profits_gdi_pct": 7.040524,
+      "corporate_profits_yoy_pct": 10.259326,
+      "gdi_yoy_pct": 5.216727
+    },
+    {
+      "period": "1983-Q2",
+      "corporate_profits_billion_usd_saar": 272.625,
+      "gdi_billion_usd_saar": 3526.639,
+      "corporate_profits_gdi_pct": 7.730448,
+      "corporate_profits_yoy_pct": 16.442218,
+      "gdi_yoy_pct": 6.00927
+    },
+    {
+      "period": "1983-Q3",
+      "corporate_profits_billion_usd_saar": 289.441,
+      "gdi_billion_usd_saar": 3613.588,
+      "corporate_profits_gdi_pct": 8.009795,
+      "corporate_profits_yoy_pct": 25.00961,
+      "gdi_yoy_pct": 7.520606
+    },
+    {
+      "period": "1983-Q4",
+      "corporate_profits_billion_usd_saar": 307.152,
+      "gdi_billion_usd_saar": 3725.69,
+      "corporate_profits_gdi_pct": 8.244164,
+      "corporate_profits_yoy_pct": 36.196629,
+      "gdi_yoy_pct": 10.19915
+    },
+    {
+      "period": "1984-Q1",
+      "corporate_profits_billion_usd_saar": 335.741,
+      "gdi_billion_usd_saar": 3866.136,
+      "corporate_profits_gdi_pct": 8.684149,
+      "corporate_profits_yoy_pct": 38.511013,
+      "gdi_yoy_pct": 12.295422
+    },
+    {
+      "period": "1984-Q2",
+      "corporate_profits_billion_usd_saar": 337.676,
+      "gdi_billion_usd_saar": 3962.847,
+      "corporate_profits_gdi_pct": 8.521046,
+      "corporate_profits_yoy_pct": 23.860981,
+      "gdi_yoy_pct": 12.368944
+    },
+    {
+      "period": "1984-Q3",
+      "corporate_profits_billion_usd_saar": 333.129,
+      "gdi_billion_usd_saar": 4040.395,
+      "corporate_profits_gdi_pct": 8.244961,
+      "corporate_profits_yoy_pct": 15.093922,
+      "gdi_yoy_pct": 11.811169
+    },
+    {
+      "period": "1984-Q4",
+      "corporate_profits_billion_usd_saar": 342.526,
+      "gdi_billion_usd_saar": 4115.393,
+      "corporate_profits_gdi_pct": 8.323045,
+      "corporate_profits_yoy_pct": 11.516773,
+      "gdi_yoy_pct": 10.459888
+    },
+    {
+      "period": "1985-Q1",
+      "corporate_profits_billion_usd_saar": 346.957,
+      "gdi_billion_usd_saar": 4191.02,
+      "corporate_profits_gdi_pct": 8.278581,
+      "corporate_profits_yoy_pct": 3.34067,
+      "gdi_yoy_pct": 8.403326
+    },
+    {
+      "period": "1985-Q2",
+      "corporate_profits_billion_usd_saar": 350.273,
+      "gdi_billion_usd_saar": 4248.348,
+      "corporate_profits_gdi_pct": 8.244922,
+      "corporate_profits_yoy_pct": 3.730499,
+      "gdi_yoy_pct": 7.204442
+    },
+    {
+      "period": "1985-Q3",
+      "corporate_profits_billion_usd_saar": 367.277,
+      "gdi_billion_usd_saar": 4325.809,
+      "corporate_profits_gdi_pct": 8.490366,
+      "corporate_profits_yoy_pct": 10.250684,
+      "gdi_yoy_pct": 7.064012
+    },
+    {
+      "period": "1985-Q4",
+      "corporate_profits_billion_usd_saar": 347.805,
+      "gdi_billion_usd_saar": 4374.446,
+      "corporate_profits_gdi_pct": 7.950835,
+      "corporate_profits_yoy_pct": 1.541197,
+      "gdi_yoy_pct": 6.294733
+    },
+    {
+      "period": "1986-Q1",
+      "corporate_profits_billion_usd_saar": 338.526,
+      "gdi_billion_usd_saar": 4439.594,
+      "corporate_profits_gdi_pct": 7.625157,
+      "corporate_profits_yoy_pct": -2.429984,
+      "gdi_yoy_pct": 5.93111
+    },
+    {
+      "period": "1986-Q2",
+      "corporate_profits_billion_usd_saar": 324.827,
+      "gdi_billion_usd_saar": 4468.777,
+      "corporate_profits_gdi_pct": 7.268812,
+      "corporate_profits_yoy_pct": -7.264619,
+      "gdi_yoy_pct": 5.188582
+    },
+    {
+      "period": "1986-Q3",
+      "corporate_profits_billion_usd_saar": 314.959,
+      "gdi_billion_usd_saar": 4515.237,
+      "corporate_profits_gdi_pct": 6.97547,
+      "corporate_profits_yoy_pct": -14.244834,
+      "gdi_yoy_pct": 4.379019
+    },
+    {
+      "period": "1986-Q4",
+      "corporate_profits_billion_usd_saar": 315.948,
+      "gdi_billion_usd_saar": 4575.53,
+      "corporate_profits_gdi_pct": 6.905167,
+      "corporate_profits_yoy_pct": -9.159443,
+      "gdi_yoy_pct": 4.596788
+    },
+    {
+      "period": "1987-Q1",
+      "corporate_profits_billion_usd_saar": 329.707,
+      "gdi_billion_usd_saar": 4652.468,
+      "corporate_profits_gdi_pct": 7.086712,
+      "corporate_profits_yoy_pct": -2.605117,
+      "gdi_yoy_pct": 4.794898
+    },
+    {
+      "period": "1987-Q2",
+      "corporate_profits_billion_usd_saar": 368.167,
+      "gdi_billion_usd_saar": 4759.392,
+      "corporate_profits_gdi_pct": 7.735589,
+      "corporate_profits_yoy_pct": 13.342487,
+      "gdi_yoy_pct": 6.503233
+    },
+    {
+      "period": "1987-Q3",
+      "corporate_profits_billion_usd_saar": 391.926,
+      "gdi_billion_usd_saar": 4865.151,
+      "corporate_profits_gdi_pct": 8.055783,
+      "corporate_profits_yoy_pct": 24.437149,
+      "gdi_yoy_pct": 7.749626
+    },
+    {
+      "period": "1987-Q4",
+      "corporate_profits_billion_usd_saar": 393.448,
+      "gdi_billion_usd_saar": 4969.432,
+      "corporate_profits_gdi_pct": 7.917364,
+      "corporate_profits_yoy_pct": 24.529353,
+      "gdi_yoy_pct": 8.608882
+    },
+    {
+      "period": "1988-Q1",
+      "corporate_profits_billion_usd_saar": 396.78,
+      "gdi_billion_usd_saar": 5068.209,
+      "corporate_profits_gdi_pct": 7.828801,
+      "corporate_profits_yoy_pct": 20.343214,
+      "gdi_yoy_pct": 8.935924
+    },
+    {
+      "period": "1988-Q2",
+      "corporate_profits_billion_usd_saar": 410.038,
+      "gdi_billion_usd_saar": 5176.433,
+      "corporate_profits_gdi_pct": 7.921246,
+      "corporate_profits_yoy_pct": 11.372828,
+      "gdi_yoy_pct": 8.762485
+    },
+    {
+      "period": "1988-Q3",
+      "corporate_profits_billion_usd_saar": 416.437,
+      "gdi_billion_usd_saar": 5285.539,
+      "corporate_profits_gdi_pct": 7.878799,
+      "corporate_profits_yoy_pct": 6.253987,
+      "gdi_yoy_pct": 8.640801
+    },
+    {
+      "period": "1988-Q4",
+      "corporate_profits_billion_usd_saar": 441.716,
+      "gdi_billion_usd_saar": 5404.274,
+      "corporate_profits_gdi_pct": 8.173457,
+      "corporate_profits_yoy_pct": 12.267949,
+      "gdi_yoy_pct": 8.750336
+    },
+    {
+      "period": "1989-Q1",
+      "corporate_profits_billion_usd_saar": 427.21,
+      "gdi_billion_usd_saar": 5493.904,
+      "corporate_profits_gdi_pct": 7.776073,
+      "corporate_profits_yoy_pct": 7.669237,
+      "gdi_yoy_pct": 8.399318
+    },
+    {
+      "period": "1989-Q2",
+      "corporate_profits_billion_usd_saar": 420.362,
+      "gdi_billion_usd_saar": 5542.536,
+      "corporate_profits_gdi_pct": 7.58429,
+      "corporate_profits_yoy_pct": 2.517815,
+      "gdi_yoy_pct": 7.072496
+    },
+    {
+      "period": "1989-Q3",
+      "corporate_profits_billion_usd_saar": 421.556,
+      "gdi_billion_usd_saar": 5606.205,
+      "corporate_profits_gdi_pct": 7.519454,
+      "corporate_profits_yoy_pct": 1.229238,
+      "gdi_yoy_pct": 6.066855
+    },
+    {
+      "period": "1989-Q4",
+      "corporate_profits_billion_usd_saar": 405.744,
+      "gdi_billion_usd_saar": 5652.361,
+      "corporate_profits_gdi_pct": 7.17831,
+      "corporate_profits_yoy_pct": -8.143694,
+      "gdi_yoy_pct": 4.59057
+    },
+    {
+      "period": "1990-Q1",
+      "corporate_profits_billion_usd_saar": 417.801,
+      "gdi_billion_usd_saar": 5767.833,
+      "corporate_profits_gdi_pct": 7.243639,
+      "corporate_profits_yoy_pct": -2.20243,
+      "gdi_yoy_pct": 4.986054
+    },
+    {
+      "period": "1990-Q2",
+      "corporate_profits_billion_usd_saar": 436.576,
+      "gdi_billion_usd_saar": 5864.899,
+      "corporate_profits_gdi_pct": 7.443879,
+      "corporate_profits_yoy_pct": 3.857152,
+      "gdi_yoy_pct": 5.816164
+    },
+    {
+      "period": "1990-Q3",
+      "corporate_profits_billion_usd_saar": 408.711,
+      "gdi_billion_usd_saar": 5910.988,
+      "corporate_profits_gdi_pct": 6.914428,
+      "corporate_profits_yoy_pct": -3.047045,
+      "gdi_yoy_pct": 5.43653
+    },
+    {
+      "period": "1990-Q4",
+      "corporate_profits_billion_usd_saar": 414.23,
+      "gdi_billion_usd_saar": 5927.434,
+      "corporate_profits_gdi_pct": 6.988353,
+      "corporate_profits_yoy_pct": 2.091467,
+      "gdi_yoy_pct": 4.866515
+    },
+    {
+      "period": "1991-Q1",
+      "corporate_profits_billion_usd_saar": 451.174,
+      "gdi_billion_usd_saar": 5973.071,
+      "corporate_profits_gdi_pct": 7.553468,
+      "corporate_profits_yoy_pct": 7.987774,
+      "gdi_yoy_pct": 3.558321
+    },
+    {
+      "period": "1991-Q2",
+      "corporate_profits_billion_usd_saar": 447.811,
+      "gdi_billion_usd_saar": 6034.491,
+      "corporate_profits_gdi_pct": 7.420858,
+      "corporate_profits_yoy_pct": 2.573435,
+      "gdi_yoy_pct": 2.891644
+    },
+    {
+      "period": "1991-Q3",
+      "corporate_profits_billion_usd_saar": 446.342,
+      "gdi_billion_usd_saar": 6098.185,
+      "corporate_profits_gdi_pct": 7.31926,
+      "corporate_profits_yoy_pct": 9.207239,
+      "gdi_yoy_pct": 3.166932
+    },
+    {
+      "period": "1991-Q4",
+      "corporate_profits_billion_usd_saar": 449.641,
+      "gdi_billion_usd_saar": 6155.919,
+      "corporate_profits_gdi_pct": 7.304206,
+      "corporate_profits_yoy_pct": 8.548632,
+      "gdi_yoy_pct": 3.854703
+    },
+    {
+      "period": "1992-Q1",
+      "corporate_profits_billion_usd_saar": 479.412,
+      "gdi_billion_usd_saar": 6284.7,
+      "corporate_profits_gdi_pct": 7.62824,
+      "corporate_profits_yoy_pct": 6.258783,
+      "gdi_yoy_pct": 5.217232
+    },
+    {
+      "period": "1992-Q2",
+      "corporate_profits_billion_usd_saar": 483.44,
+      "gdi_billion_usd_saar": 6375.336,
+      "corporate_profits_gdi_pct": 7.582973,
+      "corporate_profits_yoy_pct": 7.956258,
+      "gdi_yoy_pct": 5.648281
+    },
+    {
+      "period": "1992-Q3",
+      "corporate_profits_billion_usd_saar": 470.601,
+      "gdi_billion_usd_saar": 6427.0,
+      "corporate_profits_gdi_pct": 7.32225,
+      "corporate_profits_yoy_pct": 5.43507,
+      "gdi_yoy_pct": 5.392014
+    },
+    {
+      "period": "1992-Q4",
+      "corporate_profits_billion_usd_saar": 491.707,
+      "gdi_billion_usd_saar": 6532.228,
+      "corporate_profits_gdi_pct": 7.527401,
+      "corporate_profits_yoy_pct": 9.355464,
+      "gdi_yoy_pct": 6.112962
+    },
+    {
+      "period": "1993-Q1",
+      "corporate_profits_billion_usd_saar": 489.316,
+      "gdi_billion_usd_saar": 6546.005,
+      "corporate_profits_gdi_pct": 7.475032,
+      "corporate_profits_yoy_pct": 2.065864,
+      "gdi_yoy_pct": 4.157796
+    },
+    {
+      "period": "1993-Q2",
+      "corporate_profits_billion_usd_saar": 517.64,
+      "gdi_billion_usd_saar": 6664.264,
+      "corporate_profits_gdi_pct": 7.767399,
+      "corporate_profits_yoy_pct": 7.074301,
+      "gdi_yoy_pct": 4.531965
+    },
+    {
+      "period": "1993-Q3",
+      "corporate_profits_billion_usd_saar": 532.435,
+      "gdi_billion_usd_saar": 6717.134,
+      "corporate_profits_gdi_pct": 7.92652,
+      "corporate_profits_yoy_pct": 13.139369,
+      "gdi_yoy_pct": 4.514299
+    },
+    {
+      "period": "1993-Q4",
+      "corporate_profits_billion_usd_saar": 583.479,
+      "gdi_billion_usd_saar": 6885.13,
+      "corporate_profits_gdi_pct": 8.474481,
+      "corporate_profits_yoy_pct": 18.66396,
+      "gdi_yoy_pct": 5.402475
+    },
+    {
+      "period": "1994-Q1",
+      "corporate_profits_billion_usd_saar": 592.611,
+      "gdi_billion_usd_saar": 6956.227,
+      "corporate_profits_gdi_pct": 8.519144,
+      "corporate_profits_yoy_pct": 21.11008,
+      "gdi_yoy_pct": 6.266754
+    },
+    {
+      "period": "1994-Q2",
+      "corporate_profits_billion_usd_saar": 616.49,
+      "gdi_billion_usd_saar": 7098.217,
+      "corporate_profits_gdi_pct": 8.685139,
+      "corporate_profits_yoy_pct": 19.096283,
+      "gdi_yoy_pct": 6.511642
+    },
+    {
+      "period": "1994-Q3",
+      "corporate_profits_billion_usd_saar": 651.205,
+      "gdi_billion_usd_saar": 7205.842,
+      "corporate_profits_gdi_pct": 9.037181,
+      "corporate_profits_yoy_pct": 22.306948,
+      "gdi_yoy_pct": 7.275543
+    },
+    {
+      "period": "1994-Q4",
+      "corporate_profits_billion_usd_saar": 676.059,
+      "gdi_billion_usd_saar": 7331.661,
+      "corporate_profits_gdi_pct": 9.221089,
+      "corporate_profits_yoy_pct": 15.866895,
+      "gdi_yoy_pct": 6.48544
+    },
+    {
+      "period": "1995-Q1",
+      "corporate_profits_billion_usd_saar": 677.704,
+      "gdi_billion_usd_saar": 7401.941,
+      "corporate_profits_gdi_pct": 9.155761,
+      "corporate_profits_yoy_pct": 14.358998,
+      "gdi_yoy_pct": 6.40741
+    },
+    {
+      "period": "1995-Q2",
+      "corporate_profits_billion_usd_saar": 702.518,
+      "gdi_billion_usd_saar": 7480.96,
+      "corporate_profits_gdi_pct": 9.390747,
+      "corporate_profits_yoy_pct": 13.954484,
+      "gdi_yoy_pct": 5.392101
+    },
+    {
+      "period": "1995-Q3",
+      "corporate_profits_billion_usd_saar": 736.949,
+      "gdi_billion_usd_saar": 7610.482,
+      "corporate_profits_gdi_pct": 9.683342,
+      "corporate_profits_yoy_pct": 13.166975,
+      "gdi_yoy_pct": 5.615444
+    },
+    {
+      "period": "1995-Q4",
+      "corporate_profits_billion_usd_saar": 749.539,
+      "gdi_billion_usd_saar": 7696.985,
+      "corporate_profits_gdi_pct": 9.738086,
+      "corporate_profits_yoy_pct": 10.868874,
+      "gdi_yoy_pct": 4.982827
+    },
+    {
+      "period": "1996-Q1",
+      "corporate_profits_billion_usd_saar": 784.501,
+      "gdi_billion_usd_saar": 7820.26,
+      "corporate_profits_gdi_pct": 10.031649,
+      "corporate_profits_yoy_pct": 15.75865,
+      "gdi_yoy_pct": 5.651477
+    },
+    {
+      "period": "1996-Q2",
+      "corporate_profits_billion_usd_saar": 798.142,
+      "gdi_billion_usd_saar": 7967.235,
+      "corporate_profits_gdi_pct": 10.017804,
+      "corporate_profits_yoy_pct": 13.611609,
+      "gdi_yoy_pct": 6.500168
+    },
+    {
+      "period": "1996-Q3",
+      "corporate_profits_billion_usd_saar": 804.678,
+      "gdi_billion_usd_saar": 8066.765,
+      "corporate_profits_gdi_pct": 9.975226,
+      "corporate_profits_yoy_pct": 9.19046,
+      "gdi_yoy_pct": 5.995455
+    },
+    {
+      "period": "1996-Q4",
+      "corporate_profits_billion_usd_saar": 826.965,
+      "gdi_billion_usd_saar": 8210.113,
+      "corporate_profits_gdi_pct": 10.072517,
+      "corporate_profits_yoy_pct": 10.329816,
+      "gdi_yoy_pct": 6.66661
+    },
+    {
+      "period": "1997-Q1",
+      "corporate_profits_billion_usd_saar": 856.653,
+      "gdi_billion_usd_saar": 8349.95,
+      "corporate_profits_gdi_pct": 10.259379,
+      "corporate_profits_yoy_pct": 9.197184,
+      "gdi_yoy_pct": 6.773304
+    },
+    {
+      "period": "1997-Q2",
+      "corporate_profits_billion_usd_saar": 880.888,
+      "gdi_billion_usd_saar": 8474.827,
+      "corporate_profits_gdi_pct": 10.394171,
+      "corporate_profits_yoy_pct": 10.367328,
+      "gdi_yoy_pct": 6.370993
+    },
+    {
+      "period": "1997-Q3",
+      "corporate_profits_billion_usd_saar": 917.601,
+      "gdi_billion_usd_saar": 8648.935,
+      "corporate_profits_gdi_pct": 10.60941,
+      "corporate_profits_yoy_pct": 14.033315,
+      "gdi_yoy_pct": 7.216895
+    },
+    {
+      "period": "1997-Q4",
+      "corporate_profits_billion_usd_saar": 904.323,
+      "gdi_billion_usd_saar": 8795.494,
+      "corporate_profits_gdi_pct": 10.281662,
+      "corporate_profits_yoy_pct": 9.354447,
+      "gdi_yoy_pct": 7.129999
+    },
+    {
+      "period": "1998-Q1",
+      "corporate_profits_billion_usd_saar": 837.258,
+      "gdi_billion_usd_saar": 8894.375,
+      "corporate_profits_gdi_pct": 9.413343,
+      "corporate_profits_yoy_pct": -2.264044,
+      "gdi_yoy_pct": 6.520099
+    },
+    {
+      "period": "1998-Q2",
+      "corporate_profits_billion_usd_saar": 835.598,
+      "gdi_billion_usd_saar": 9046.494,
+      "corporate_profits_gdi_pct": 9.236705,
+      "corporate_profits_yoy_pct": -5.141403,
+      "gdi_yoy_pct": 6.745471
+    },
+    {
+      "period": "1998-Q3",
+      "corporate_profits_billion_usd_saar": 845.144,
+      "gdi_billion_usd_saar": 9210.815,
+      "corporate_profits_gdi_pct": 9.175562,
+      "corporate_profits_yoy_pct": -7.896351,
+      "gdi_yoy_pct": 6.496522
+    },
+    {
+      "period": "1998-Q4",
+      "corporate_profits_billion_usd_saar": 822.666,
+      "gdi_billion_usd_saar": 9325.159,
+      "corporate_profits_gdi_pct": 8.822005,
+      "corporate_profits_yoy_pct": -9.029628,
+      "gdi_yoy_pct": 6.022004
+    },
+    {
+      "period": "1999-Q1",
+      "corporate_profits_billion_usd_saar": 876.474,
+      "gdi_billion_usd_saar": 9486.042,
+      "corporate_profits_gdi_pct": 9.239618,
+      "corporate_profits_yoy_pct": 4.683861,
+      "gdi_yoy_pct": 6.652148
+    },
+    {
+      "period": "1999-Q2",
+      "corporate_profits_billion_usd_saar": 870.933,
+      "gdi_billion_usd_saar": 9567.858,
+      "corporate_profits_gdi_pct": 9.102696,
+      "corporate_profits_yoy_pct": 4.228708,
+      "gdi_yoy_pct": 5.763161
+    },
+    {
+      "period": "1999-Q3",
+      "corporate_profits_billion_usd_saar": 856.218,
+      "gdi_billion_usd_saar": 9695.871,
+      "corporate_profits_gdi_pct": 8.830749,
+      "corporate_profits_yoy_pct": 1.310309,
+      "gdi_yoy_pct": 5.266157
+    },
+    {
+      "period": "1999-Q4",
+      "corporate_profits_billion_usd_saar": 863.407,
+      "gdi_billion_usd_saar": 9892.178,
+      "corporate_profits_gdi_pct": 8.728179,
+      "corporate_profits_yoy_pct": 4.952314,
+      "gdi_yoy_pct": 6.080529
+    },
+    {
+      "period": "2000-Q1",
+      "corporate_profits_billion_usd_saar": 845.969,
+      "gdi_billion_usd_saar": 10156.063,
+      "corporate_profits_gdi_pct": 8.329694,
+      "corporate_profits_yoy_pct": -3.480423,
+      "gdi_yoy_pct": 7.06323
+    },
+    {
+      "period": "2000-Q2",
+      "corporate_profits_billion_usd_saar": 837.646,
+      "gdi_billion_usd_saar": 10287.356,
+      "corporate_profits_gdi_pct": 8.142481,
+      "corporate_profits_yoy_pct": -3.821993,
+      "gdi_yoy_pct": 7.519949
+    },
+    {
+      "period": "2000-Q3",
+      "corporate_profits_billion_usd_saar": 822.08,
+      "gdi_billion_usd_saar": 10442.351,
+      "corporate_profits_gdi_pct": 7.872557,
+      "corporate_profits_yoy_pct": -3.987069,
+      "gdi_yoy_pct": 7.698947
+    },
+    {
+      "period": "2000-Q4",
+      "corporate_profits_billion_usd_saar": 799.947,
+      "gdi_billion_usd_saar": 10501.081,
+      "corporate_profits_gdi_pct": 7.617759,
+      "corporate_profits_yoy_pct": -7.349952,
+      "gdi_yoy_pct": 6.155399
+    },
+    {
+      "period": "2001-Q1",
+      "corporate_profits_billion_usd_saar": 782.044,
+      "gdi_billion_usd_saar": 10679.421,
+      "corporate_profits_gdi_pct": 7.322906,
+      "corporate_profits_yoy_pct": -7.556423,
+      "gdi_yoy_pct": 5.153158
+    },
+    {
+      "period": "2001-Q2",
+      "corporate_profits_billion_usd_saar": 808.069,
+      "gdi_billion_usd_saar": 10732.106,
+      "corporate_profits_gdi_pct": 7.529454,
+      "corporate_profits_yoy_pct": -3.530967,
+      "gdi_yoy_pct": 4.323268
+    },
+    {
+      "period": "2001-Q3",
+      "corporate_profits_billion_usd_saar": 773.204,
+      "gdi_billion_usd_saar": 10718.673,
+      "corporate_profits_gdi_pct": 7.213617,
+      "corporate_profits_yoy_pct": -5.945407,
+      "gdi_yoy_pct": 2.646167
+    },
+    {
+      "period": "2001-Q4",
+      "corporate_profits_billion_usd_saar": 785.445,
+      "gdi_billion_usd_saar": 10664.415,
+      "corporate_profits_gdi_pct": 7.365102,
+      "corporate_profits_yoy_pct": -1.81287,
+      "gdi_yoy_pct": 1.555402
+    },
+    {
+      "period": "2002-Q1",
+      "corporate_profits_billion_usd_saar": 870.086,
+      "gdi_billion_usd_saar": 10826.772,
+      "corporate_profits_gdi_pct": 8.03643,
+      "corporate_profits_yoy_pct": 11.257934,
+      "gdi_yoy_pct": 1.379766
+    },
+    {
+      "period": "2002-Q2",
+      "corporate_profits_billion_usd_saar": 901.521,
+      "gdi_billion_usd_saar": 10967.337,
+      "corporate_profits_gdi_pct": 8.220054,
+      "corporate_profits_yoy_pct": 11.564854,
+      "gdi_yoy_pct": 2.191844
+    },
+    {
+      "period": "2002-Q3",
+      "corporate_profits_billion_usd_saar": 933.964,
+      "gdi_billion_usd_saar": 11051.742,
+      "corporate_profits_gdi_pct": 8.450831,
+      "corporate_profits_yoy_pct": 20.791408,
+      "gdi_yoy_pct": 3.107372
+    },
+    {
+      "period": "2002-Q4",
+      "corporate_profits_billion_usd_saar": 1015.892,
+      "gdi_billion_usd_saar": 11197.272,
+      "corporate_profits_gdi_pct": 9.072674,
+      "corporate_profits_yoy_pct": 29.339674,
+      "gdi_yoy_pct": 4.996589
+    },
+    {
+      "period": "2003-Q1",
+      "corporate_profits_billion_usd_saar": 1007.215,
+      "gdi_billion_usd_saar": 11245.795,
+      "corporate_profits_gdi_pct": 8.95637,
+      "corporate_profits_yoy_pct": 15.760396,
+      "gdi_yoy_pct": 3.870249
+    },
+    {
+      "period": "2003-Q2",
+      "corporate_profits_billion_usd_saar": 1044.048,
+      "gdi_billion_usd_saar": 11377.023,
+      "corporate_profits_gdi_pct": 9.176812,
+      "corporate_profits_yoy_pct": 15.809615,
+      "gdi_yoy_pct": 3.73551
+    },
+    {
+      "period": "2003-Q3",
+      "corporate_profits_billion_usd_saar": 1097.616,
+      "gdi_billion_usd_saar": 11565.399,
+      "corporate_profits_gdi_pct": 9.490516,
+      "corporate_profits_yoy_pct": 17.522303,
+      "gdi_yoy_pct": 4.647747
+    },
+    {
+      "period": "2003-Q4",
+      "corporate_profits_billion_usd_saar": 1159.393,
+      "gdi_billion_usd_saar": 11734.357,
+      "corporate_profits_gdi_pct": 9.880328,
+      "corporate_profits_yoy_pct": 14.125616,
+      "gdi_yoy_pct": 4.79657
+    },
+    {
+      "period": "2004-Q1",
+      "corporate_profits_billion_usd_saar": 1268.591,
+      "gdi_billion_usd_saar": 11916.004,
+      "corporate_profits_gdi_pct": 10.646111,
+      "corporate_profits_yoy_pct": 25.950368,
+      "gdi_yoy_pct": 5.959641
+    },
+    {
+      "period": "2004-Q2",
+      "corporate_profits_billion_usd_saar": 1301.225,
+      "gdi_billion_usd_saar": 12148.492,
+      "corporate_profits_gdi_pct": 10.711,
+      "corporate_profits_yoy_pct": 24.63268,
+      "gdi_yoy_pct": 6.780939
+    },
+    {
+      "period": "2004-Q3",
+      "corporate_profits_billion_usd_saar": 1364.114,
+      "gdi_billion_usd_saar": 12376.076,
+      "corporate_profits_gdi_pct": 11.022185,
+      "corporate_profits_yoy_pct": 24.279712,
+      "gdi_yoy_pct": 7.009503
+    },
+    {
+      "period": "2004-Q4",
+      "corporate_profits_billion_usd_saar": 1348.245,
+      "gdi_billion_usd_saar": 12540.611,
+      "corporate_profits_gdi_pct": 10.751031,
+      "corporate_profits_yoy_pct": 16.288868,
+      "gdi_yoy_pct": 6.870884
+    },
+    {
+      "period": "2005-Q1",
+      "corporate_profits_billion_usd_saar": 1480.16,
+      "gdi_billion_usd_saar": 12750.057,
+      "corporate_profits_gdi_pct": 11.609046,
+      "corporate_profits_yoy_pct": 16.677479,
+      "gdi_yoy_pct": 6.999435
+    },
+    {
+      "period": "2005-Q2",
+      "corporate_profits_billion_usd_saar": 1497.015,
+      "gdi_billion_usd_saar": 12964.763,
+      "corporate_profits_gdi_pct": 11.546798,
+      "corporate_profits_yoy_pct": 15.046591,
+      "gdi_yoy_pct": 6.719114
+    },
+    {
+      "period": "2005-Q3",
+      "corporate_profits_billion_usd_saar": 1525.82,
+      "gdi_billion_usd_saar": 13180.576,
+      "corporate_profits_gdi_pct": 11.576277,
+      "corporate_profits_yoy_pct": 11.854288,
+      "gdi_yoy_pct": 6.500445
+    },
+    {
+      "period": "2005-Q4",
+      "corporate_profits_billion_usd_saar": 1617.181,
+      "gdi_billion_usd_saar": 13489.392,
+      "corporate_profits_gdi_pct": 11.988539,
+      "corporate_profits_yoy_pct": 19.947116,
+      "gdi_yoy_pct": 7.565668
+    },
+    {
+      "period": "2006-Q1",
+      "corporate_profits_billion_usd_saar": 1675.823,
+      "gdi_billion_usd_saar": 13795.893,
+      "corporate_profits_gdi_pct": 12.14726,
+      "corporate_profits_yoy_pct": 13.219044,
+      "gdi_yoy_pct": 8.202599
+    },
+    {
+      "period": "2006-Q2",
+      "corporate_profits_billion_usd_saar": 1691.228,
+      "gdi_billion_usd_saar": 13973.084,
+      "corporate_profits_gdi_pct": 12.10347,
+      "corporate_profits_yoy_pct": 12.97335,
+      "gdi_yoy_pct": 7.777396
+    },
+    {
+      "period": "2006-Q3",
+      "corporate_profits_billion_usd_saar": 1739.368,
+      "gdi_billion_usd_saar": 14125.037,
+      "corporate_profits_gdi_pct": 12.314077,
+      "corporate_profits_yoy_pct": 13.995622,
+      "gdi_yoy_pct": 7.165552
+    },
+    {
+      "period": "2006-Q4",
+      "corporate_profits_billion_usd_saar": 1677.999,
+      "gdi_billion_usd_saar": 14207.487,
+      "corporate_profits_gdi_pct": 11.810667,
+      "corporate_profits_yoy_pct": 3.760742,
+      "gdi_yoy_pct": 5.323405
+    },
+    {
+      "period": "2007-Q1",
+      "corporate_profits_billion_usd_saar": 1587.388,
+      "gdi_billion_usd_saar": 14341.982,
+      "corporate_profits_gdi_pct": 11.068122,
+      "corporate_profits_yoy_pct": -5.277109,
+      "gdi_yoy_pct": 3.958345
+    },
+    {
+      "period": "2007-Q2",
+      "corporate_profits_billion_usd_saar": 1655.229,
+      "gdi_billion_usd_saar": 14511.372,
+      "corporate_profits_gdi_pct": 11.406427,
+      "corporate_profits_yoy_pct": -2.128572,
+      "gdi_yoy_pct": 3.852321
+    },
+    {
+      "period": "2007-Q3",
+      "corporate_profits_billion_usd_saar": 1589.733,
+      "gdi_billion_usd_saar": 14465.128,
+      "corporate_profits_gdi_pct": 10.990107,
+      "corporate_profits_yoy_pct": -8.602837,
+      "gdi_yoy_pct": 2.407718
+    },
+    {
+      "period": "2007-Q4",
+      "corporate_profits_billion_usd_saar": 1550.866,
+      "gdi_billion_usd_saar": 14529.241,
+      "corporate_profits_gdi_pct": 10.674102,
+      "corporate_profits_yoy_pct": -7.576465,
+      "gdi_yoy_pct": 2.264679
+    },
+    {
+      "period": "2008-Q1",
+      "corporate_profits_billion_usd_saar": 1454.232,
+      "gdi_billion_usd_saar": 14574.086,
+      "corporate_profits_gdi_pct": 9.978204,
+      "corporate_profits_yoy_pct": -8.388371,
+      "gdi_yoy_pct": 1.618354
+    },
+    {
+      "period": "2008-Q2",
+      "corporate_profits_billion_usd_saar": 1428.07,
+      "gdi_billion_usd_saar": 14617.898,
+      "corporate_profits_gdi_pct": 9.769325,
+      "corporate_profits_yoy_pct": -13.72372,
+      "gdi_yoy_pct": 0.734086
+    },
+    {
+      "period": "2008-Q3",
+      "corporate_profits_billion_usd_saar": 1431.252,
+      "gdi_billion_usd_saar": 14711.004,
+      "corporate_profits_gdi_pct": 9.729125,
+      "corporate_profits_yoy_pct": -9.969033,
+      "gdi_yoy_pct": 1.699784
+    },
+    {
+      "period": "2008-Q4",
+      "corporate_profits_billion_usd_saar": 1068.927,
+      "gdi_billion_usd_saar": 14411.662,
+      "corporate_profits_gdi_pct": 7.417097,
+      "corporate_profits_yoy_pct": -31.075477,
+      "gdi_yoy_pct": -0.809258
+    },
+    {
+      "period": "2009-Q1",
+      "corporate_profits_billion_usd_saar": 1297.511,
+      "gdi_billion_usd_saar": 14162.551,
+      "corporate_profits_gdi_pct": 9.161563,
+      "corporate_profits_yoy_pct": -10.776891,
+      "gdi_yoy_pct": -2.823745
+    },
+    {
+      "period": "2009-Q2",
+      "corporate_profits_billion_usd_saar": 1321.896,
+      "gdi_billion_usd_saar": 14188.354,
+      "corporate_profits_gdi_pct": 9.316768,
+      "corporate_profits_yoy_pct": -7.43479,
+      "gdi_yoy_pct": -2.93848
+    },
+    {
+      "period": "2009-Q3",
+      "corporate_profits_billion_usd_saar": 1492.548,
+      "gdi_billion_usd_saar": 14263.641,
+      "corporate_profits_gdi_pct": 10.464004,
+      "corporate_profits_yoy_pct": 4.282684,
+      "gdi_yoy_pct": -3.041009
+    },
+    {
+      "period": "2009-Q4",
+      "corporate_profits_billion_usd_saar": 1590.652,
+      "gdi_billion_usd_saar": 14530.841,
+      "corporate_profits_gdi_pct": 10.94673,
+      "corporate_profits_yoy_pct": 48.808291,
+      "gdi_yoy_pct": 0.826962
+    },
+    {
+      "period": "2010-Q1",
+      "corporate_profits_billion_usd_saar": 1684.635,
+      "gdi_billion_usd_saar": 14652.508,
+      "corporate_profits_gdi_pct": 11.497247,
+      "corporate_profits_yoy_pct": 29.835893,
+      "gdi_yoy_pct": 3.459525
+    },
+    {
+      "period": "2010-Q2",
+      "corporate_profits_billion_usd_saar": 1685.234,
+      "gdi_billion_usd_saar": 14865.717,
+      "corporate_profits_gdi_pct": 11.336379,
+      "corporate_profits_yoy_pct": 27.486126,
+      "gdi_yoy_pct": 4.774077
+    },
+    {
+      "period": "2010-Q3",
+      "corporate_profits_billion_usd_saar": 1850.316,
+      "gdi_billion_usd_saar": 15136.173,
+      "corporate_profits_gdi_pct": 12.224464,
+      "corporate_profits_yoy_pct": 23.970284,
+      "gdi_yoy_pct": 6.117176
+    },
+    {
+      "period": "2010-Q4",
+      "corporate_profits_billion_usd_saar": 1877.713,
+      "gdi_billion_usd_saar": 15263.709,
+      "corporate_profits_gdi_pct": 12.301813,
+      "corporate_profits_yoy_pct": 18.046751,
+      "gdi_yoy_pct": 5.043535
+    },
+    {
+      "period": "2011-Q1",
+      "corporate_profits_billion_usd_saar": 1720.152,
+      "gdi_billion_usd_saar": 15358.947,
+      "corporate_profits_gdi_pct": 11.199674,
+      "corporate_profits_yoy_pct": 2.108291,
+      "gdi_yoy_pct": 4.821284
+    },
+    {
+      "period": "2011-Q2",
+      "corporate_profits_billion_usd_saar": 1842.839,
+      "gdi_billion_usd_saar": 15573.082,
+      "corporate_profits_gdi_pct": 11.833489,
+      "corporate_profits_yoy_pct": 9.352114,
+      "gdi_yoy_pct": 4.758364
+    },
+    {
+      "period": "2011-Q3",
+      "corporate_profits_billion_usd_saar": 1872.252,
+      "gdi_billion_usd_saar": 15700.283,
+      "corporate_profits_gdi_pct": 11.924957,
+      "corporate_profits_yoy_pct": 1.185527,
+      "gdi_yoy_pct": 3.7269
+    },
+    {
+      "period": "2011-Q4",
+      "corporate_profits_billion_usd_saar": 2014.468,
+      "gdi_billion_usd_saar": 15863.772,
+      "corporate_profits_gdi_pct": 12.698544,
+      "corporate_profits_yoy_pct": 7.283062,
+      "gdi_yoy_pct": 3.931305
+    },
+    {
+      "period": "2012-Q1",
+      "corporate_profits_billion_usd_saar": 2078.584,
+      "gdi_billion_usd_saar": 16274.824,
+      "corporate_profits_gdi_pct": 12.771776,
+      "corporate_profits_yoy_pct": 20.837228,
+      "gdi_yoy_pct": 5.96315
+    },
+    {
+      "period": "2012-Q2",
+      "corporate_profits_billion_usd_saar": 2063.652,
+      "gdi_billion_usd_saar": 16379.664,
+      "corporate_profits_gdi_pct": 12.598866,
+      "corporate_profits_yoy_pct": 11.982219,
+      "gdi_yoy_pct": 5.179334
+    },
+    {
+      "period": "2012-Q3",
+      "corporate_profits_billion_usd_saar": 2047.024,
+      "gdi_billion_usd_saar": 16329.29,
+      "corporate_profits_gdi_pct": 12.535903,
+      "corporate_profits_yoy_pct": 9.334854,
+      "gdi_yoy_pct": 4.006342
+    },
+    {
+      "period": "2012-Q4",
+      "corporate_profits_billion_usd_saar": 2041.673,
+      "gdi_billion_usd_saar": 16646.696,
+      "corporate_profits_gdi_pct": 12.264734,
+      "corporate_profits_yoy_pct": 1.350481,
+      "gdi_yoy_pct": 4.935295
+    },
+    {
+      "period": "2013-Q1",
+      "corporate_profits_billion_usd_saar": 2060.178,
+      "gdi_billion_usd_saar": 16711.465,
+      "corporate_profits_gdi_pct": 12.327932,
+      "corporate_profits_yoy_pct": -0.885507,
+      "gdi_yoy_pct": 2.682923
+    },
+    {
+      "period": "2013-Q2",
+      "corporate_profits_billion_usd_saar": 2060.487,
+      "gdi_billion_usd_saar": 16848.772,
+      "corporate_profits_gdi_pct": 12.229301,
+      "corporate_profits_yoy_pct": -0.153369,
+      "gdi_yoy_pct": 2.863966
+    },
+    {
+      "period": "2013-Q3",
+      "corporate_profits_billion_usd_saar": 2084.76,
+      "gdi_billion_usd_saar": 16946.988,
+      "corporate_profits_gdi_pct": 12.301655,
+      "corporate_profits_yoy_pct": 1.843457,
+      "gdi_yoy_pct": 3.782761
+    },
+    {
+      "period": "2013-Q4",
+      "corporate_profits_billion_usd_saar": 2119.135,
+      "gdi_billion_usd_saar": 17134.661,
+      "corporate_profits_gdi_pct": 12.367534,
+      "corporate_profits_yoy_pct": 3.794045,
+      "gdi_yoy_pct": 2.931302
+    },
+    {
+      "period": "2014-Q1",
+      "corporate_profits_billion_usd_saar": 2056.218,
+      "gdi_billion_usd_saar": 17313.351,
+      "corporate_profits_gdi_pct": 11.876488,
+      "corporate_profits_yoy_pct": -0.192216,
+      "gdi_yoy_pct": 3.601635
+    },
+    {
+      "period": "2014-Q2",
+      "corporate_profits_billion_usd_saar": 2226.807,
+      "gdi_billion_usd_saar": 17652.741,
+      "corporate_profits_gdi_pct": 12.614511,
+      "corporate_profits_yoy_pct": 8.071878,
+      "gdi_yoy_pct": 4.771677
+    },
+    {
+      "period": "2014-Q3",
+      "corporate_profits_billion_usd_saar": 2286.538,
+      "gdi_billion_usd_saar": 17928.908,
+      "corporate_profits_gdi_pct": 12.753359,
+      "corporate_profits_yoy_pct": 9.678716,
+      "gdi_yoy_pct": 5.794068
+    },
+    {
+      "period": "2014-Q4",
+      "corporate_profits_billion_usd_saar": 2281.771,
+      "gdi_billion_usd_saar": 18101.313,
+      "corporate_profits_gdi_pct": 12.605555,
+      "corporate_profits_yoy_pct": 7.674641,
+      "gdi_yoy_pct": 5.641501
+    },
+    {
+      "period": "2015-Q1",
+      "corporate_profits_billion_usd_saar": 2240.371,
+      "gdi_billion_usd_saar": 18212.948,
+      "corporate_profits_gdi_pct": 12.30098,
+      "corporate_profits_yoy_pct": 8.955908,
+      "gdi_yoy_pct": 5.195973
+    },
+    {
+      "period": "2015-Q2",
+      "corporate_profits_billion_usd_saar": 2219.018,
+      "gdi_billion_usd_saar": 18381.066,
+      "corporate_profits_gdi_pct": 12.072303,
+      "corporate_profits_yoy_pct": -0.349783,
+      "gdi_yoy_pct": 4.125847
+    },
+    {
+      "period": "2015-Q3",
+      "corporate_profits_billion_usd_saar": 2171.67,
+      "gdi_billion_usd_saar": 18460.774,
+      "corporate_profits_gdi_pct": 11.7637,
+      "corporate_profits_yoy_pct": -5.023665,
+      "gdi_yoy_pct": 2.966528
+    },
+    {
+      "period": "2015-Q4",
+      "corporate_profits_billion_usd_saar": 2061.454,
+      "gdi_billion_usd_saar": 18497.179,
+      "corporate_profits_gdi_pct": 11.144694,
+      "corporate_profits_yoy_pct": -9.655526,
+      "gdi_yoy_pct": 2.186946
+    },
+    {
+      "period": "2016-Q1",
+      "corporate_profits_billion_usd_saar": 2152.042,
+      "gdi_billion_usd_saar": 18592.063,
+      "corporate_profits_gdi_pct": 11.575058,
+      "corporate_profits_yoy_pct": -3.942606,
+      "gdi_yoy_pct": 2.081569
+    },
+    {
+      "period": "2016-Q2",
+      "corporate_profits_billion_usd_saar": 2111.552,
+      "gdi_billion_usd_saar": 18630.413,
+      "corporate_profits_gdi_pct": 11.333898,
+      "corporate_profits_yoy_pct": -4.842953,
+      "gdi_yoy_pct": 1.356543
+    },
+    {
+      "period": "2016-Q3",
+      "corporate_profits_billion_usd_saar": 2141.288,
+      "gdi_billion_usd_saar": 18800.88,
+      "corporate_profits_gdi_pct": 11.389297,
+      "corporate_profits_yoy_pct": -1.399016,
+      "gdi_yoy_pct": 1.842317
+    },
+    {
+      "period": "2016-Q4",
+      "corporate_profits_billion_usd_saar": 2172.364,
+      "gdi_billion_usd_saar": 18984.656,
+      "corporate_profits_gdi_pct": 11.442736,
+      "corporate_profits_yoy_pct": 5.380183,
+      "gdi_yoy_pct": 2.635413
+    },
+    {
+      "period": "2017-Q1",
+      "corporate_profits_billion_usd_saar": 2190.228,
+      "gdi_billion_usd_saar": 19237.015,
+      "corporate_profits_gdi_pct": 11.385488,
+      "corporate_profits_yoy_pct": 1.774408,
+      "gdi_yoy_pct": 3.468964
+    },
+    {
+      "period": "2017-Q2",
+      "corporate_profits_billion_usd_saar": 2188.025,
+      "gdi_billion_usd_saar": 19405.93,
+      "corporate_profits_gdi_pct": 11.275033,
+      "corporate_profits_yoy_pct": 3.621649,
+      "gdi_yoy_pct": 4.16264
+    },
+    {
+      "period": "2017-Q3",
+      "corporate_profits_billion_usd_saar": 2236.674,
+      "gdi_billion_usd_saar": 19601.627,
+      "corporate_profits_gdi_pct": 11.410655,
+      "corporate_profits_yoy_pct": 4.454609,
+      "gdi_yoy_pct": 4.259093
+    },
+    {
+      "period": "2017-Q4",
+      "corporate_profits_billion_usd_saar": 2286.037,
+      "gdi_billion_usd_saar": 19932.229,
+      "corporate_profits_gdi_pct": 11.469048,
+      "corporate_profits_yoy_pct": 5.232687,
+      "gdi_yoy_pct": 4.991257
+    },
+    {
+      "period": "2018-Q1",
+      "corporate_profits_billion_usd_saar": 2310.84,
+      "gdi_billion_usd_saar": 20204.957,
+      "corporate_profits_gdi_pct": 11.436995,
+      "corporate_profits_yoy_pct": 5.506824,
+      "gdi_yoy_pct": 5.031664
+    },
+    {
+      "period": "2018-Q2",
+      "corporate_profits_billion_usd_saar": 2372.926,
+      "gdi_billion_usd_saar": 20470.2,
+      "corporate_profits_gdi_pct": 11.5921,
+      "corporate_profits_yoy_pct": 8.450589,
+      "gdi_yoy_pct": 5.484251
+    },
+    {
+      "period": "2018-Q3",
+      "corporate_profits_billion_usd_saar": 2371.399,
+      "gdi_billion_usd_saar": 20760.836,
+      "corporate_profits_gdi_pct": 11.422464,
+      "corporate_profits_yoy_pct": 6.023453,
+      "gdi_yoy_pct": 5.913841
+    },
+    {
+      "period": "2018-Q4",
+      "corporate_profits_billion_usd_saar": 2405.504,
+      "gdi_billion_usd_saar": 20936.314,
+      "corporate_profits_gdi_pct": 11.489625,
+      "corporate_profits_yoy_pct": 5.225943,
+      "gdi_yoy_pct": 5.037495
+    },
+    {
+      "period": "2019-Q1",
+      "corporate_profits_billion_usd_saar": 2416.436,
+      "gdi_billion_usd_saar": 21211.258,
+      "corporate_profits_gdi_pct": 11.392233,
+      "corporate_profits_yoy_pct": 4.569594,
+      "gdi_yoy_pct": 4.980466
+    },
+    {
+      "period": "2019-Q2",
+      "corporate_profits_billion_usd_saar": 2456.629,
+      "gdi_billion_usd_saar": 21369.395,
+      "corporate_profits_gdi_pct": 11.496016,
+      "corporate_profits_yoy_pct": 3.527417,
+      "gdi_yoy_pct": 4.392703
+    },
+    {
+      "period": "2019-Q3",
+      "corporate_profits_billion_usd_saar": 2499.116,
+      "gdi_billion_usd_saar": 21557.692,
+      "corporate_profits_gdi_pct": 11.592688,
+      "corporate_profits_yoy_pct": 5.385724,
+      "gdi_yoy_pct": 3.838265
+    },
+    {
+      "period": "2019-Q4",
+      "corporate_profits_billion_usd_saar": 2513.104,
+      "gdi_billion_usd_saar": 21793.424,
+      "corporate_profits_gdi_pct": 11.531478,
+      "corporate_profits_yoy_pct": 4.473075,
+      "gdi_yoy_pct": 4.093892
+    },
+    {
+      "period": "2020-Q1",
+      "corporate_profits_billion_usd_saar": 2252.456,
+      "gdi_billion_usd_saar": 21753.36,
+      "corporate_profits_gdi_pct": 10.35452,
+      "corporate_profits_yoy_pct": -6.786027,
+      "gdi_yoy_pct": 2.555728
+    },
+    {
+      "period": "2020-Q2",
+      "corporate_profits_billion_usd_saar": 2087.3,
+      "gdi_billion_usd_saar": 19785.283,
+      "corporate_profits_gdi_pct": 10.549761,
+      "corporate_profits_yoy_pct": -15.033975,
+      "gdi_yoy_pct": -7.412994
+    },
+    {
+      "period": "2020-Q3",
+      "corporate_profits_billion_usd_saar": 2765.854,
+      "gdi_billion_usd_saar": 21278.878,
+      "corporate_profits_gdi_pct": 12.99812,
+      "corporate_profits_yoy_pct": 10.673294,
+      "gdi_yoy_pct": -1.293339
+    },
+    {
+      "period": "2020-Q4",
+      "corporate_profits_billion_usd_saar": 2540.471,
+      "gdi_billion_usd_saar": 22201.274,
+      "corporate_profits_gdi_pct": 11.442906,
+      "corporate_profits_yoy_pct": 1.088972,
+      "gdi_yoy_pct": 1.871436
+    },
+    {
+      "period": "2021-Q1",
+      "corporate_profits_billion_usd_saar": 2840.375,
+      "gdi_billion_usd_saar": 22666.12,
+      "corporate_profits_gdi_pct": 12.531368,
+      "corporate_profits_yoy_pct": 26.101242,
+      "gdi_yoy_pct": 4.195949
+    },
+    {
+      "period": "2021-Q2",
+      "corporate_profits_billion_usd_saar": 3136.193,
+      "gdi_billion_usd_saar": 23341.793,
+      "corporate_profits_gdi_pct": 13.435956,
+      "corporate_profits_yoy_pct": 50.251186,
+      "gdi_yoy_pct": 17.975533
+    },
+    {
+      "period": "2021-Q3",
+      "corporate_profits_billion_usd_saar": 3165.099,
+      "gdi_billion_usd_saar": 23960.834,
+      "corporate_profits_gdi_pct": 13.209469,
+      "corporate_profits_yoy_pct": 14.434782,
+      "gdi_yoy_pct": 12.603841
+    },
+    {
+      "period": "2021-Q4",
+      "corporate_profits_billion_usd_saar": 3250.366,
+      "gdi_billion_usd_saar": 24782.51,
+      "corporate_profits_gdi_pct": 13.115564,
+      "corporate_profits_yoy_pct": 27.94344,
+      "gdi_yoy_pct": 11.626522
+    },
+    {
+      "period": "2022-Q1",
+      "corporate_profits_billion_usd_saar": 3172.463,
+      "gdi_billion_usd_saar": 25355.538,
+      "corporate_profits_gdi_pct": 12.511914,
+      "corporate_profits_yoy_pct": 11.691696,
+      "gdi_yoy_pct": 11.865366
+    },
+    {
+      "period": "2022-Q2",
+      "corporate_profits_billion_usd_saar": 3380.648,
+      "gdi_billion_usd_saar": 25911.036,
+      "corporate_profits_gdi_pct": 13.047136,
+      "corporate_profits_yoy_pct": 7.794641,
+      "gdi_yoy_pct": 11.007051
+    },
+    {
+      "period": "2022-Q3",
+      "corporate_profits_billion_usd_saar": 3477.058,
+      "gdi_billion_usd_saar": 26428.685,
+      "corporate_profits_gdi_pct": 13.156379,
+      "corporate_profits_yoy_pct": 9.856216,
+      "gdi_yoy_pct": 10.29952
+    },
+    {
+      "period": "2022-Q4",
+      "corporate_profits_billion_usd_saar": 3420.234,
+      "gdi_billion_usd_saar": 26524.802,
+      "corporate_profits_gdi_pct": 12.894475,
+      "corporate_profits_yoy_pct": 5.226119,
+      "gdi_yoy_pct": 7.030329
+    },
+    {
+      "period": "2023-Q1",
+      "corporate_profits_billion_usd_saar": 3524.291,
+      "gdi_billion_usd_saar": 26980.543,
+      "corporate_profits_gdi_pct": 13.062343,
+      "corporate_profits_yoy_pct": 11.090058,
+      "gdi_yoy_pct": 6.408876
+    },
+    {
+      "period": "2023-Q2",
+      "corporate_profits_billion_usd_saar": 3532.548,
+      "gdi_billion_usd_saar": 27229.058,
+      "corporate_profits_gdi_pct": 12.973449,
+      "corporate_profits_yoy_pct": 4.493221,
+      "gdi_yoy_pct": 5.086721
+    },
+    {
+      "period": "2023-Q3",
+      "corporate_profits_billion_usd_saar": 3648.807,
+      "gdi_billion_usd_saar": 27615.625,
+      "corporate_profits_gdi_pct": 13.212835,
+      "corporate_profits_yoy_pct": 4.939492,
+      "gdi_yoy_pct": 4.491105
+    },
+    {
+      "period": "2023-Q4",
+      "corporate_profits_billion_usd_saar": 3763.658,
+      "gdi_billion_usd_saar": 28117.423,
+      "corporate_profits_gdi_pct": 13.385501,
+      "corporate_profits_yoy_pct": 10.04095,
+      "gdi_yoy_pct": 6.004271
+    },
+    {
+      "period": "2024-Q1",
+      "corporate_profits_billion_usd_saar": 3687.52,
+      "gdi_billion_usd_saar": 28468.437,
+      "corporate_profits_gdi_pct": 12.953012,
+      "corporate_profits_yoy_pct": 4.631541,
+      "gdi_yoy_pct": 5.514693
+    },
+    {
+      "period": "2024-Q2",
+      "corporate_profits_billion_usd_saar": 3793.125,
+      "gdi_billion_usd_saar": 28861.12,
+      "corporate_profits_gdi_pct": 13.142681,
+      "corporate_profits_yoy_pct": 7.37646,
+      "gdi_yoy_pct": 5.993825
+    },
+    {
+      "period": "2024-Q3",
+      "corporate_profits_billion_usd_saar": 3755.734,
+      "gdi_billion_usd_saar": 29117.284,
+      "corporate_profits_gdi_pct": 12.898641,
+      "corporate_profits_yoy_pct": 2.930465,
+      "gdi_yoy_pct": 5.437715
+    },
+    {
+      "period": "2024-Q4",
+      "corporate_profits_billion_usd_saar": 3970.626,
+      "gdi_billion_usd_saar": 29560.027,
+      "corporate_profits_gdi_pct": 13.432417,
+      "corporate_profits_yoy_pct": 5.499118,
+      "gdi_yoy_pct": 5.130641
+    },
+    {
+      "period": "2025-Q1",
+      "corporate_profits_billion_usd_saar": 3922.871,
+      "gdi_billion_usd_saar": 29895.65,
+      "corporate_profits_gdi_pct": 13.121879,
+      "corporate_profits_yoy_pct": 6.382365,
+      "gdi_yoy_pct": 5.013317
+    },
+    {
+      "period": "2025-Q2",
+      "corporate_profits_billion_usd_saar": 3929.661,
+      "gdi_billion_usd_saar": 30244.878,
+      "corporate_profits_gdi_pct": 12.992815,
+      "corporate_profits_yoy_pct": 3.599565,
+      "gdi_yoy_pct": 4.79454
+    },
+    {
+      "period": "2025-Q3",
+      "corporate_profits_billion_usd_saar": 4105.221,
+      "gdi_billion_usd_saar": 30789.434,
+      "corporate_profits_gdi_pct": 13.333214,
+      "corporate_profits_yoy_pct": 9.305425,
+      "gdi_yoy_pct": 5.742809
+    },
+    {
+      "period": "2025-Q4",
+      "corporate_profits_billion_usd_saar": 4352.096,
+      "gdi_billion_usd_saar": 31199.94,
+      "corporate_profits_gdi_pct": 13.949052,
+      "corporate_profits_yoy_pct": 9.607301,
+      "gdi_yoy_pct": 5.547739
+    },
+    {
+      "period": "2026-Q1",
+      "corporate_profits_billion_usd_saar": 4426.485,
+      "gdi_billion_usd_saar": 31574.222,
+      "corporate_profits_gdi_pct": 14.0193,
+      "corporate_profits_yoy_pct": 12.837893,
+      "gdi_yoy_pct": 5.61477
+    }
+  ],
+  "productivity_distribution": {
+    "nonfarm_business": [
+      {
+        "period": "2023-Q1",
+        "labor_productivity_yoy_pct": 0.1,
+        "labor_productivity_qoq_annualized_pct": 0.9,
+        "hourly_compensation_yoy_pct": 2.8,
+        "hourly_compensation_qoq_annualized_pct": 3.2,
+        "unit_labor_costs_yoy_pct": 2.7,
+        "unit_labor_costs_qoq_annualized_pct": 2.2,
+        "value_added_output_price_yoy_pct": 5.5,
+        "value_added_output_price_qoq_annualized_pct": 3.7,
+        "labor_share_yoy_log_approx_pct": -2.8,
+        "labor_share_yoy_from_rounded_rates_pct": -2.654028
+      },
+      {
+        "period": "2023-Q2",
+        "labor_productivity_yoy_pct": 1.9,
+        "labor_productivity_qoq_annualized_pct": 4.1,
+        "hourly_compensation_yoy_pct": 4.4,
+        "hourly_compensation_qoq_annualized_pct": 6.5,
+        "unit_labor_costs_yoy_pct": 2.4,
+        "unit_labor_costs_qoq_annualized_pct": 2.4,
+        "value_added_output_price_yoy_pct": 3.3,
+        "value_added_output_price_qoq_annualized_pct": 1.7,
+        "labor_share_yoy_log_approx_pct": -0.9,
+        "labor_share_yoy_from_rounded_rates_pct": -0.871249
+      },
+      {
+        "period": "2023-Q3",
+        "labor_productivity_yoy_pct": 3.1,
+        "labor_productivity_qoq_annualized_pct": 5.1,
+        "hourly_compensation_yoy_pct": 4.1,
+        "hourly_compensation_qoq_annualized_pct": 6.3,
+        "unit_labor_costs_yoy_pct": 1.0,
+        "unit_labor_costs_qoq_annualized_pct": 1.2,
+        "value_added_output_price_yoy_pct": 3.0,
+        "value_added_output_price_qoq_annualized_pct": 3.1,
+        "labor_share_yoy_log_approx_pct": -2.0,
+        "labor_share_yoy_from_rounded_rates_pct": -1.941748
+      },
+      {
+        "period": "2023-Q4",
+        "labor_productivity_yoy_pct": 3.5,
+        "labor_productivity_qoq_annualized_pct": 3.9,
+        "hourly_compensation_yoy_pct": 5.3,
+        "hourly_compensation_qoq_annualized_pct": 5.2,
+        "unit_labor_costs_yoy_pct": 1.8,
+        "unit_labor_costs_qoq_annualized_pct": 1.2,
+        "value_added_output_price_yoy_pct": 2.5,
+        "value_added_output_price_qoq_annualized_pct": 1.3,
+        "labor_share_yoy_log_approx_pct": -0.7,
+        "labor_share_yoy_from_rounded_rates_pct": -0.682927
+      },
+      {
+        "period": "2024-Q1",
+        "labor_productivity_yoy_pct": 3.3,
+        "labor_productivity_qoq_annualized_pct": 0.2,
+        "hourly_compensation_yoy_pct": 6.0,
+        "hourly_compensation_qoq_annualized_pct": 5.8,
+        "unit_labor_costs_yoy_pct": 2.6,
+        "unit_labor_costs_qoq_annualized_pct": 5.5,
+        "value_added_output_price_yoy_pct": 2.2,
+        "value_added_output_price_qoq_annualized_pct": 2.7,
+        "labor_share_yoy_log_approx_pct": 0.4,
+        "labor_share_yoy_from_rounded_rates_pct": 0.391389
+      },
+      {
+        "period": "2024-Q2",
+        "labor_productivity_yoy_pct": 3.2,
+        "labor_productivity_qoq_annualized_pct": 3.7,
+        "hourly_compensation_yoy_pct": 5.5,
+        "hourly_compensation_qoq_annualized_pct": 4.8,
+        "unit_labor_costs_yoy_pct": 2.2,
+        "unit_labor_costs_qoq_annualized_pct": 1.1,
+        "value_added_output_price_yoy_pct": 2.3,
+        "value_added_output_price_qoq_annualized_pct": 2.2,
+        "labor_share_yoy_log_approx_pct": -0.1,
+        "labor_share_yoy_from_rounded_rates_pct": -0.097752
+      },
+      {
+        "period": "2024-Q3",
+        "labor_productivity_yoy_pct": 2.9,
+        "labor_productivity_qoq_annualized_pct": 3.7,
+        "hourly_compensation_yoy_pct": 5.2,
+        "hourly_compensation_qoq_annualized_pct": 4.8,
+        "unit_labor_costs_yoy_pct": 2.2,
+        "unit_labor_costs_qoq_annualized_pct": 1.1,
+        "value_added_output_price_yoy_pct": 1.8,
+        "value_added_output_price_qoq_annualized_pct": 0.9,
+        "labor_share_yoy_log_approx_pct": 0.4,
+        "labor_share_yoy_from_rounded_rates_pct": 0.392927
+      },
+      {
+        "period": "2024-Q4",
+        "labor_productivity_yoy_pct": 2.3,
+        "labor_productivity_qoq_annualized_pct": 1.4,
+        "hourly_compensation_yoy_pct": 4.9,
+        "hourly_compensation_qoq_annualized_pct": 4.4,
+        "unit_labor_costs_yoy_pct": 2.6,
+        "unit_labor_costs_qoq_annualized_pct": 2.9,
+        "value_added_output_price_yoy_pct": 1.9,
+        "value_added_output_price_qoq_annualized_pct": 1.7,
+        "labor_share_yoy_log_approx_pct": 0.7,
+        "labor_share_yoy_from_rounded_rates_pct": 0.686948
+      },
+      {
+        "period": "2025-Q1",
+        "labor_productivity_yoy_pct": 2.0,
+        "labor_productivity_qoq_annualized_pct": -0.9,
+        "hourly_compensation_yoy_pct": 5.1,
+        "hourly_compensation_qoq_annualized_pct": 6.3,
+        "unit_labor_costs_yoy_pct": 3.0,
+        "unit_labor_costs_qoq_annualized_pct": 7.3,
+        "value_added_output_price_yoy_pct": 2.0,
+        "value_added_output_price_qoq_annualized_pct": 3.2,
+        "labor_share_yoy_log_approx_pct": 1.0,
+        "labor_share_yoy_from_rounded_rates_pct": 0.980392
+      },
+      {
+        "period": "2025-Q2",
+        "labor_productivity_yoy_pct": 2.1,
+        "labor_productivity_qoq_annualized_pct": 4.2,
+        "hourly_compensation_yoy_pct": 4.1,
+        "hourly_compensation_qoq_annualized_pct": 1.2,
+        "unit_labor_costs_yoy_pct": 2.0,
+        "unit_labor_costs_qoq_annualized_pct": -2.9,
+        "value_added_output_price_yoy_pct": 1.9,
+        "value_added_output_price_qoq_annualized_pct": 1.8,
+        "labor_share_yoy_log_approx_pct": 0.1,
+        "labor_share_yoy_from_rounded_rates_pct": 0.098135
+      },
+      {
+        "period": "2025-Q3",
+        "labor_productivity_yoy_pct": 2.5,
+        "labor_productivity_qoq_annualized_pct": 5.2,
+        "hourly_compensation_yoy_pct": 4.5,
+        "hourly_compensation_qoq_annualized_pct": 6.2,
+        "unit_labor_costs_yoy_pct": 2.0,
+        "unit_labor_costs_qoq_annualized_pct": 1.0,
+        "value_added_output_price_yoy_pct": 2.7,
+        "value_added_output_price_qoq_annualized_pct": 4.1,
+        "labor_share_yoy_log_approx_pct": -0.7,
+        "labor_share_yoy_from_rounded_rates_pct": -0.681597
+      },
+      {
+        "period": "2025-Q4",
+        "labor_productivity_yoy_pct": 2.5,
+        "labor_productivity_qoq_annualized_pct": 1.6,
+        "hourly_compensation_yoy_pct": 4.3,
+        "hourly_compensation_qoq_annualized_pct": 3.7,
+        "unit_labor_costs_yoy_pct": 1.8,
+        "unit_labor_costs_qoq_annualized_pct": 2.1,
+        "value_added_output_price_yoy_pct": 3.1,
+        "value_added_output_price_qoq_annualized_pct": 3.3,
+        "labor_share_yoy_log_approx_pct": -1.3,
+        "labor_share_yoy_from_rounded_rates_pct": -1.260912
+      },
+      {
+        "period": "2026-Q1",
+        "labor_productivity_yoy_pct": 2.9,
+        "labor_productivity_qoq_annualized_pct": 0.8,
+        "hourly_compensation_yoy_pct": 3.3,
+        "hourly_compensation_qoq_annualized_pct": 2.1,
+        "unit_labor_costs_yoy_pct": 0.4,
+        "unit_labor_costs_qoq_annualized_pct": 1.3,
+        "value_added_output_price_yoy_pct": 3.6,
+        "value_added_output_price_qoq_annualized_pct": 5.1,
+        "labor_share_yoy_log_approx_pct": -3.2,
+        "labor_share_yoy_from_rounded_rates_pct": -3.088803
+      },
+      {
+        "period": "2026-Q2",
+        "labor_productivity_yoy_pct": 2.2,
+        "labor_productivity_qoq_annualized_pct": 1.4,
+        "hourly_compensation_yoy_pct": 3.7,
+        "hourly_compensation_qoq_annualized_pct": 2.7,
+        "unit_labor_costs_yoy_pct": 1.4,
+        "unit_labor_costs_qoq_annualized_pct": 1.3,
+        "value_added_output_price_yoy_pct": 4.9,
+        "value_added_output_price_qoq_annualized_pct": 7.0,
+        "labor_share_yoy_log_approx_pct": -3.5,
+        "labor_share_yoy_from_rounded_rates_pct": -3.336511
+      }
+    ],
+    "nonfinancial_corporations": [
+      {
+        "period": "2023-Q1",
+        "labor_productivity_yoy_pct": -1.1,
+        "labor_productivity_qoq_annualized_pct": -1.6,
+        "unit_labor_costs_yoy_pct": 4.6,
+        "unit_labor_costs_qoq_annualized_pct": 8.1,
+        "value_added_output_price_yoy_pct": 5.4,
+        "value_added_output_price_qoq_annualized_pct": 6.5,
+        "unit_profits_yoy_pct": 13.2,
+        "unit_profits_qoq_annualized_pct": 13.4
+      },
+      {
+        "period": "2023-Q2",
+        "labor_productivity_yoy_pct": 0.3,
+        "labor_productivity_qoq_annualized_pct": 3.4,
+        "unit_labor_costs_yoy_pct": 4.2,
+        "unit_labor_costs_qoq_annualized_pct": 2.5,
+        "value_added_output_price_yoy_pct": 3.0,
+        "value_added_output_price_qoq_annualized_pct": 1.3,
+        "unit_profits_yoy_pct": 5.1,
+        "unit_profits_qoq_annualized_pct": 3.7
+      },
+      {
+        "period": "2023-Q3",
+        "labor_productivity_yoy_pct": 0.7,
+        "labor_productivity_qoq_annualized_pct": 2.9,
+        "unit_labor_costs_yoy_pct": 3.5,
+        "unit_labor_costs_qoq_annualized_pct": 1.6,
+        "value_added_output_price_yoy_pct": 2.8,
+        "value_added_output_price_qoq_annualized_pct": 2.8,
+        "unit_profits_yoy_pct": 6.8,
+        "unit_profits_qoq_annualized_pct": 12.6
+      },
+      {
+        "period": "2023-Q4",
+        "labor_productivity_yoy_pct": 2.4,
+        "labor_productivity_qoq_annualized_pct": 5.1,
+        "unit_labor_costs_yoy_pct": 2.7,
+        "unit_labor_costs_qoq_annualized_pct": -1.3,
+        "value_added_output_price_yoy_pct": 3.0,
+        "value_added_output_price_qoq_annualized_pct": 1.4,
+        "unit_profits_yoy_pct": 11.0,
+        "unit_profits_qoq_annualized_pct": 14.8
+      },
+      {
+        "period": "2024-Q1",
+        "labor_productivity_yoy_pct": 3.6,
+        "labor_productivity_qoq_annualized_pct": 3.1,
+        "unit_labor_costs_yoy_pct": 2.8,
+        "unit_labor_costs_qoq_annualized_pct": 8.7,
+        "value_added_output_price_yoy_pct": 1.9,
+        "value_added_output_price_qoq_annualized_pct": 2.2,
+        "unit_profits_yoy_pct": 1.1,
+        "unit_profits_qoq_annualized_pct": -22.0
+      },
+      {
+        "period": "2024-Q2",
+        "labor_productivity_yoy_pct": 2.5,
+        "labor_productivity_qoq_annualized_pct": -0.8,
+        "unit_labor_costs_yoy_pct": 2.7,
+        "unit_labor_costs_qoq_annualized_pct": 2.2,
+        "value_added_output_price_yoy_pct": 2.6,
+        "value_added_output_price_qoq_annualized_pct": 3.9,
+        "unit_profits_yoy_pct": 3.8,
+        "unit_profits_qoq_annualized_pct": 15.1
+      },
+      {
+        "period": "2024-Q3",
+        "labor_productivity_yoy_pct": 2.3,
+        "labor_productivity_qoq_annualized_pct": 2.0,
+        "unit_labor_costs_yoy_pct": 2.2,
+        "unit_labor_costs_qoq_annualized_pct": -0.5,
+        "value_added_output_price_yoy_pct": 2.0,
+        "value_added_output_price_qoq_annualized_pct": 0.4,
+        "unit_profits_yoy_pct": 0.5,
+        "unit_profits_qoq_annualized_pct": -1.0
+      },
+      {
+        "period": "2024-Q4",
+        "labor_productivity_yoy_pct": 2.4,
+        "labor_productivity_qoq_annualized_pct": 5.4,
+        "unit_labor_costs_yoy_pct": 2.8,
+        "unit_labor_costs_qoq_annualized_pct": 1.2,
+        "value_added_output_price_yoy_pct": 1.8,
+        "value_added_output_price_qoq_annualized_pct": 0.9,
+        "unit_profits_yoy_pct": -2.6,
+        "unit_profits_qoq_annualized_pct": 1.2
+      },
+      {
+        "period": "2025-Q1",
+        "labor_productivity_yoy_pct": 1.7,
+        "labor_productivity_qoq_annualized_pct": 0.4,
+        "unit_labor_costs_yoy_pct": 2.3,
+        "unit_labor_costs_qoq_annualized_pct": 6.3,
+        "value_added_output_price_yoy_pct": 2.2,
+        "value_added_output_price_qoq_annualized_pct": 3.9,
+        "unit_profits_yoy_pct": 2.3,
+        "unit_profits_qoq_annualized_pct": -5.1
+      },
+      {
+        "period": "2025-Q2",
+        "labor_productivity_yoy_pct": 3.2,
+        "labor_productivity_qoq_annualized_pct": 4.9,
+        "unit_labor_costs_yoy_pct": 1.0,
+        "unit_labor_costs_qoq_annualized_pct": -2.7,
+        "value_added_output_price_yoy_pct": 1.2,
+        "value_added_output_price_qoq_annualized_pct": -0.3,
+        "unit_profits_yoy_pct": -2.1,
+        "unit_profits_qoq_annualized_pct": -3.6
+      },
+      {
+        "period": "2025-Q3",
+        "labor_productivity_yoy_pct": 3.8,
+        "labor_productivity_qoq_annualized_pct": 4.5,
+        "unit_labor_costs_yoy_pct": 1.4,
+        "unit_labor_costs_qoq_annualized_pct": 1.2,
+        "value_added_output_price_yoy_pct": 1.9,
+        "value_added_output_price_qoq_annualized_pct": 3.3,
+        "unit_profits_yoy_pct": -0.3,
+        "unit_profits_qoq_annualized_pct": 6.6
+      },
+      {
+        "period": "2025-Q4",
+        "labor_productivity_yoy_pct": 3.5,
+        "labor_productivity_qoq_annualized_pct": 4.2,
+        "unit_labor_costs_yoy_pct": 1.1,
+        "unit_labor_costs_qoq_annualized_pct": -0.1,
+        "value_added_output_price_yoy_pct": 2.4,
+        "value_added_output_price_qoq_annualized_pct": 2.7,
+        "unit_profits_yoy_pct": 1.0,
+        "unit_profits_qoq_annualized_pct": 6.7
+      },
+      {
+        "period": "2026-Q1",
+        "labor_productivity_yoy_pct": 3.7,
+        "labor_productivity_qoq_annualized_pct": 1.4,
+        "unit_labor_costs_yoy_pct": -0.2,
+        "unit_labor_costs_qoq_annualized_pct": 0.7,
+        "value_added_output_price_yoy_pct": 2.4,
+        "value_added_output_price_qoq_annualized_pct": 3.7,
+        "unit_profits_yoy_pct": 6.8,
+        "unit_profits_qoq_annualized_pct": 18.6
+      }
+    ]
+  }
+}

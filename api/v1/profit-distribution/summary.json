@@ -1,0 +1,37 @@
+{
+  "schema_version": 1,
+  "retrieved_at": "2026-08-20T23:56:48.036744+00:00",
+  "corporate_profit_share": {
+    "period": "2026-Q1",
+    "corporate_profits_billion_usd_saar": 4426.485,
+    "gdi_billion_usd_saar": 31574.222,
+    "corporate_profits_gdi_pct": 14.0193,
+    "corporate_profits_yoy_pct": 12.837893,
+    "gdi_yoy_pct": 5.61477
+  },
+  "nonfarm_business": {
+    "period": "2026-Q2",
+    "labor_productivity_yoy_pct": 2.2,
+    "labor_productivity_qoq_annualized_pct": 1.4,
+    "hourly_compensation_yoy_pct": 3.7,
+    "hourly_compensation_qoq_annualized_pct": 2.7,
+    "unit_labor_costs_yoy_pct": 1.4,
+    "unit_labor_costs_qoq_annualized_pct": 1.3,
+    "value_added_output_price_yoy_pct": 4.9,
+    "value_added_output_price_qoq_annualized_pct": 7.0,
+    "labor_share_yoy_log_approx_pct": -3.5,
+    "labor_share_yoy_from_rounded_rates_pct": -3.336511
+  },
+  "nonfinancial_corporations": {
+    "period": "2026-Q1",
+    "labor_productivity_yoy_pct": 3.7,
+    "labor_productivity_qoq_annualized_pct": 1.4,
+    "unit_labor_costs_yoy_pct": -0.2,
+    "unit_labor_costs_qoq_annualized_pct": 0.7,
+    "value_added_output_price_yoy_pct": 2.4,
+    "value_added_output_price_qoq_annualized_pct": 3.7,
+    "unit_profits_yoy_pct": 6.8,
+    "unit_profits_qoq_annualized_pct": 18.6
+  },
+  "source_fingerprint_sha256": "8f60754a6890f6b821a683b0cd9916ea67651a9984fca1c175b742724d68f77b"
+}
