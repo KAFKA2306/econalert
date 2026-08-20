@@ -1,7 +1,7 @@
 {
   "schema_version": 1,
-  "source_snapshot": "data/official/bls-productivity-current/737a28df2c681448.json",
-  "source_snapshot_sha256": "f673cf28b56c8a26fce72b421bfbcf8cf7fdef6c0743a3bb6f1385ae905cb33a",
+  "source_snapshot": "data/official/bls-productivity-current/7175f448b9476fda.json",
+  "source_snapshot_sha256": "cf2e7959c1110fee3652ac73a4ee8ccc721de0d8c362933e2506e8139a3cb6e2",
   "historical_vintages": "data/official/bls-productivity-vintages.json",
   "historical_vintages_sha256": "144730a7b56d8569a288e383c81d98b142b960db9699d645815896a70f1d559d",
   "period_start": "2024-Q1",
@@ -10,7 +10,7 @@
   "outputs": {
     "latest.json": {
       "bytes": 3154,
-      "sha256": "c708c0900567efa89ff1be0f254eea10a14b0a69118b468f289f2055da6dd846"
+      "sha256": "ca7cf8810c9c1f9f17b5fbe4b1c1ada9660b127071dffac8c4b130bdb60c2569"
     },
     "latest.csv": {
       "bytes": 446,

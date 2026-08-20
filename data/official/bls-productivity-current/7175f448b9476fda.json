@@ -1,12 +1,11 @@
 {
-  "schema_version": 1,
+  "schema_version": 2,
   "publisher": "U.S. Bureau of Labor Statistics",
   "dataset": "Productivity and Costs",
   "sector": "Nonfarm business",
   "rate_basis": "percent change from previous quarter at annual rate",
   "retrieved_at": "2026-08-20T14:59:29.596610+00:00",
   "source_url": "https://api.bls.gov/publicAPI/v2/timeseries/data/",
-  "source_sha256": "7175f448b9476fda61c9ab2b539580bdc4756b9a5506eb56d7846546a511ae90",
   "series": {
     "PRS85006092": "labor_productivity",
     "PRS85006042": "output",
@@ -15,6 +14,7 @@
     "PRS85006152": "real_hourly_compensation",
     "PRS85006112": "unit_labor_costs"
   },
+  "source_sha256": "7175f448b9476fda61c9ab2b539580bdc4756b9a5506eb56d7846546a511ae90",
   "observations": [
     {
       "period": "2024-Q1",
