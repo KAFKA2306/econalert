@@ -20,6 +20,14 @@ Own official macroeconomic release observations and release-vintage evidence for
 5. Use the smallest relevant tests/audits and exact-head CI for implementation changes.
 6. Stop at the verified fixed point; do not manufacture activity when no new release or revision exists.
 
+## Branch lifecycle
+
+- Aside from the default branch and unavoidable platform-managed/protected branches, a persistent branch is permitted only while it is the head branch of a currently open PR.
+- Creating a work branch creates an obligation to open or reuse its canonical PR immediately; do not use branches as backlog, continuation state, backup, archive, or evidence storage.
+- After a PR is merged or closed, delete its head branch after verifying PR/main state. A branch with no open PR is an orphan and must be deleted.
+- Before and after work, compare repository branches with open PR heads. Do not report cleanup/fixed point while an orphan task branch remains.
+- If the available tool cannot delete a branch, record that as a tooling blocker and do not claim cleanup complete. Never create another orphan branch as a workaround.
+
 ## Merge and release are separate
 
 ### PR merge conditions
@@ -37,11 +45,11 @@ A merged PR does not prove a release. A release blocker does not retroactively i
 ## Boundaries
 
 - Null is not zero and an unavailable period is not an estimate.
-- Observed, revised, preliminary, forecast and derived values must remain distinguishable.
+- Observed, revised, preliminary, forecast and derived values must remain distinguishishable.
 - Do not silently replace an older release vintage with a later revision when point-in-time behavior matters.
 - Do not execute trades or financial-account actions.
 - Never claim an unobserved external fetch, CI layer or deployment passed.
 
 ## Completion report
 
-Report material Before -> After observations/revisions, primary source and canonical artifact, Issue/PR/commit/CI evidence, then report `merged` and `released` separately with direct evidence for each. Include public read-back only when release is in scope, manual work removed, and remaining blocker.
+Report material Before -> After observations/revisions, primary source and canonical artifact, Issue/PR/commit/CI evidence, then report `merged` and `released` separately with direct evidence for each. Include branch cleanup state, public read-back only when release is in scope, manual work removed, and remaining blocker.
