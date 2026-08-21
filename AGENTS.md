@@ -45,7 +45,7 @@ A merged PR does not prove a release. A release blocker does not retroactively i
 ## Boundaries
 
 - Null is not zero and an unavailable period is not an estimate.
-- Observed, revised, preliminary, forecast and derived values must remain distinguishishable.
+- Observed, revised, preliminary, forecast and derived values must remain distinguishable.
 - Do not silently replace an older release vintage with a later revision when point-in-time behavior matters.
 - Do not execute trades or financial-account actions.
 - Never claim an unobserved external fetch, CI layer or deployment passed.
