@@ -1,0 +1,25 @@
+{
+  "schema_version": "econalert.world-bank-gdp-growth.v1",
+  "publisher": "World Bank",
+  "dataset": "World Development Indicators",
+  "indicator": {
+    "id": "NY.GDP.MKTP.KD.ZG",
+    "name": "GDP growth (annual %)"
+  },
+  "geography": {
+    "id": "1W",
+    "name": "World"
+  },
+  "observation": {
+    "period": "2025",
+    "value": 2.9,
+    "unit": "percent",
+    "precision_note": "The cited World Bank DataBank page displays the World value rounded to one decimal place. No additional precision is inferred."
+  },
+  "retrieved_at": "2026-08-21",
+  "source_url": "https://databank.worldbank.org/reports.aspx?country=EUU%2CGBR%2CWLD%2CBRB%2CCAN&series=NY.GDP.MKTP.KD.ZG&source=2",
+  "indicator_url": "https://data.worldbank.org/indicator/NY.GDP.MKTP.KD.ZG",
+  "api_documentation_url": "https://datahelpdesk.worldbank.org/knowledgebase/articles/898581-api-basic-call-structures",
+  "api_response_materialized": false,
+  "notes": "This snapshot preserves only the 2025 World value directly visible on the cited official World Bank DataBank page. It does not infer hidden decimals, forecast status, or values from non-World geographies."
+}

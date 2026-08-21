@@ -4,7 +4,7 @@ import json
 from pathlib import Path
 
 ROOT = Path(__file__).resolve().parents[1]
-SNAPSHOT = ROOT / "data/official/world-bank-world-gdp-growth-2024.json"
+SNAPSHOT = ROOT / "data/official/world-bank-world-gdp-growth-2025.json"
 PUBLIC = ROOT / "api/v1/world-gdp-growth.json"
 
 
@@ -18,10 +18,10 @@ def test_world_gdp_growth_snapshot_and_public_view_match() -> None:
     assert snapshot["indicator"]["name"] == "GDP growth (annual %)"
     assert snapshot["geography"] == {"id": "1W", "name": "World"}
     assert snapshot["observation"] == {
-        "period": "2024",
+        "period": "2025",
         "value": 2.9,
         "unit": "percent",
-        "precision_note": "The cited World Bank public data page displays the World value rounded to one decimal place. No additional precision is inferred.",
+        "precision_note": "The cited World Bank DataBank page displays the World value rounded to one decimal place. No additional precision is inferred.",
     }
     assert snapshot["api_response_materialized"] is False
 
