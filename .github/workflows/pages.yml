@@ -30,6 +30,7 @@ permissions:
   contents: read
   pages: write
   id-token: write
+  issues: write
 
 concurrency:
   group: pages-${{ github.ref }}
@@ -131,4 +132,66 @@ jobs:
                   last=exc; time.sleep(2)
           else:
               raise SystemExit(f'production verification failed: {last}')
+          PY
+      - name: Record production evidence on Issue 24
+        env:
+          PAGE_URL: ${{ steps.deployment.outputs.page_url }}
+          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          REPOSITORY: ${{ github.repository }}
+        run: |
+          python - <<'PY'
+          import json, os, time
+          from urllib.parse import urljoin
+          from urllib.request import Request, urlopen
+
+          base=os.environ['PAGE_URL']
+          sha=os.environ['GITHUB_SHA']
+          token=os.environ['GH_TOKEN']
+          repo=os.environ['REPOSITORY']
+          marker=f'<!-- pages-production:{sha} -->'
+
+          with urlopen(urljoin(base,'api/v1/productivity/latest.json'),timeout=10) as r: prod=json.load(r)
+          with urlopen(urljoin(base,'api/v1/latest.json'),timeout=10) as r: cpi=json.load(r)
+          with urlopen(urljoin(base,'api/v1/ai-productivity/evidence.json'),timeout=10) as r: ai=json.load(r)
+
+          api=f'https://api.github.com/repos/{repo}/issues/24/comments?per_page=100'
+          headers={
+              'Accept':'application/vnd.github+json',
+              'Authorization':f'Bearer {token}',
+              'X-GitHub-Api-Version':'2022-11-28',
+              'User-Agent':'econalert-pages-production-evidence',
+          }
+          req=Request(api,headers=headers)
+          with urlopen(req,timeout=15) as r: comments=json.load(r)
+          if any(marker in item.get('body','') for item in comments):
+              print('Production evidence already recorded for',sha)
+              raise SystemExit(0)
+
+          release=prod['release']
+          body='\n'.join([
+              marker,
+              '### Pages production verified',
+              '',
+              f'- source commit: `{sha}`',
+              f'- page: {base}',
+              f"- Productivity: `{prod['observations'][-1]['period']}` · released `{release['release_date']}` · `{release['release_status']}`",
+              f"- next Productivity release: `{release['next_release']['scheduled_at']}` · `{release['next_release']['release_status']}`",
+              f"- CPI: `{cpi['period']}` · released `{cpi['release_date']}` · detail `{cpi['detail_status']}`",
+              f"- next CPI release: `{cpi['next_release']['scheduled_at']}`",
+              f"- AI research records: `{len(ai['records'])}` · adoption survey and measured productivity effect kept separate",
+              '',
+              'Evidence was written only after the workflow verified `deployment.json.source_commit` against this exact SHA and read the production canonical JSON + root HTML successfully.'
+          ])
+          payload=json.dumps({'body':body}).encode()
+          post=Request(api,data=payload,headers={**headers,'Content-Type':'application/json'},method='POST')
+          last=None
+          for attempt in range(3):
+              try:
+                  with urlopen(post,timeout=15) as r:
+                      print('Recorded production evidence:',r.status)
+                      break
+              except Exception as exc:
+                  last=exc
+                  if attempt==2: raise
+                  time.sleep(2)
           PY
