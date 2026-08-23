@@ -1,0 +1,30 @@
+{
+  "schema_version": "2.0",
+  "publisher": "U.S. Bureau of Labor Statistics",
+  "program": "Consumer Price Index",
+  "release_id": "USDL-26-1378",
+  "release_date": "2026-08-12",
+  "period": "2026-07",
+  "verified_on": "2026-08-23",
+  "source_url": "https://www.bls.gov/news.release/archives/cpi_08122026.htm",
+  "schedule_url": "https://www.bls.gov/schedule/news_release/cpi.htm",
+  "copyright_url": "https://www.bls.gov/opub/copyright-information.htm",
+  "terms_url": "https://www.bls.gov/developers/termsOfService.htm",
+  "rights": "BLS-published material is public domain except previously copyrighted photographs and illustrations; cite BLS as source.",
+  "retrieval_conditions": "Manually verified from the archived BLS July 2026 release; this compact snapshot stores headline measures only and does not imply current detailed-category coverage.",
+  "detail_status": "headline_only",
+  "next_release": {
+    "period": "2026-08",
+    "scheduled_at": "2026-09-11T08:30:00-04:00",
+    "timezone": "America/New_York",
+    "release_type": "Consumer Price Index"
+  },
+  "headline": {
+    "all_items_monthly_sa_pct": 0.1,
+    "all_items_12m_nsa_pct": 3.4,
+    "core_monthly_sa_pct": 0.2,
+    "core_12m_nsa_pct": 2.5,
+    "all_items_index_nsa": 333.918,
+    "all_items_index_reference_base": "1982-84=100"
+  }
+}
