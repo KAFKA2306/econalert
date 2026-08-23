@@ -1,0 +1,92 @@
+name: Deploy Pages
+
+on:
+  push:
+    branches: [main]
+    paths:
+      - web/**
+      - api/v1/**
+      - .github/workflows/pages.yml
+  workflow_dispatch:
+
+permissions:
+  contents: read
+  pages: write
+  id-token: write
+
+concurrency:
+  group: pages
+  cancel-in-progress: true
+
+jobs:
+  deploy:
+    environment:
+      name: github-pages
+      url: ${{ steps.deployment.outputs.page_url }}
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v6
+      - name: Validate canonical inputs and dashboard contract
+        run: |
+          python -m json.tool api/v1/productivity/latest.json >/dev/null
+          python -m json.tool api/v1/productivity/revisions.json >/dev/null
+          python -m json.tool api/v1/latest.json >/dev/null
+          python -m json.tool api/v1/manifest.json >/dev/null
+          python - <<'PY'
+          import json
+          from pathlib import Path
+          prod=json.loads(Path('api/v1/productivity/latest.json').read_text())
+          cpi=json.loads(Path('api/v1/latest.json').read_text())
+          rows=prod['observations']
+          assert len(rows)>=2
+          assert prod['rate_basis']=='percent change from previous quarter at annual rate'
+          for key in ('labor_productivity','real_hourly_compensation','unit_labor_costs'):
+              assert key in rows[-1] and key in rows[-2]
+          assert cpi['source']['publisher']=='U.S. Bureau of Labor Statistics'
+          assert cpi['period'] and cpi['release_date'] and cpi['headline']
+          html=Path('web/index.html').read_text()
+          assert 'Productivity data' in html and 'CPIのfreshness' in html
+          assert 'next_release' in html and 'revised' in html
+          PY
+      - name: Build public artifact from canonical API
+        run: |
+          mkdir -p web/api
+          rm -rf web/api/v1
+          cp -R api/v1 web/api/v1
+          python - <<'PY'
+          import json, os
+          from pathlib import Path
+          Path('web/deployment.json').write_text(json.dumps({'source_commit':os.environ['GITHUB_SHA']},indent=2)+'\n')
+          PY
+      - uses: actions/configure-pages@v5
+      - uses: actions/upload-pages-artifact@v3
+        with:
+          path: web
+      - id: deployment
+        uses: actions/deploy-pages@v4
+      - name: Verify exact production revision and evidence surface
+        env:
+          PAGE_URL: ${{ steps.deployment.outputs.page_url }}
+        run: |
+          python - <<'PY'
+          import json, os, time
+          from urllib.parse import urljoin
+          from urllib.request import urlopen
+          base=os.environ['PAGE_URL']; expected=os.environ['GITHUB_SHA']; last=None
+          for _ in range(30):
+              try:
+                  with urlopen(urljoin(base,'deployment.json'),timeout=10) as r: dep=json.load(r)
+                  with urlopen(urljoin(base,'api/v1/productivity/latest.json'),timeout=10) as r: prod=json.load(r)
+                  with urlopen(urljoin(base,'api/v1/latest.json'),timeout=10) as r: cpi=json.load(r)
+                  with urlopen(base,timeout=10) as r: html=r.read().decode()
+                  assert dep['source_commit']==expected
+                  assert prod['observations'][-1]['period']
+                  assert cpi['release_date']
+                  assert '仕事の効率とコストは' in html and 'CPIのfreshness' in html
+                  print({'page_url':base,'source_commit':expected,'productivity_period':prod['observations'][-1]['period'],'cpi_period':cpi['period']})
+                  break
+              except Exception as exc:
+                  last=exc; time.sleep(2)
+          else:
+              raise SystemExit(f'production verification failed: {last}')
+          PY
