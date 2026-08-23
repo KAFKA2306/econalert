@@ -48,6 +48,8 @@ Canonical output:
 
 `api/v1/latest.json` は**repositoryに取り込まれた最新release**であり、BLSがその後に公表した値を推測で補完しません。そのためPagesではrelease scheduleを使ってfresh/staleを明示します。
 
+CPI連動契約の計算境界を確認するsynthetic PoCは [CPI contract escalation PoC](docs/business/cpi-contract-escalation.md) に分離しています。実顧客の契約や個人情報は扱いません。
+
 ## Data contract
 
 - official sourceだけをfactとして保存する
