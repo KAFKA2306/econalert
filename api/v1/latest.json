@@ -1,22 +1,27 @@
 {
+  "detail_status": "headline_only",
   "headline": {
-    "all_items_12m_nsa_pct": 3.5,
-    "all_items_monthly_sa_pct": -0.4,
-    "core_12m_nsa_pct": 2.6,
-    "core_monthly_sa_pct": 0.0
+    "all_items_12m_nsa_pct": 3.4,
+    "all_items_index_nsa": 333.918,
+    "all_items_index_reference_base": "1982-84=100",
+    "all_items_monthly_sa_pct": 0.1,
+    "core_12m_nsa_pct": 2.5,
+    "core_monthly_sa_pct": 0.2
   },
   "next_release": {
-    "period": "2026-07",
-    "scheduled_at": "2026-08-12T08:30:00-04:00",
+    "period": "2026-08",
+    "release_type": "Consumer Price Index",
+    "scheduled_at": "2026-09-11T08:30:00-04:00",
     "timezone": "America/New_York"
   },
-  "period": "2026-06",
-  "release_date": "2026-07-14",
-  "schema_version": "1.0",
+  "period": "2026-07",
+  "release_date": "2026-08-12",
+  "schema_version": "2.0",
   "series": "bls-cpi-u",
   "source": {
     "publisher": "U.S. Bureau of Labor Statistics",
-    "retrieved_at": "2026-08-07T19:15:38Z",
-    "url": "https://www.bls.gov/news.release/cpi.nr0.htm"
+    "schedule_url": "https://www.bls.gov/schedule/news_release/cpi.htm",
+    "url": "https://www.bls.gov/news.release/archives/cpi_08122026.htm",
+    "verified_on": "2026-08-23"
   }
 }
