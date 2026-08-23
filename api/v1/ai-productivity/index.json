@@ -1,0 +1,16 @@
+{
+  "dataset": "ai-productivity-research-evidence",
+  "evidence_types": [
+    "adoption_survey",
+    "measured_productivity_effect"
+  ],
+  "files": {
+    "evidence": "evidence.json"
+  },
+  "record_count": 2,
+  "schema_version": 1,
+  "source": {
+    "sha256": "a04f895c19a931daae6244228dfb5bee39152dcf1461b6149393db733f73c8d6",
+    "snapshot": "data/research/ai-productivity-evidence.json"
+  }
+}
