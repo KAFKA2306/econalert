@@ -1,25 +1,31 @@
-# EconAlert — 公式経済指標を発表回ごとに保存する
+# EconAlert — official economic releases
 
 [![Data integrity](https://github.com/KAFKA2306/econalert/actions/workflows/data-integrity.yml/badge.svg)](https://github.com/KAFKA2306/econalert/actions/workflows/data-integrity.yml)
 [![BLS productivity](https://github.com/KAFKA2306/econalert/actions/workflows/productivity.yml/badge.svg)](https://github.com/KAFKA2306/econalert/actions/workflows/productivity.yml)
+[![Deploy Pages](https://github.com/KAFKA2306/econalert/actions/workflows/pages.yml/badge.svg)](https://github.com/KAFKA2306/econalert/actions/workflows/pages.yml)
 
-公式経済指標を、**発表時点・対象期間・取得元を失わず**保存し、後段の分析や通知から再利用できるようにするrepositoryです。正準責務は `economic-releases` へのrename後も同じです。
+U.S. Bureau of Labor Statistics (BLS) の公式releaseを、**対象期間・release date・取得元・revisionを失わず**保存します。予想値・推定値・欠損補完をofficial observationとして保存しません。
 
-予想値・推定値・欠損補完を公式発表値として保存しません。
+## Public dashboard
+
+- Daily entry point: https://kafka2306.github.io/econalert/
+- latest BLS Productivity and Costs observation
+- labor productivity / real hourly compensation / unit labor costs
+- previous-quarter rate difference using the same official definition
+- CPI release period / release date / freshness state
+- links from the public values back to canonical JSON and revision evidence
+
+GitHub Pagesは`api/v1/`をread-onlyで投影します。monthly CPIとquarterly productivityを同じcadenceや独自scoreへ潰しません。保存済みCPI snapshotの`next_release`が既に過ぎている場合は、未取得の新releaseを推測せず**stale**と表示します。
 
 ## BLS Productivity and Costs
 
-ARK Big Ideas 2026 の `AI Productivity` を実体経済側から検証するため、U.S. Bureau of Labor Statistics (BLS) の Productivity and Costs を収集します。
+Canonical output:
 
-一次情報:
+- [`api/v1/productivity/latest.json`](api/v1/productivity/latest.json) — current revised quarterly series
+- [`api/v1/productivity/revisions.json`](api/v1/productivity/revisions.json) — revised / previously published evidence
+- [`api/v1/productivity/manifest.json`](api/v1/productivity/manifest.json) — provenance
 
-- https://api.bls.gov/publicAPI/v2/timeseries/data/
-- https://www.bls.gov/developers/home.htm
-- https://www.bls.gov/bls/news-release/prod.htm
-
-### Current revised series
-
-[`scripts/collect_productivity.py`](scripts/collect_productivity.py) はBLS Public Data APIから、nonfarm business の次の公式seriesを取得します。
+[`scripts/collect_productivity.py`](scripts/collect_productivity.py) はBLS Public Data APIからnonfarm businessの次のseriesを取得します。
 
 - labor productivity: `PRS85006092`
 - output: `PRS85006042`
@@ -28,84 +34,49 @@ ARK Big Ideas 2026 の `AI Productivity` を実体経済側から検証するた
 - real hourly compensation: `PRS85006152`
 - unit labor costs: `PRS85006112`
 
-保存先:
+単位は `percent change from previous quarter at annual rate` に固定します。API responseはSHA-256でcontent-addressed保存し、後続releaseで過去値が改訂されても以前のsnapshotを上書きしません。
 
-```text
-data/official/bls-productivity-current/<source-fingerprint>.json
-```
-
-API responseのSHA-256からpathを決めるため、同じresponseを重複保存せず、BLSが過去値を改訂した場合も以前のsnapshotを上書きしません。6指標が揃ったquarterly observationが8四半期未満なら収集を失敗させます。単位は `percent change from previous quarter at annual rate` として固定し、別単位のseriesを混ぜません。
-
-### Historical release vintage / revision
-
-[`data/official/bls-productivity-vintages.json`](data/official/bls-productivity-vintages.json) はBLS公式archiveの Table B1 にある `revised` と `previously published` を保存します。
-
-対象は2024-Q3から2026-Q1までの7 revised releasesです。各rowにquarter、release date、source URL、source sectionと6指標の両値を保持します。archiveをGitHub Actionsから再取得する処理は、BLSがGitHub-hosted runnerからの `www.bls.gov` accessを403で拒否するため置きません。
-
-以後のvintageは、Public Data API responseをcontent-addressed snapshotとして蓄積することで保持します。過去snapshotを更新しないため、同じquarterの値が後続releaseで変わった場合にcommit間でrevisionを再構成できます。
-
-### 自動取得と検証
-
-[`BLS productivity`](https://github.com/KAFKA2306/econalert/actions/workflows/productivity.yml) は毎週BLS Public Data APIを確認し、response内容が変わったときだけ新しいsnapshotをcommitします。collector変更がmainへ入った直後にも実行するため、初回実データもseedします。
-
-```bash
-python -m pip install pytest
-python -m pytest -q tests/test_productivity_collector.py
-python scripts/collect_productivity.py
-```
-
-Pull Requestでは同じPublic Data APIを実取得し、series欠落・8四半期未満・API failureをfail closedで検出します。
+`BLS productivity` workflowは定期的にBLS Public Data APIを確認し、responseが変わった場合だけ新snapshotとderived viewを保存します。
 
 ## CPI
 
-既存のBLS CPI snapshotと配布APIは別release系列として維持しています。
+Canonical output:
 
-- `data/official/bls-cpi-2026-06.json`
-- `api/v1/manifest.json`
-- `api/v1/latest.json`
-- `api/v1/categories.json`
-- `api/v1/categories.csv`
-- 生成: `scripts/build_public_api.py`
+- [`api/v1/latest.json`](api/v1/latest.json) — repositoryに保存された最新CPI release snapshot
+- [`api/v1/categories.json`](api/v1/categories.json) / [`categories.csv`](api/v1/categories.csv) — 12-month category observations
+- [`api/v1/manifest.json`](api/v1/manifest.json) — source snapshot / SHA-256 / derived file hashes
 
-`api/v1/latest.json` はrepositoryに保存されている最新CPI snapshotを表し、BLSが公表済みの最新月を推測で補完しません。
+`api/v1/latest.json` は**repositoryに取り込まれた最新release**であり、BLSがその後に公表した値を推測で補完しません。そのためPagesではrelease scheduleを使ってfresh/staleを明示します。
 
-### CPI連動契約の計算PoC
-
-契約書に明記されたBLS CPI series IDと観測期間を使い、更新時の計算根拠を人がレビューできる形で出力するsynthetic demoがあります。
-
-- [PoCの範囲・入力・保証しないこと](docs/business/cpi-contract-escalation.md)
-- [synthetic contract profile](contracts/synthetic-demo.json)
-- [synthetic CPI fixture](data/synthetic/cpi-index-demo.json)
-
-series IDを推測で選ばず、契約profileとsource snapshotが一致しない場合や必要な観測値が未公表の場合は成功値を返しません。実顧客の契約本文・価格・社名・連絡先はpublic repositoryへ保存しません。
-
-## データ契約
+## Data contract
 
 - official sourceだけをfactとして保存する
 - release/API snapshotを上書きしない
 - current revised seriesとhistorical release vintageを区別する
-- source URL、対象期間、取得日時またはrelease dateを保持する
+- source URL、対象期間、release/retrieval timeを保持する
 - live API responseはSHA-256を保持する
 - percent change、index、level、annualized rateを混在させない
-- 欠損・revision・series変更を推測で補完しない
-- 同じcommitの保存済み入力からderived outputを再生成できるようにする
+- monthly / quarterly cadenceを不正比較しない
+- missing / revision / series changeを推測で補完しない
+- 同じcommitの保存済み入力からderived outputを再生成できる
 
-## 既存CPI配布物の再生成
+## Verification
 
 ```bash
-python scripts/build_public_api.py
-python -m pip install pytest
 python -m pytest -q
+python scripts/build_public_api.py
 ```
 
-通常の `Data integrity` CIは保存済みsnapshotから決定的に既存CPI APIを再生成します。Productivity workflowだけがBLS外部sourceを取得します。
+- `Data integrity` は保存済みsnapshotからCPI APIを決定的に再生成します。
+- `BLS productivity` はBLS Public Data APIをlive取得してcollector contractを検証します。
+- `Deploy Pages` はcanonical APIをartifactへ同梱し、deploy後に`deployment.json`のcommit SHAと公開JSON/UIを照合します。
 
-## 出典・利用条件
+## Primary sources
 
 - BLS Public Data API: https://www.bls.gov/developers/home.htm
-- BLS Productivity archive: https://www.bls.gov/bls/news-release/prod.htm
+- BLS Productivity: https://www.bls.gov/bls/news-release/prod.htm
 - BLS CPI: https://www.bls.gov/cpi/
-- Copyright: https://www.bls.gov/opub/copyright-information.htm
-- API Terms: https://www.bls.gov/developers/termsOfService.htm
+- BLS Copyright: https://www.bls.gov/opub/copyright-information.htm
+- BLS API Terms: https://www.bls.gov/developers/termsOfService.htm
 
 本repositoryの加工結果は投資助言ではありません。
