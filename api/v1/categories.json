@@ -1,4 +1,5 @@
 {
+  "freshness": "older_detail_vintage_than_latest_headline",
   "observations": [
     {"category": "Airline fare", "value": 26.5},
     {"category": "Alcoholic beverages", "value": 2.0},
