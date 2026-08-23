@@ -8,6 +8,7 @@ from pathlib import Path
 ROOT = Path(__file__).resolve().parents[1]
 LATEST_SOURCE = ROOT / "data" / "official" / "bls-cpi-2026-07.json"
 CATEGORY_SOURCE = ROOT / "data" / "official" / "bls-cpi-2026-06.json"
+AI_RESEARCH_SOURCE = ROOT / "data" / "research" / "ai-productivity-evidence.json"
 OUT = ROOT / "api" / "v1"
 
 
@@ -40,11 +41,23 @@ def validate_categories(data: dict) -> None:
     assert data["headline"]["core_12m_nsa_pct"] == next(r["value"] for r in rows if r["category"] == "All items less food and energy")
 
 
+def validate_ai_research(data: dict) -> None:
+    allowed = ["adoption_survey", "measured_productivity_effect"]
+    assert data["contract"]["allowed_evidence_types"] == allowed
+    assert "must not be combined" in data["contract"]["rule"]
+    records = data["records"]
+    assert {row["evidence_type"] for row in records} == set(allowed)
+    assert all(row["source_url"].startswith("https://") for row in records)
+    assert all(row["limitation"] for row in records)
+
+
 def build() -> None:
     latest_source = json.loads(LATEST_SOURCE.read_text())
     category_source = json.loads(CATEGORY_SOURCE.read_text())
+    ai_research = json.loads(AI_RESEARCH_SOURCE.read_text())
     validate_latest(latest_source)
     validate_categories(category_source)
+    validate_ai_research(ai_research)
     OUT.mkdir(parents=True, exist_ok=True)
 
     latest = {
@@ -94,6 +107,22 @@ def build() -> None:
         writer.writeheader()
         for row in categories["observations"]:
             writer.writerow({"period": category_source["period"], "category": row["category"], "value": row["value"], "unit": "percent", "seasonal_adjustment": "not_seasonally_adjusted"})
+
+    ai_out = OUT / "ai-productivity"
+    ai_out.mkdir(parents=True, exist_ok=True)
+    (ai_out / "evidence.json").write_bytes(canonical_bytes(ai_research))
+    ai_index = {
+        "schema_version": 1,
+        "dataset": "ai-productivity-research-evidence",
+        "record_count": len(ai_research["records"]),
+        "evidence_types": ai_research["contract"]["allowed_evidence_types"],
+        "source": {
+            "snapshot": str(AI_RESEARCH_SOURCE.relative_to(ROOT)),
+            "sha256": sha256(AI_RESEARCH_SOURCE),
+        },
+        "files": {"evidence": "evidence.json"},
+    }
+    (ai_out / "index.json").write_bytes(canonical_bytes(ai_index))
 
     files = {}
     for name in ("latest.json", "categories.json", "categories.csv"):
