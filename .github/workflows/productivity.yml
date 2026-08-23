@@ -7,6 +7,7 @@ on:
       - 'scripts/collect_productivity.py'
       - 'scripts/build_productivity_views.py'
       - 'data/official/bls-productivity-vintages.json'
+      - 'data/official/bls-productivity-2026-q2-release.json'
       - 'tests/test_productivity_collector.py'
       - '.github/workflows/productivity.yml'
   pull_request:
@@ -14,6 +15,7 @@ on:
       - 'scripts/collect_productivity.py'
       - 'scripts/build_productivity_views.py'
       - 'data/official/bls-productivity-vintages.json'
+      - 'data/official/bls-productivity-2026-q2-release.json'
       - 'tests/test_productivity_collector.py'
       - '.github/workflows/productivity.yml'
   schedule:
@@ -28,8 +30,8 @@ jobs:
     runs-on: ubuntu-latest
     timeout-minutes: 10
     steps:
-      - uses: actions/checkout@v4
-      - uses: actions/setup-python@v5
+      - uses: actions/checkout@v6
+      - uses: actions/setup-python@v6
         with:
           python-version: '3.12'
       - name: Tests
@@ -37,6 +39,22 @@ jobs:
       - name: Verify BLS Public Data API
         if: github.event_name == 'pull_request'
         run: python scripts/collect_productivity.py --output-dir /tmp/bls-productivity-current
+      - name: Verify release-aware public projection
+        if: github.event_name == 'pull_request'
+        run: |
+          rm -rf /tmp/productivity-public
+          python scripts/build_productivity_views.py --output-dir /tmp/productivity-public
+          python - <<'PY'
+          import json
+          from pathlib import Path
+          latest=json.loads(Path('/tmp/productivity-public/latest.json').read_text())
+          release=json.loads(Path('/tmp/productivity-public/release.json').read_text())
+          assert latest['observations'][-1]['period']=='2026-Q2'
+          assert latest['release']['release_date']=='2026-08-06'
+          assert latest['release']['release_status']=='preliminary'
+          assert latest['release']['next_release']['release_status']=='revised'
+          assert release['headline']['labor_productivity']==latest['observations'][-1]['labor_productivity']
+          PY
       - name: Collect current BLS productivity snapshot
         if: github.event_name != 'pull_request'
         run: python scripts/collect_productivity.py

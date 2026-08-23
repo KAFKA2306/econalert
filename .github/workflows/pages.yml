@@ -6,6 +6,23 @@ on:
     paths:
       - web/**
       - api/v1/**
+      - data/official/bls-cpi-2026-06.json
+      - data/official/bls-cpi-2026-07.json
+      - data/official/bls-productivity-2026-q2-release.json
+      - data/research/ai-productivity-evidence.json
+      - scripts/build_public_api.py
+      - scripts/build_productivity_views.py
+      - .github/workflows/pages.yml
+  pull_request:
+    paths:
+      - web/**
+      - api/v1/**
+      - data/official/bls-cpi-2026-06.json
+      - data/official/bls-cpi-2026-07.json
+      - data/official/bls-productivity-2026-q2-release.json
+      - data/research/ai-productivity-evidence.json
+      - scripts/build_public_api.py
+      - scripts/build_productivity_views.py
       - .github/workflows/pages.yml
   workflow_dispatch:
 
@@ -15,40 +32,52 @@ permissions:
   id-token: write
 
 concurrency:
-  group: pages
+  group: pages-${{ github.ref }}
   cancel-in-progress: true
 
 jobs:
-  deploy:
-    environment:
-      name: github-pages
-      url: ${{ steps.deployment.outputs.page_url }}
+  build:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v6
-      - name: Validate canonical inputs and dashboard contract
+      - uses: actions/setup-python@v6
+        with:
+          python-version: '3.12'
+      - name: Rebuild canonical public projections
+        run: |
+          python scripts/build_public_api.py
+          python scripts/build_productivity_views.py
+      - name: Validate dashboard contract
         run: |
           python -m json.tool api/v1/productivity/latest.json >/dev/null
           python -m json.tool api/v1/productivity/revisions.json >/dev/null
+          python -m json.tool api/v1/productivity/release.json >/dev/null
           python -m json.tool api/v1/latest.json >/dev/null
-          python -m json.tool api/v1/manifest.json >/dev/null
+          python -m json.tool api/v1/categories.json >/dev/null
+          python -m json.tool api/v1/ai-productivity/evidence.json >/dev/null
           python - <<'PY'
           import json
           from pathlib import Path
           prod=json.loads(Path('api/v1/productivity/latest.json').read_text())
           cpi=json.loads(Path('api/v1/latest.json').read_text())
+          cats=json.loads(Path('api/v1/categories.json').read_text())
+          ai=json.loads(Path('api/v1/ai-productivity/evidence.json').read_text())
           rows=prod['observations']
-          assert len(rows)>=2
+          assert len(rows)>=2 and rows[-1]['period']=='2026-Q2'
           assert prod['rate_basis']=='percent change from previous quarter at annual rate'
-          for key in ('labor_productivity','real_hourly_compensation','unit_labor_costs'):
-              assert key in rows[-1] and key in rows[-2]
-          assert cpi['source']['publisher']=='U.S. Bureau of Labor Statistics'
-          assert cpi['period'] and cpi['release_date'] and cpi['headline']
+          assert prod['release']['release_date']=='2026-08-06'
+          assert prod['release']['release_status']=='preliminary'
+          assert prod['release']['next_release']['release_status']=='revised'
+          assert cpi['period']=='2026-07' and cpi['release_date']=='2026-08-12'
+          assert cpi['detail_status']=='headline_only'
+          assert cats['period']=='2026-06' and cats['freshness']=='older_detail_vintage_than_latest_headline'
+          assert {r['evidence_type'] for r in ai['records']}=={'adoption_survey','measured_productivity_effect'}
+          assert 'must not be combined' in ai['contract']['rule']
           html=Path('web/index.html').read_text()
-          assert 'Productivity data' in html and 'CPIのfreshness' in html
-          assert 'next_release' in html and 'revised' in html
+          for marker in ('Release state','AI productivity research','api/v1/ai-productivity/evidence.json','Missing July categories were not fabricated.'):
+              assert marker in html
           PY
-      - name: Build public artifact from canonical API
+      - name: Build Pages artifact
         run: |
           mkdir -p web/api
           rm -rf web/api/v1
@@ -59,9 +88,20 @@ jobs:
           Path('web/deployment.json').write_text(json.dumps({'source_commit':os.environ['GITHUB_SHA']},indent=2)+'\n')
           PY
       - uses: actions/configure-pages@v5
+        if: github.event_name != 'pull_request'
       - uses: actions/upload-pages-artifact@v3
+        if: github.event_name != 'pull_request'
         with:
           path: web
+
+  deploy:
+    if: github.event_name != 'pull_request'
+    needs: build
+    environment:
+      name: github-pages
+      url: ${{ steps.deployment.outputs.page_url }}
+    runs-on: ubuntu-latest
+    steps:
       - id: deployment
         uses: actions/deploy-pages@v4
       - name: Verify exact production revision and evidence surface
@@ -78,12 +118,14 @@ jobs:
                   with urlopen(urljoin(base,'deployment.json'),timeout=10) as r: dep=json.load(r)
                   with urlopen(urljoin(base,'api/v1/productivity/latest.json'),timeout=10) as r: prod=json.load(r)
                   with urlopen(urljoin(base,'api/v1/latest.json'),timeout=10) as r: cpi=json.load(r)
+                  with urlopen(urljoin(base,'api/v1/ai-productivity/evidence.json'),timeout=10) as r: ai=json.load(r)
                   with urlopen(base,timeout=10) as r: html=r.read().decode()
-                  assert dep['source_commit']==expected
-                  assert prod['observations'][-1]['period']
-                  assert cpi['release_date']
-                  assert '仕事の効率とコストは' in html and 'CPIのfreshness' in html
-                  print({'page_url':base,'source_commit':expected,'productivity_period':prod['observations'][-1]['period'],'cpi_period':cpi['period']})
+                  assert dep['source_commit']==expected, dep
+                  assert prod['release']['release_date']=='2026-08-06' and prod['release']['release_status']=='preliminary'
+                  assert cpi['period']=='2026-07' and cpi['release_date']=='2026-08-12'
+                  assert {r['evidence_type'] for r in ai['records']}=={'adoption_survey','measured_productivity_effect'}
+                  assert 'Release state' in html and 'AI productivity research' in html
+                  print({'page_url':base,'source_commit':expected,'productivity_period':prod['observations'][-1]['period'],'productivity_release':prod['release']['release_date'],'cpi_period':cpi['period'],'cpi_release':cpi['release_date'],'ai_records':len(ai['records'])})
                   break
               except Exception as exc:
                   last=exc; time.sleep(2)

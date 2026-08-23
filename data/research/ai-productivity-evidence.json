@@ -1,0 +1,47 @@
+{
+  "schema_version": 1,
+  "contract": {
+    "rule": "AI adoption survey evidence and measured productivity effects are separate evidence types and must not be combined into one multiplier or macro observation.",
+    "allowed_evidence_types": ["adoption_survey", "measured_productivity_effect"]
+  },
+  "records": [
+    {
+      "id": "census-ces-26-25-ai-firm-use",
+      "evidence_type": "adoption_survey",
+      "publisher": "U.S. Census Bureau, Center for Economic Studies",
+      "title": "The Microstructure of AI Diffusion: Evidence from Firms, Business Functions, and Worker Tasks",
+      "publication_date": "2026-04-01",
+      "reference_period": "2025-11 to 2026-01",
+      "population": "U.S. employer businesses represented by the 2026 Business Trends and Outlook Survey AI supplement",
+      "metric": "firms_using_ai_in_a_business_function",
+      "value": 18.0,
+      "unit": "percent_of_firms",
+      "employment_weighted_value": 32.0,
+      "employment_weighted_unit": "percent_of_employment",
+      "design": "nationally_representative_business_survey",
+      "source_url": "https://www.census.gov/library/working-papers/2026/adrm/CES-WP-26-25.html",
+      "source_tier": "primary_official_research",
+      "limitation": "Adoption prevalence is not a measured causal productivity effect."
+    },
+    {
+      "id": "nber-w31161-generative-ai-at-work",
+      "evidence_type": "measured_productivity_effect",
+      "publisher": "National Bureau of Economic Research",
+      "title": "Generative AI at Work",
+      "publication_date": "2023-04-01",
+      "revision_date": "2023-11-01",
+      "journal_publication_year": 2025,
+      "reference_period": "2020 to 2021 rollout data",
+      "population": "5,179 customer support agents at one Fortune 500 software company",
+      "metric": "issues_resolved_per_hour_effect",
+      "value": 14.0,
+      "unit": "percent_increase_average",
+      "novice_low_skill_value": 34.0,
+      "novice_low_skill_unit": "percent_increase",
+      "design": "staggered_introduction_empirical_study",
+      "source_url": "https://www.nber.org/papers/w31161",
+      "source_tier": "primary_research",
+      "limitation": "A firm- and occupation-specific measured effect; it is not an economy-wide productivity estimate and must not be combined with adoption prevalence."
+    }
+  ]
+}

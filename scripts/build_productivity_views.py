@@ -17,6 +17,7 @@ METRICS = (
     "real_hourly_compensation",
     "unit_labor_costs",
 )
+DEFAULT_RELEASE = Path("data/official/bls-productivity-2026-q2-release.json")
 
 
 def sha256_bytes(content: bytes) -> str:
@@ -74,13 +75,30 @@ def json_bytes(payload: dict) -> bytes:
     return (json.dumps(payload, ensure_ascii=False, indent=2) + "\n").encode("utf-8")
 
 
-def build(current_root: Path, vintages_path: Path, output_dir: Path) -> None:
+def validate_release(release: dict, latest_observation: dict) -> None:
+    if release["publisher"] != "U.S. Bureau of Labor Statistics":
+        raise ValueError("unexpected productivity release publisher")
+    if release["period"] != latest_observation["period"]:
+        raise ValueError(
+            f"release period {release['period']} does not match latest observation {latest_observation['period']}"
+        )
+    if release["rate_basis"] != "percent change from previous quarter at annual rate":
+        raise ValueError("productivity release rate basis mismatch")
+    for metric in METRICS:
+        if float(release["headline"][metric]) != float(latest_observation[metric]):
+            raise ValueError(f"release headline does not match current observation: {metric}")
+
+
+def build(current_root: Path, vintages_path: Path, output_dir: Path, release_path: Path = DEFAULT_RELEASE) -> None:
     snapshot_path, current = load_latest_snapshot(current_root)
     vintages = json.loads(vintages_path.read_text(encoding="utf-8"))
+    release = json.loads(release_path.read_text(encoding="utf-8"))
+    latest_observation = current["observations"][-1]
+    validate_release(release, latest_observation)
     revisions = build_revisions(vintages)
 
     latest = {
-        "schema_version": 1,
+        "schema_version": 2,
         "publisher": current["publisher"],
         "dataset": current["dataset"],
         "sector": current["sector"],
@@ -88,6 +106,14 @@ def build(current_root: Path, vintages_path: Path, output_dir: Path) -> None:
         "retrieved_at": current["retrieved_at"],
         "source_url": current["source_url"],
         "source_sha256": current["source_sha256"],
+        "release": {
+            "period": release["period"],
+            "release_date": release["release_date"],
+            "release_status": release["release_status"],
+            "source_url": release["source_url"],
+            "verified_on": release["verified_on"],
+            "next_release": release["next_release"],
+        },
         "series": current["series"],
         "observations": current["observations"],
     }
@@ -96,15 +122,20 @@ def build(current_root: Path, vintages_path: Path, output_dir: Path) -> None:
         "latest.json": json_bytes(latest),
         "latest.csv": csv_bytes(latest),
         "revisions.json": json_bytes(revisions),
+        "release.json": json_bytes(release),
     }
     manifest = {
-        "schema_version": 1,
+        "schema_version": 2,
         "source_snapshot": str(snapshot_path),
         "source_snapshot_sha256": sha256_bytes(snapshot_path.read_bytes()),
+        "release_evidence": str(release_path),
+        "release_evidence_sha256": sha256_bytes(release_path.read_bytes()),
         "historical_vintages": str(vintages_path),
         "historical_vintages_sha256": sha256_bytes(vintages_path.read_bytes()),
         "period_start": latest["observations"][0]["period"],
         "period_end": latest["observations"][-1]["period"],
+        "release_date": release["release_date"],
+        "release_status": release["release_status"],
         "observation_count": len(latest["observations"]),
         "outputs": {
             name: {"bytes": len(content), "sha256": sha256_bytes(content)}
@@ -122,9 +153,10 @@ def main() -> None:
     parser = argparse.ArgumentParser()
     parser.add_argument("--current-dir", type=Path, default=Path("data/official/bls-productivity-current"))
     parser.add_argument("--vintages", type=Path, default=Path("data/official/bls-productivity-vintages.json"))
+    parser.add_argument("--release", type=Path, default=DEFAULT_RELEASE)
     parser.add_argument("--output-dir", type=Path, default=Path("api/v1/productivity"))
     args = parser.parse_args()
-    build(args.current_dir, args.vintages, args.output_dir)
+    build(args.current_dir, args.vintages, args.output_dir, args.release)
 
 
 if __name__ == "__main__":

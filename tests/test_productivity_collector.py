@@ -48,7 +48,17 @@ def test_seeded_release_vintages_have_complete_primary_source_rows():
         assert set(release["previously_published"]) == metrics
 
 
-def test_distribution_views_are_deterministic_and_include_revisions():
+def test_latest_release_metadata_matches_current_q2_observation():
+    release = json.loads(Path("data/official/bls-productivity-2026-q2-release.json").read_text())
+    assert release["period"] == "2026-Q2"
+    assert release["release_date"] == "2026-08-06"
+    assert release["release_status"] == "preliminary"
+    assert release["source_url"].endswith("prod2_08062026.htm")
+    assert release["next_release"]["scheduled_at"] == "2026-09-03T08:30:00-04:00"
+    assert release["next_release"]["release_status"] == "revised"
+
+
+def test_distribution_views_are_deterministic_and_include_release_metadata_and_revisions():
     current = Path("data/official/bls-productivity-current")
     vintages = Path("data/official/bls-productivity-vintages.json")
     with TemporaryDirectory() as first_tmp, TemporaryDirectory() as second_tmp:
@@ -60,8 +70,16 @@ def test_distribution_views_are_deterministic_and_include_revisions():
             p.name: p.read_bytes() for p in second.iterdir()
         }
         manifest = json.loads((first / "manifest.json").read_text(encoding="utf-8"))
+        latest = json.loads((first / "latest.json").read_text(encoding="utf-8"))
         revisions = json.loads((first / "revisions.json").read_text(encoding="utf-8"))
+        release = json.loads((first / "release.json").read_text(encoding="utf-8"))
         assert manifest["observation_count"] >= 8
-        assert set(manifest["outputs"]) == {"latest.json", "latest.csv", "revisions.json"}
+        assert set(manifest["outputs"]) == {"latest.json", "latest.csv", "revisions.json", "release.json"}
+        assert manifest["release_date"] == "2026-08-06"
+        assert manifest["release_status"] == "preliminary"
+        assert latest["release"]["release_date"] == "2026-08-06"
+        assert latest["release"]["release_status"] == "preliminary"
+        assert latest["release"]["period"] == latest["observations"][-1]["period"] == "2026-Q2"
+        assert release["headline"]["labor_productivity"] == latest["observations"][-1]["labor_productivity"] == 1.4
         assert len(revisions["revisions"]) == 7
         assert revisions["revisions"][-1]["revision_percentage_points"]["labor_productivity"] == -0.5

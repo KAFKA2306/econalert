@@ -4,6 +4,8 @@
     "revalidate_seconds": 3600,
     "validator": "sha256"
   },
+  "category_freshness": "older_detail_vintage_than_latest_headline",
+  "category_period": "2026-06",
   "dataset": "bls-cpi",
   "files": {
     "categories.csv": {
@@ -11,27 +13,35 @@
       "sha256": "ebda4c721d9b69ec9ddb8ff23aeda2b191f9e7c55c541c3cde912e043c1bf38e"
     },
     "categories.json": {
-      "bytes": 2371,
-      "sha256": "2a10c156b7117f1e822cc27e38076ffe5a65f1cdcfc741c2903a12ca5cfd19e7"
+      "bytes": 2431,
+      "sha256": "583d8fb71b0cf092f26fda0a992c7f42f9633a43ae7ed2345fffbc1e6850d577"
     },
     "latest.json": {
-      "bytes": 570,
-      "sha256": "2cd56b760e50ad610627fe82c3ca38ba2afd4daadec1452d37a675a5c5a78249"
+      "bytes": 814,
+      "sha256": "1da040aa549291826b1c349a845f2033d8cd6cf28ccb9672b22f840866f4d070"
     }
   },
-  "period": "2026-06",
+  "latest_period": "2026-07",
+  "latest_release_date": "2026-08-12",
   "record_count": 38,
-  "release_date": "2026-07-14",
-  "retrieved_at": "2026-08-07T19:15:38Z",
   "rights": {
     "copyright_url": "https://www.bls.gov/opub/copyright-information.htm",
     "note": "BLS-published material is public domain except previously copyrighted photographs and illustrations; cite BLS as source.",
     "terms_url": "https://www.bls.gov/developers/termsOfService.htm"
   },
-  "source": {
-    "publisher": "U.S. Bureau of Labor Statistics",
-    "sha256": "3394bcf56065d1ce1f39683c48de7f82bddc72954fe8fa878891dad0745066cb",
-    "snapshot": "data/official/bls-cpi-2026-06.json",
-    "url": "https://www.bls.gov/news.release/cpi.nr0.htm"
-  }
+  "sources": {
+    "detailed_categories": {
+      "publisher": "U.S. Bureau of Labor Statistics",
+      "sha256": "3394bcf56065d1ce1f39683c48de7f82bddc72954fe8fa878891dad0745066cb",
+      "snapshot": "data/official/bls-cpi-2026-06.json",
+      "url": "https://www.bls.gov/news.release/cpi.nr0.htm"
+    },
+    "latest_headline": {
+      "publisher": "U.S. Bureau of Labor Statistics",
+      "sha256": "09f12a941371e0ca07ad4f4124093140de8b7ea33fdaabe6a9fce0fa07902cda",
+      "snapshot": "data/official/bls-cpi-2026-07.json",
+      "url": "https://www.bls.gov/news.release/archives/cpi_08122026.htm"
+    }
+  },
+  "verified_on": "2026-08-23"
 }
