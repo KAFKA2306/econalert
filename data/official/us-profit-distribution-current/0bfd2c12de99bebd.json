@@ -2,6 +2,7 @@
   "schema_version": 1,
   "dataset": "U.S. corporate profit share and productivity distribution",
   "retrieved_at": "2026-08-28T00:00:29.389686+00:00",
+  "source_fingerprint_sha256": "0bfd2c12de99bebd772b668247da0c234608cb4a3ff1db8fe5426ab4a8f600bb",
   "sources": {
     "fred_cprofit_gdi": {
       "retrieval_provider": "Federal Reserve Bank of St. Louis (FRED)",
@@ -208,43 +209,6 @@
     "gdi_yoy_pct": "100 * (GDI_t / GDI_t-4 - 1)",
     "labor_share_yoy_log_approx_pct": "unit_labor_costs_yoy_pct - value_added_output_price_yoy_pct",
     "labor_share_yoy_from_rounded_rates_pct": "100 * ((1 + ULC_yoy/100) / (1 + value_added_price_yoy/100) - 1)"
-  },
-  "summary": {
-    "schema_version": 1,
-    "retrieved_at": "2026-08-28T00:00:29.389686+00:00",
-    "corporate_profit_share": {
-      "period": "2026-Q2",
-      "corporate_profits_billion_usd_saar": 4827.39,
-      "gdi_billion_usd_saar": 32245.142,
-      "corporate_profits_gdi_pct": 14.970906,
-      "corporate_profits_yoy_pct": 22.844948,
-      "gdi_yoy_pct": 6.613563
-    },
-    "nonfarm_business": {
-      "period": "2026-Q2",
-      "labor_productivity_yoy_pct": 2.2,
-      "labor_productivity_qoq_annualized_pct": 1.4,
-      "hourly_compensation_yoy_pct": 3.7,
-      "hourly_compensation_qoq_annualized_pct": 2.7,
-      "unit_labor_costs_yoy_pct": 1.4,
-      "unit_labor_costs_qoq_annualized_pct": 1.3,
-      "value_added_output_price_yoy_pct": 4.9,
-      "value_added_output_price_qoq_annualized_pct": 7.0,
-      "labor_share_yoy_log_approx_pct": -3.5,
-      "labor_share_yoy_from_rounded_rates_pct": -3.336511
-    },
-    "nonfinancial_corporations": {
-      "period": "2026-Q1",
-      "labor_productivity_yoy_pct": 3.7,
-      "labor_productivity_qoq_annualized_pct": 1.4,
-      "unit_labor_costs_yoy_pct": -0.2,
-      "unit_labor_costs_qoq_annualized_pct": 0.7,
-      "value_added_output_price_yoy_pct": 2.4,
-      "value_added_output_price_qoq_annualized_pct": 3.7,
-      "unit_profits_yoy_pct": 6.8,
-      "unit_profits_qoq_annualized_pct": 18.6
-    },
-    "source_fingerprint_sha256": "0bfd2c12de99bebd772b668247da0c234608cb4a3ff1db8fe5426ab4a8f600bb"
   },
   "corporate_profit_share": [
     {
