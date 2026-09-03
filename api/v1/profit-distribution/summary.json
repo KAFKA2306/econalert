@@ -1,6 +1,6 @@
 {
   "schema_version": 1,
-  "retrieved_at": "2026-08-28T00:00:29.389686+00:00",
+  "retrieved_at": "2026-09-03T18:05:34.245014+00:00",
   "corporate_profit_share": {
     "period": "2026-Q2",
     "corporate_profits_billion_usd_saar": 4827.39,
@@ -14,24 +14,24 @@
     "labor_productivity_yoy_pct": 2.2,
     "labor_productivity_qoq_annualized_pct": 1.4,
     "hourly_compensation_yoy_pct": 3.7,
-    "hourly_compensation_qoq_annualized_pct": 2.7,
+    "hourly_compensation_qoq_annualized_pct": 2.6,
     "unit_labor_costs_yoy_pct": 1.4,
-    "unit_labor_costs_qoq_annualized_pct": 1.3,
-    "value_added_output_price_yoy_pct": 4.9,
-    "value_added_output_price_qoq_annualized_pct": 7.0,
-    "labor_share_yoy_log_approx_pct": -3.5,
-    "labor_share_yoy_from_rounded_rates_pct": -3.336511
+    "unit_labor_costs_qoq_annualized_pct": 1.2,
+    "value_added_output_price_yoy_pct": 5.0,
+    "value_added_output_price_qoq_annualized_pct": 7.4,
+    "labor_share_yoy_log_approx_pct": -3.6,
+    "labor_share_yoy_from_rounded_rates_pct": -3.428571
   },
   "nonfinancial_corporations": {
-    "period": "2026-Q1",
-    "labor_productivity_yoy_pct": 3.7,
-    "labor_productivity_qoq_annualized_pct": 1.4,
-    "unit_labor_costs_yoy_pct": -0.2,
-    "unit_labor_costs_qoq_annualized_pct": 0.7,
-    "value_added_output_price_yoy_pct": 2.4,
-    "value_added_output_price_qoq_annualized_pct": 3.7,
-    "unit_profits_yoy_pct": 6.8,
-    "unit_profits_qoq_annualized_pct": 18.6
+    "period": "2026-Q2",
+    "labor_productivity_yoy_pct": 3.1,
+    "labor_productivity_qoq_annualized_pct": 2.2,
+    "unit_labor_costs_yoy_pct": 0.4,
+    "unit_labor_costs_qoq_annualized_pct": -0.3,
+    "value_added_output_price_yoy_pct": 4.3,
+    "value_added_output_price_qoq_annualized_pct": 7.3,
+    "unit_profits_yoy_pct": 17.8,
+    "unit_profits_qoq_annualized_pct": 43.0
   },
-  "source_fingerprint_sha256": "0bfd2c12de99bebd772b668247da0c234608cb4a3ff1db8fe5426ab4a8f600bb"
+  "source_fingerprint_sha256": "55399b34c3425667a377f5afb92cede1bf8291e4fe084e06228615147bf087e8"
 }
