@@ -1,32 +1,32 @@
 {
   "schema_version": 2,
-  "source_snapshot": "data/official/bls-productivity-current/8c4a9bfffedf9e3f.json",
-  "source_snapshot_sha256": "aea2a63cf7c81029badc5993f12d6e22d9816d02b8e217763398653f01fc792c",
+  "source_snapshot": "data/official/bls-productivity-current/28d4cb0933e74428.json",
+  "source_snapshot_sha256": "42b8b43aae1499375f3b438e65986607ae3f788d9e7a79eb438dcf0fd4e291a1",
   "release_evidence": "data/official/bls-productivity-2026-q2-release.json",
-  "release_evidence_sha256": "1f97be9624f725c6f2c25fb71c32e2e8013747db9674082d9a568d8c45a6e5e3",
+  "release_evidence_sha256": "3554b811105500fd5ee4ed61bafb34e367c30fa166df7fc091a3a8e14970e640",
   "historical_vintages": "data/official/bls-productivity-vintages.json",
   "historical_vintages_sha256": "144730a7b56d8569a288e383c81d98b142b960db9699d645815896a70f1d559d",
   "period_start": "2024-Q1",
   "period_end": "2026-Q2",
-  "release_date": "2026-08-06",
-  "release_status": "preliminary",
+  "release_date": "2026-09-03",
+  "release_status": "revised",
   "observation_count": 10,
   "outputs": {
     "latest.json": {
-      "bytes": 3640,
-      "sha256": "6242fa2d40e7d9e66a314439915935a5dcf0dcdb40366412cd0a15b7c2dec228"
+      "bytes": 3659,
+      "sha256": "12d2cdd8a933ff53d57af3c79f473319dd0341c429d555c4bc15760620d1f7a9"
     },
     "latest.csv": {
       "bytes": 446,
-      "sha256": "51ea3c46537d4e08f8ec4f232da38d0c49af6b502bff5254dee68df555c6d6d8"
+      "sha256": "928fe7e638207572e4ac7fe2e6cfe536764b328fff93e29e0f46f2ff6d144c9f"
     },
     "revisions.json": {
       "bytes": 3329,
       "sha256": "b8b3c7be10e83d14eca1a7678562fdca65d48cad7fefca59d2ec2df76a00e625"
     },
     "release.json": {
-      "bytes": 1130,
-      "sha256": "1f97be9624f725c6f2c25fb71c32e2e8013747db9674082d9a568d8c45a6e5e3"
+      "bytes": 1293,
+      "sha256": "3554b811105500fd5ee4ed61bafb34e367c30fa166df7fc091a3a8e14970e640"
     }
   }
 }

@@ -6,21 +6,6 @@
   "rate_basis": "percent change from previous quarter at annual rate",
   "retrieved_at": "2026-09-08T10:16:53.984595+00:00",
   "source_url": "https://api.bls.gov/publicAPI/v2/timeseries/data/",
-  "source_sha256": "28d4cb0933e744283004b8402596e0685e9e63acefffca58745bf36f460d1f3d",
-  "release": {
-    "period": "2026-Q2",
-    "release_date": "2026-09-03",
-    "release_status": "revised",
-    "source_url": "https://www.bls.gov/news.release/archives/prod2_09032026.htm",
-    "verified_on": "2026-09-08",
-    "next_release": {
-      "period": "2026-Q3",
-      "scheduled_at": "2026-11-05T08:30:00-05:00",
-      "timezone": "America/New_York",
-      "release_status": "preliminary",
-      "schedule_url": "https://www.bls.gov/schedule/news_release/prod2.htm"
-    }
-  },
   "series": {
     "PRS85006092": "labor_productivity",
     "PRS85006042": "output",
@@ -29,6 +14,7 @@
     "PRS85006152": "real_hourly_compensation",
     "PRS85006112": "unit_labor_costs"
   },
+  "source_sha256": "28d4cb0933e744283004b8402596e0685e9e63acefffca58745bf36f460d1f3d",
   "observations": [
     {
       "period": "2024-Q1",
