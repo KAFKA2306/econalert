@@ -43,17 +43,23 @@ jobs:
         if: github.event_name == 'pull_request'
         run: |
           rm -rf /tmp/productivity-public
-          python scripts/build_productivity_views.py --output-dir /tmp/productivity-public
+          python scripts/build_productivity_views.py \
+            --current-dir /tmp/bls-productivity-current \
+            --output-dir /tmp/productivity-public
           python - <<'PY'
           import json
           from pathlib import Path
           latest=json.loads(Path('/tmp/productivity-public/latest.json').read_text())
           release=json.loads(Path('/tmp/productivity-public/release.json').read_text())
           assert latest['observations'][-1]['period']=='2026-Q2'
-          assert latest['release']['release_date']=='2026-08-06'
-          assert latest['release']['release_status']=='preliminary'
-          assert latest['release']['next_release']['release_status']=='revised'
-          assert release['headline']['labor_productivity']==latest['observations'][-1]['labor_productivity']
+          assert latest['release']['release_date']=='2026-09-03'
+          assert latest['release']['release_status']=='revised'
+          assert latest['release']['next_release']['period']=='2026-Q3'
+          assert latest['release']['next_release']['release_status']=='preliminary'
+          assert release['headline']['labor_productivity']==latest['observations'][-1]['labor_productivity']==1.4
+          assert release['headline']['hourly_compensation']==latest['observations'][-1]['hourly_compensation']==2.6
+          assert release['headline']['real_hourly_compensation']==latest['observations'][-1]['real_hourly_compensation']==-3.3
+          assert release['headline']['unit_labor_costs']==latest['observations'][-1]['unit_labor_costs']==1.2
           PY
       - name: Collect current BLS productivity snapshot
         if: github.event_name != 'pull_request'

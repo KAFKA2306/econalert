@@ -8,7 +8,6 @@ on:
       - api/v1/**
       - data/official/bls-cpi-2026-06.json
       - data/official/bls-cpi-2026-07.json
-      - data/official/bls-productivity-2026-q2-release.json
       - data/research/ai-productivity-evidence.json
       - scripts/build_public_api.py
       - scripts/build_productivity_views.py
@@ -47,7 +46,13 @@ jobs:
       - name: Rebuild canonical public projections
         run: |
           python scripts/build_public_api.py
-          python scripts/build_productivity_views.py
+          if [ "${{ github.event_name }}" = "pull_request" ]; then
+            rm -rf /tmp/bls-productivity-current
+            python scripts/collect_productivity.py --output-dir /tmp/bls-productivity-current
+            python scripts/build_productivity_views.py --current-dir /tmp/bls-productivity-current
+          else
+            python scripts/build_productivity_views.py
+          fi
       - name: Validate dashboard contract
         run: |
           python -m json.tool api/v1/productivity/latest.json >/dev/null
@@ -66,9 +71,14 @@ jobs:
           rows=prod['observations']
           assert len(rows)>=2 and rows[-1]['period']=='2026-Q2'
           assert prod['rate_basis']=='percent change from previous quarter at annual rate'
-          assert prod['release']['release_date']=='2026-08-06'
-          assert prod['release']['release_status']=='preliminary'
-          assert prod['release']['next_release']['release_status']=='revised'
+          assert prod['release']['release_date']=='2026-09-03'
+          assert prod['release']['release_status']=='revised'
+          assert prod['release']['next_release']['period']=='2026-Q3'
+          assert prod['release']['next_release']['release_status']=='preliminary'
+          assert rows[-1]['labor_productivity']==1.4
+          assert rows[-1]['hourly_compensation']==2.6
+          assert rows[-1]['real_hourly_compensation']==-3.3
+          assert rows[-1]['unit_labor_costs']==1.2
           assert cpi['period']=='2026-07' and cpi['release_date']=='2026-08-12'
           assert cpi['detail_status']=='headline_only'
           assert cats['period']=='2026-06' and cats['freshness']=='older_detail_vintage_than_latest_headline'
@@ -122,7 +132,10 @@ jobs:
                   with urlopen(urljoin(base,'api/v1/ai-productivity/evidence.json'),timeout=10) as r: ai=json.load(r)
                   with urlopen(base,timeout=10) as r: html=r.read().decode()
                   assert dep['source_commit']==expected, dep
-                  assert prod['release']['release_date']=='2026-08-06' and prod['release']['release_status']=='preliminary'
+                  assert prod['release']['release_date']=='2026-09-03' and prod['release']['release_status']=='revised'
+                  assert prod['observations'][-1]['hourly_compensation']==2.6
+                  assert prod['observations'][-1]['real_hourly_compensation']==-3.3
+                  assert prod['observations'][-1]['unit_labor_costs']==1.2
                   assert cpi['period']=='2026-07' and cpi['release_date']=='2026-08-12'
                   assert {r['evidence_type'] for r in ai['records']}=={'adoption_survey','measured_productivity_effect'}
                   assert 'Release state' in html and 'AI productivity research' in html
