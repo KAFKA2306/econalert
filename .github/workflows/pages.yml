@@ -11,6 +11,8 @@ on:
       - data/research/ai-productivity-evidence.json
       - scripts/build_public_api.py
       - scripts/build_productivity_views.py
+      - scripts/verify_profit_distribution_publication.py
+      - tests/test_profit_distribution_publication.py
       - .github/workflows/pages.yml
   pull_request:
     paths:
@@ -22,6 +24,8 @@ on:
       - data/research/ai-productivity-evidence.json
       - scripts/build_public_api.py
       - scripts/build_productivity_views.py
+      - scripts/verify_profit_distribution_publication.py
+      - tests/test_profit_distribution_publication.py
       - .github/workflows/pages.yml
   workflow_dispatch:
 
@@ -88,6 +92,8 @@ jobs:
           for marker in ('Release state','AI productivity research','api/v1/ai-productivity/evidence.json','Missing July categories were not fabricated.'):
               assert marker in html
           PY
+      - name: Test profit-distribution publication verifier
+        run: python -m unittest discover -s tests -p 'test_profit_distribution_publication.py' -v
       - name: Build Pages artifact
         run: |
           mkdir -p web/api
@@ -115,6 +121,9 @@ jobs:
     steps:
       - id: deployment
         uses: actions/deploy-pages@v4
+      - uses: actions/checkout@v6
+        with:
+          ref: ${{ github.sha }}
       - name: Verify exact production revision and evidence surface
         env:
           PAGE_URL: ${{ steps.deployment.outputs.page_url }}
@@ -146,6 +155,9 @@ jobs:
           else:
               raise SystemExit(f'production verification failed: {last}')
           PY
+          python scripts/verify_profit_distribution_publication.py \
+            --base-url "$PAGE_URL" \
+            --expected-manifest api/v1/profit-distribution/manifest.json
       - name: Record production evidence on Issue 24
         env:
           PAGE_URL: ${{ steps.deployment.outputs.page_url }}
