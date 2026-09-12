@@ -1,0 +1,60 @@
+{
+  "authority": "KAFKA2306/econalert",
+  "dataset": "Employment Situation",
+  "metrics": {
+    "average_hourly_earnings": 37.75,
+    "labor_force_participation_rate": 61.6,
+    "payroll_change": 162.0,
+    "unemployment_rate": 4.1
+  },
+  "payroll_revisions": [
+    {
+      "previously_published_thousands": 20,
+      "reference_month": "2026-06",
+      "revised_thousands": 31,
+      "revision_thousands": 11
+    },
+    {
+      "previously_published_thousands": -23,
+      "reference_month": "2026-07",
+      "revised_thousands": 21,
+      "revision_thousands": 44
+    }
+  ],
+  "reference_month": "2026-08",
+  "release_timestamp": "2026-09-04T08:30:00-04:00",
+  "retrieved_at": "2026-09-12T22:57:11+00:00",
+  "schema_version": 1,
+  "series": {
+    "average_hourly_earnings": {
+      "seasonal_adjustment": "seasonally adjusted",
+      "series_id": "CES0500000003",
+      "table": "B-3",
+      "unit": "US dollars per hour"
+    },
+    "labor_force_participation_rate": {
+      "seasonal_adjustment": "seasonally adjusted",
+      "series_id": "LNS11300000",
+      "table": "A-1",
+      "unit": "percent"
+    },
+    "payroll_change": {
+      "seasonal_adjustment": "seasonally adjusted",
+      "series_id": "CES0000000001",
+      "table": "B-1",
+      "unit": "thousands of jobs, over-the-month change"
+    },
+    "unemployment_rate": {
+      "seasonal_adjustment": "seasonally adjusted",
+      "series_id": "LNS14000000",
+      "table": "A-1",
+      "unit": "percent"
+    }
+  },
+  "source": {
+    "release_id": "USDL-26-1435",
+    "sha256": "e4212cdec375aae4b895acadb15f88a38385c0c5c0113467f312d0ac58267312",
+    "url": "https://www.bls.gov/news.release/archives/empsit_09042026.htm"
+  },
+  "verification_state": "VERIFIED_HISTORICAL_RELEASE"
+}
