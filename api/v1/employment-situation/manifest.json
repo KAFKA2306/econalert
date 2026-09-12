@@ -1,0 +1,10 @@
+{
+  "dataset": "Employment Situation",
+  "outputs": {
+    "latest.csv": "eddd533ca5c7dfa531bd99174c60ee8c9ab2d55b80fbb6bc4f7bcc6cc3c62a33",
+    "latest.json": "fdd238a0570d814784251b580008da46f29d787e70467b2f8937ebe5051d67e2"
+  },
+  "reference_month": "2026-08",
+  "schema_version": 1,
+  "source_sha256": "e4212cdec375aae4b895acadb15f88a38385c0c5c0113467f312d0ac58267312"
+}
