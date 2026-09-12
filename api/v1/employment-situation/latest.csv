@@ -1,0 +1,5 @@
+reference_month,release_timestamp,metric,series_id,value,unit,seasonal_adjustment
+2026-08,2026-09-04T08:30:00-04:00,payroll_change,CES0000000001,162.0,"thousands of jobs, over-the-month change",seasonally adjusted
+2026-08,2026-09-04T08:30:00-04:00,unemployment_rate,LNS14000000,4.1,percent,seasonally adjusted
+2026-08,2026-09-04T08:30:00-04:00,labor_force_participation_rate,LNS11300000,61.6,percent,seasonally adjusted
+2026-08,2026-09-04T08:30:00-04:00,average_hourly_earnings,CES0500000003,37.75,US dollars per hour,seasonally adjusted
