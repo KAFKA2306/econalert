@@ -52,8 +52,9 @@
     }
   },
   "source": {
+    "evidence_kind": "normalized_release_excerpt",
+    "evidence_sha256": "e4212cdec375aae4b895acadb15f88a38385c0c5c0113467f312d0ac58267312",
     "release_id": "USDL-26-1435",
-    "sha256": "e4212cdec375aae4b895acadb15f88a38385c0c5c0113467f312d0ac58267312",
     "url": "https://www.bls.gov/news.release/archives/empsit_09042026.htm"
   },
   "verification_state": "VERIFIED_HISTORICAL_RELEASE"
