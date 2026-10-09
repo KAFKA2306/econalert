@@ -51,11 +51,22 @@ def main() -> None:
         "scripts/contract_escalation.py",
         "scripts/collect_productivity.py",
         "scripts/build_productivity_views.py",
+        "scripts/employment_situation.py",
         "scripts/check.py",
         *[str(path.relative_to(ROOT)) for path in sorted((ROOT / "tests").glob("test_*.py"))],
     ]
     run(PYTHON, "-m", "py_compile", *python_files)
     run(PYTHON, "scripts/build_public_api.py")
+    run(
+        PYTHON,
+        "scripts/employment_situation.py",
+        "build",
+        "--snapshot",
+        "data/official/bls-employment-situation-2026-08.json",
+        "--output-dir",
+        "api/v1/employment-situation",
+        "--check",
+    )
     run(PYTHON, "-m", "pytest", "-q")
     check_poc_entrypoint()
 

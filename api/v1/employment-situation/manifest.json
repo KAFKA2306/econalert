@@ -1,0 +1,10 @@
+{
+  "dataset": "Employment Situation",
+  "evidence_sha256": "e4212cdec375aae4b895acadb15f88a38385c0c5c0113467f312d0ac58267312",
+  "outputs": {
+    "latest.csv": "eddd533ca5c7dfa531bd99174c60ee8c9ab2d55b80fbb6bc4f7bcc6cc3c62a33",
+    "latest.json": "a0ad18fc1ea4de2c7f18f1d08a3ca3d6854812f714201431b3d3cfa619ff69b0"
+  },
+  "reference_month": "2026-08",
+  "schema_version": 1
+}
