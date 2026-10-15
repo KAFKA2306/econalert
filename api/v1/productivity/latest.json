@@ -4,9 +4,9 @@
   "dataset": "Productivity and Costs",
   "sector": "Nonfarm business",
   "rate_basis": "percent change from previous quarter at annual rate",
-  "retrieved_at": "2026-10-08T19:59:40.423255+00:00",
+  "retrieved_at": "2026-10-15T18:23:28.216374+00:00",
   "source_url": "https://api.bls.gov/publicAPI/v2/timeseries/data/",
-  "source_sha256": "35f48fa0fdd5fd3e38a06491ab2fbd79b1db851daf138630d935249e45cf5846",
+  "source_sha256": "6468c7f83b986b6cde4f32da7e438227b0d936d4097b1442530bd824490b37c5",
   "release": {
     "period": "2026-Q2",
     "release_date": "2026-09-03",
