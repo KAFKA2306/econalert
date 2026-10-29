@@ -1,7 +1,7 @@
 {
   "schema_version": 2,
-  "source_snapshot": "data/official/bls-productivity-current/6468c7f83b986b6c.json",
-  "source_snapshot_sha256": "3d28e260b64abdf5f6c07415d8fbdb7c23a19ef4ace8295798bb4870cfad28af",
+  "source_snapshot": "data/official/bls-productivity-current/af1c3c10b26d456c.json",
+  "source_snapshot_sha256": "1d0e5413b56b45dd8761bcdcf58923f817036a74b658ad1caf9c8e4b710decff",
   "release_evidence": "data/official/bls-productivity-2026-q2-release.json",
   "release_evidence_sha256": "3554b811105500fd5ee4ed61bafb34e367c30fa166df7fc091a3a8e14970e640",
   "historical_vintages": "data/official/bls-productivity-vintages.json",
@@ -14,7 +14,7 @@
   "outputs": {
     "latest.json": {
       "bytes": 3659,
-      "sha256": "4093fc881d2d9e841af5d3adb4b020ec4b7c03f088b7e44fe79b82af0ad9472f"
+      "sha256": "f8b1203262214b032d0fb86718d18ac21b4d0bd089fe0974f8129d11ffe4cbe2"
     },
     "latest.csv": {
       "bytes": 446,
