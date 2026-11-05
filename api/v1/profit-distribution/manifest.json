@@ -1,31 +1,31 @@
 {
   "schema_version": 1,
-  "source_snapshot": "data/official/us-profit-distribution-current/7d392976d45d4d2c.json",
-  "source_snapshot_sha256": "999a38f8244e4d82ac264335cbd147281bea32522fe1f32cad50c322321cf615",
-  "retrieved_at": "2026-10-29T19:52:53.570636+00:00",
+  "source_snapshot": "data/official/us-profit-distribution-current/298f5008156a9cc4.json",
+  "source_snapshot_sha256": "3eba8718dfed4c34992fd20f1ff4efaff6d5a2dc42a0295b63d8d52d010278d7",
+  "retrieved_at": "2026-11-05T21:14:09.246397+00:00",
   "corporate_profit_period_start": "1947-Q1",
   "corporate_profit_period_end": "2026-Q2",
   "corporate_profit_observation_count": 318,
   "productivity_period_end": {
-    "nonfarm_business": "2026-Q2",
+    "nonfarm_business": "2026-Q3",
     "nonfinancial_corporations": "2026-Q2"
   },
   "outputs": {
     "latest.json": {
-      "bytes": 104157,
-      "sha256": "2f99093a7bc50217a31bb7e6fdc6ee123af6e7d40d14f98f09c547f5e7ed357d"
+      "bytes": 104707,
+      "sha256": "b21044a83a5b1f6b10e1bfe6f1fdf82ce5d18d957aa6cc67a0eea54b21c8ea35"
     },
     "summary.json": {
-      "bytes": 1383,
-      "sha256": "ef9d4ca40266c94660a7ac5428cf48fb912a4603bfd0f08a8d1a80f24eafecea"
+      "bytes": 1384,
+      "sha256": "df03c889f3cd45979d8b2fbf0c1b1316f0f0dcb9dd5f2d66e93886eba27c57df"
     },
     "corporate-profit-share.csv": {
       "bytes": 17210,
       "sha256": "2e8299385e4292fb72db920c8601fba2ae486e83e0f65aeb8785a45ba5fa2f07"
     },
     "productivity-distribution.csv": {
-      "bytes": 2471,
-      "sha256": "853574c97ed4b8c993c07096941cd0e35d2af3b00312e442fd802573010348b5"
+      "bytes": 2543,
+      "sha256": "055c8f47f89e4afff023ac13f6f2a639d870bf08fc8bf178c7686e70d2930871"
     }
   }
 }

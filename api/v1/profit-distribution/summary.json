@@ -1,6 +1,6 @@
 {
   "schema_version": 1,
-  "retrieved_at": "2026-10-29T19:52:53.570636+00:00",
+  "retrieved_at": "2026-11-05T21:14:09.246397+00:00",
   "corporate_profit_share": {
     "period": "2026-Q2",
     "corporate_profits_billion_usd_saar": 4709.453,
@@ -10,28 +10,28 @@
     "gdi_yoy_pct": 6.886657
   },
   "nonfarm_business": {
-    "period": "2026-Q2",
-    "labor_productivity_yoy_pct": 2.2,
-    "labor_productivity_qoq_annualized_pct": 1.4,
-    "hourly_compensation_yoy_pct": 3.7,
-    "hourly_compensation_qoq_annualized_pct": 2.6,
-    "unit_labor_costs_yoy_pct": 1.4,
-    "unit_labor_costs_qoq_annualized_pct": 1.2,
-    "value_added_output_price_yoy_pct": 5.0,
-    "value_added_output_price_qoq_annualized_pct": 7.4,
-    "labor_share_yoy_log_approx_pct": -3.6,
-    "labor_share_yoy_from_rounded_rates_pct": -3.428571
+    "period": "2026-Q3",
+    "labor_productivity_yoy_pct": 2.1,
+    "labor_productivity_qoq_annualized_pct": 3.6,
+    "hourly_compensation_yoy_pct": 4.5,
+    "hourly_compensation_qoq_annualized_pct": 2.9,
+    "unit_labor_costs_yoy_pct": 2.4,
+    "unit_labor_costs_qoq_annualized_pct": -0.7,
+    "value_added_output_price_yoy_pct": 4.1,
+    "value_added_output_price_qoq_annualized_pct": 2.0,
+    "labor_share_yoy_log_approx_pct": -1.7,
+    "labor_share_yoy_from_rounded_rates_pct": -1.633045
   },
   "nonfinancial_corporations": {
     "period": "2026-Q2",
-    "labor_productivity_yoy_pct": 3.1,
-    "labor_productivity_qoq_annualized_pct": 2.2,
-    "unit_labor_costs_yoy_pct": 0.4,
-    "unit_labor_costs_qoq_annualized_pct": -0.3,
-    "value_added_output_price_yoy_pct": 4.3,
-    "value_added_output_price_qoq_annualized_pct": 7.3,
-    "unit_profits_yoy_pct": 17.8,
-    "unit_profits_qoq_annualized_pct": 43.0
+    "labor_productivity_yoy_pct": 3.6,
+    "labor_productivity_qoq_annualized_pct": 3.4,
+    "unit_labor_costs_yoy_pct": 0.8,
+    "unit_labor_costs_qoq_annualized_pct": -0.4,
+    "value_added_output_price_yoy_pct": 3.8,
+    "value_added_output_price_qoq_annualized_pct": 5.9,
+    "unit_profits_yoy_pct": 15.9,
+    "unit_profits_qoq_annualized_pct": 39.1
   },
-  "source_fingerprint_sha256": "7d392976d45d4d2c29bf21465466992baab1e88cfce15ef07adbce682fd40f65"
+  "source_fingerprint_sha256": "298f5008156a9cc404f622e609777a28bce2cc53b147ab78ffd3456ba45a5689"
 }
