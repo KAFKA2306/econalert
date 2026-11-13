@@ -1,0 +1,49 @@
+{
+  "schema_version": 1,
+  "publisher": "U.S. Bureau of Labor Statistics",
+  "dataset": "Productivity and Costs",
+  "sector": "Nonfarm business",
+  "period": "2026-Q3",
+  "release_date": "2026-11-05",
+  "release_status": "preliminary",
+  "rate_basis": "percent change from previous quarter at annual rate",
+  "source_url": "https://www.bls.gov/news.release/archives/prod2_11052026.htm",
+  "verified_on": "2026-11-14",
+  "headline": {
+    "labor_productivity": 3.6,
+    "output": 3.7,
+    "hours_worked": 0.1,
+    "hourly_compensation": 2.9,
+    "real_hourly_compensation": 1.1,
+    "unit_labor_costs": -0.7
+  },
+  "revision_context": {
+    "previous_release_date": "2026-09-03",
+    "previous_release_status": "revised",
+    "previous_source_url": "https://www.bls.gov/news.release/archives/prod2_09032026.htm",
+    "revised_period": "2026-Q2",
+    "revised": {
+      "labor_productivity": 2.1,
+      "output": 2.4,
+      "hours_worked": 0.3,
+      "hourly_compensation": 4,
+      "real_hourly_compensation": -1.9,
+      "unit_labor_costs": 1.9
+    },
+    "previously_published": {
+      "labor_productivity": 1.4,
+      "output": 1.7,
+      "hours_worked": 0.3,
+      "hourly_compensation": 2.6,
+      "real_hourly_compensation": -3.3,
+      "unit_labor_costs": 1.2
+    }
+  },
+  "next_release": {
+    "period": "2026-Q3",
+    "scheduled_at": "2026-12-08T08:30:00-05:00",
+    "timezone": "America/New_York",
+    "release_status": "revised",
+    "schedule_url": "https://www.bls.gov/schedule/news_release/prod2.htm"
+  }
+}
