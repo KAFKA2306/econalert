@@ -51,7 +51,8 @@ def parse(raw: bytes) -> list[dict[str, object]]:
         metric = SERIES[series_id]
         for item in series.get("data", []):
             period = str(item.get("period", ""))
-            if not period.startswith("Q"):
+            # BLS Q05 is an annual observation, not a fifth quarter.
+            if period not in {"Q01", "Q02", "Q03", "Q04"}:
                 continue
             key = f"{item['year']}-Q{int(period[1:])}"
             row = by_period.setdefault(key, {"period": key})
