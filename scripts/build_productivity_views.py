@@ -17,7 +17,7 @@ METRICS = (
     "real_hourly_compensation",
     "unit_labor_costs",
 )
-DEFAULT_RELEASE = Path("data/official/bls-productivity-2026-q2-release.json")
+DEFAULT_RELEASE = Path("data/official/bls-productivity-2026-q3-release.json")
 
 
 def sha256_bytes(content: bytes) -> str:
