@@ -45,7 +45,7 @@ jobs:
         run: |
           rm -rf /tmp/productivity-public
           python scripts/build_productivity_views.py \
-            --current-dir /tmp/bls-productivity-current \
+            --current-dir data/official/bls-productivity-current \
             --output-dir /tmp/productivity-public
           python - <<'PY'
           import json
