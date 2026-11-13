@@ -11,6 +11,7 @@ on:
       - data/research/ai-productivity-evidence.json
       - scripts/build_public_api.py
       - scripts/build_productivity_views.py
+      - scripts/collect_productivity.py
       - scripts/verify_profit_distribution_publication.py
       - tests/test_profit_distribution_publication.py
       - .github/workflows/pages.yml
@@ -24,6 +25,7 @@ on:
       - data/research/ai-productivity-evidence.json
       - scripts/build_public_api.py
       - scripts/build_productivity_views.py
+      - scripts/collect_productivity.py
       - scripts/verify_profit_distribution_publication.py
       - tests/test_profit_distribution_publication.py
       - .github/workflows/pages.yml
