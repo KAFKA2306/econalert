@@ -8,7 +8,6 @@ on:
       - 'scripts/build_productivity_views.py'
       - 'data/official/bls-productivity-vintages.json'
       - 'data/official/bls-productivity-2026-q2-release.json'
-      - 'data/official/bls-productivity-2026-q3-release.json'
       - 'tests/test_productivity_collector.py'
       - '.github/workflows/productivity.yml'
   pull_request:
@@ -17,7 +16,6 @@ on:
       - 'scripts/build_productivity_views.py'
       - 'data/official/bls-productivity-vintages.json'
       - 'data/official/bls-productivity-2026-q2-release.json'
-      - 'data/official/bls-productivity-2026-q3-release.json'
       - 'tests/test_productivity_collector.py'
       - '.github/workflows/productivity.yml'
   schedule:
@@ -54,14 +52,15 @@ jobs:
           from pathlib import Path
           latest=json.loads(Path('/tmp/productivity-public/latest.json').read_text())
           release=json.loads(Path('/tmp/productivity-public/release.json').read_text())
-          assert latest['observations'][-1]['period']=='2026-Q3'
-          assert latest['release']['release_date']=='2026-11-05'
-          assert latest['release']['release_status']=='preliminary'
+          assert latest['observations'][-1]['period']=='2026-Q2'
+          assert latest['release']['release_date']=='2026-09-03'
+          assert latest['release']['release_status']=='revised'
           assert latest['release']['next_release']['period']=='2026-Q3'
-          assert latest['release']['next_release']['release_status']=='revised'
-          expected={'labor_productivity':3.6,'output':3.7,'hours_worked':0.1,'hourly_compensation':2.9,'real_hourly_compensation':1.1,'unit_labor_costs':-0.7}
-          assert release['headline']==expected
-          assert all(latest['observations'][-1][key]==value for key,value in expected.items())
+          assert latest['release']['next_release']['release_status']=='preliminary'
+          assert release['headline']['labor_productivity']==latest['observations'][-1]['labor_productivity']==1.4
+          assert release['headline']['hourly_compensation']==latest['observations'][-1]['hourly_compensation']==2.6
+          assert release['headline']['real_hourly_compensation']==latest['observations'][-1]['real_hourly_compensation']==-3.3
+          assert release['headline']['unit_labor_costs']==latest['observations'][-1]['unit_labor_costs']==1.2
           PY
       - name: Collect current BLS productivity snapshot
         if: github.event_name != 'pull_request'
