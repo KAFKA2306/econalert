@@ -5,6 +5,7 @@ from __future__ import annotations
 import argparse
 import hashlib
 import json
+import math
 from datetime import datetime, timezone
 from pathlib import Path
 from urllib.request import Request, urlopen
@@ -56,7 +57,10 @@ def parse(raw: bytes) -> list[dict[str, object]]:
                 continue
             key = f"{item['year']}-Q{int(period[1:])}"
             row = by_period.setdefault(key, {"period": key})
-            row[metric] = float(item["value"])
+            value = float(item["value"])
+            if not math.isfinite(value):
+                raise ValueError(f"non-finite BLS productivity value: {series_id} {key}")
+            row[metric] = value
             footnotes = [note.get("text") for note in item.get("footnotes", []) if note.get("text")]
             if footnotes:
                 row.setdefault("footnotes", {})[metric] = footnotes
