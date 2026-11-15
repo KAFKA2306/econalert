@@ -120,3 +120,22 @@ def test_distribution_views_are_deterministic_for_revised_release():
         assert release_output["headline"]["unit_labor_costs"] == latest["observations"][-1]["unit_labor_costs"] == 1.2
         assert len(revisions["revisions"]) == 7
         assert revisions["revisions"][-1]["revision_percentage_points"]["labor_productivity"] == -0.5
+
+
+def test_collector_rejects_nonfinite_official_rates():
+    import pytest
+
+    for invalid in ("NaN", "Infinity", "-Infinity"):
+        series = [
+            {
+                "seriesID": series_id,
+                "data": [
+                    {"year": str(2024 + i // 4), "period": f"Q{i % 4 + 1:02d}",
+                     "value": invalid if i == 7 and series_id == next(iter(SERIES)) else "1.0"}
+                    for i in range(8)
+                ],
+            }
+            for series_id in SERIES
+        ]
+        with pytest.raises(ValueError, match="non-finite BLS productivity value"):
+            parse(json.dumps({"status": "REQUEST_SUCCEEDED", "Results": {"series": series}}).encode())
