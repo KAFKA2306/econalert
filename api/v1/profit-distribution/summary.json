@@ -1,6 +1,6 @@
 {
   "schema_version": 1,
-  "retrieved_at": "2026-11-05T21:14:09.246397+00:00",
+  "retrieved_at": "2026-11-19T22:27:44.181091+00:00",
   "corporate_profit_share": {
     "period": "2026-Q2",
     "corporate_profits_billion_usd_saar": 4709.453,
@@ -33,5 +33,5 @@
     "unit_profits_yoy_pct": 15.9,
     "unit_profits_qoq_annualized_pct": 39.1
   },
-  "source_fingerprint_sha256": "298f5008156a9cc404f622e609777a28bce2cc53b147ab78ffd3456ba45a5689"
+  "source_fingerprint_sha256": "652af2602c32737d349f5ecb6a7b5267309e67651cfa2f0f45c008966e7c7269"
 }

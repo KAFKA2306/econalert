@@ -1,7 +1,7 @@
 {
   "schema_version": 1,
   "dataset": "U.S. corporate profit share and productivity distribution",
-  "retrieved_at": "2026-11-05T21:14:09.246397+00:00",
+  "retrieved_at": "2026-11-19T22:27:44.181091+00:00",
   "sources": {
     "fred_cprofit_gdi": {
       "retrieval_provider": "Federal Reserve Bank of St. Louis (FRED)",
@@ -197,7 +197,7 @@
           "metric": "unit_profits_qoq_annualized_pct"
         }
       ],
-      "raw_sha256": "63f5d98d0febf84a460302a9cff198bfc7a6cfa69dab4bf0ae88ae3a0adc2c2a",
+      "raw_sha256": "d1917b0c286f4412a3f9d0c8ce9b00fd64bb99a9b84bcb62221ffe7f988fe7e9",
       "series_contract_sha256": "7ab85522ad1a206d31867a1a407e0818df5bf5fa42d82f62fdb71aae7f4b7c24",
       "quarterly_change_semantics": "BLS quarterly percent changes are seasonally adjusted annualized rates."
     }
@@ -211,7 +211,7 @@
   },
   "summary": {
     "schema_version": 1,
-    "retrieved_at": "2026-11-05T21:14:09.246397+00:00",
+    "retrieved_at": "2026-11-19T22:27:44.181091+00:00",
     "corporate_profit_share": {
       "period": "2026-Q2",
       "corporate_profits_billion_usd_saar": 4709.453,
@@ -244,7 +244,7 @@
       "unit_profits_yoy_pct": 15.9,
       "unit_profits_qoq_annualized_pct": 39.1
     },
-    "source_fingerprint_sha256": "298f5008156a9cc404f622e609777a28bce2cc53b147ab78ffd3456ba45a5689"
+    "source_fingerprint_sha256": "652af2602c32737d349f5ecb6a7b5267309e67651cfa2f0f45c008966e7c7269"
   },
   "corporate_profit_share": [
     {
