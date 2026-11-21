@@ -1,0 +1,167 @@
+{
+  "schema_version": 1,
+  "dataset": "US wealthy-consumer and luxury-demand research watch",
+  "as_of": "2026-11-21",
+  "publication_status": "dated_manual_snapshot",
+  "research_scope": "Separate research indicators; not official macroeconomic releases, real-time data or a composite trading signal.",
+  "hypothesis": "A broad and sustained decline in wealthy household spending could lead consumer earnings downgrades and affect US equities. Correlation is not causation.",
+  "indicators": [
+    {
+      "id": "lvmh-jewelry",
+      "category": "luxury",
+      "name": "LVMH 時計・宝飾部門",
+      "metric": "organic_revenue_growth_yoy",
+      "value": 6,
+      "unit": "pct",
+      "period": "2026-Q3",
+      "period_end": "2026-09-30",
+      "released_at": "2026-10-12",
+      "publisher": "LVMH",
+      "source_url": "https://www.lvmh.com/en/publications/continued-growth-in-the-third-quarter-of-2026",
+      "basis": "前年同期比・為替と連結範囲を一定とした有機売上成長率",
+      "series": [
+        {
+          "period": "2026-Q1",
+          "value": 7
+        },
+        {
+          "period": "2026-Q2",
+          "value": 11
+        },
+        {
+          "period": "2026-Q3",
+          "value": 6
+        }
+      ],
+      "note": "ティファニーを含む部門全体。ティファニー単体の売上成長率ではない。"
+    },
+    {
+      "id": "lvmh-fashion",
+      "category": "luxury",
+      "name": "LVMH ファッション・革製品部門",
+      "metric": "organic_revenue_growth_yoy",
+      "value": -5,
+      "unit": "pct",
+      "period": "2026-Q3",
+      "period_end": "2026-09-30",
+      "released_at": "2026-10-12",
+      "publisher": "LVMH",
+      "source_url": "https://www.lvmh.com/en/publications/continued-growth-in-the-third-quarter-of-2026",
+      "basis": "前年同期比・為替と連結範囲を一定とした有機売上成長率",
+      "series": [
+        {
+          "period": "2026-Q1",
+          "value": -2
+        },
+        {
+          "period": "2026-Q2",
+          "value": 1
+        },
+        {
+          "period": "2026-Q3",
+          "value": -5
+        }
+      ],
+      "note": "米国だけの売上ではない。中国需要やブランド要因も影響する。"
+    },
+    {
+      "id": "richemont-jewelry",
+      "category": "luxury",
+      "name": "Richemont 宝飾メゾン",
+      "metric": "revenue_growth_constant_currency_yoy",
+      "value": 14,
+      "unit": "pct",
+      "period": "FY27-Q2",
+      "period_end": "2026-09-30",
+      "released_at": "2026-11-13",
+      "publisher": "Richemont",
+      "source_url": "https://www.richemont.com/news-media/press-releases-news/richemont-posts-strong-results-for-the-six-month-period-ended-30-september-2026-driven-by-sustained-double-digit-sales-growth/",
+      "basis": "前年同期比・為替一定。対象はCartier、Van Cleef & Arpels等の宝飾メゾン",
+      "series": [
+        {
+          "period": "FY27-Q1",
+          "value": 24
+        },
+        {
+          "period": "FY27-Q2",
+          "value": 14
+        }
+      ],
+      "note": "2026年4～9月の上期全体では＋19%。四半期と上期を同一時系列に混ぜない。"
+    },
+    {
+      "id": "manhattan-condos",
+      "category": "housing",
+      "name": "マンハッタン・コンドミニアム契約",
+      "metric": "signed_contracts",
+      "value": 386,
+      "unit": "contracts",
+      "period": "2026-10",
+      "period_end": "2026-10-31",
+      "released_at": "2026-11-06",
+      "publisher": "Corcoran / REBNY Listing Service",
+      "source_url": "https://inhabit.corcoran.com/wp-content/uploads/2026/11/the-corcoran-report_manhattan-market-update_october-2026.pdf",
+      "basis": "同月の契約締結件数、前年比−23%。実際の決済済み件数ではない",
+      "yoy_pct": -23,
+      "series": [
+        {
+          "period": "2026-10",
+          "value": 386
+        }
+      ],
+      "note": "在庫制約・住宅ローン金利の影響もあり、富裕層の需要だけは識別できない。"
+    },
+    {
+      "id": "manhattan-5m",
+      "category": "housing",
+      "name": "マンハッタン・500万ドル超の契約",
+      "metric": "signed_contracts",
+      "value": 80,
+      "unit": "contracts",
+      "period": "2026-10",
+      "period_end": "2026-10-31",
+      "released_at": "2026-11-06",
+      "publisher": "Corcoran / REBNY Listing Service",
+      "source_url": "https://inhabit.corcoran.com/wp-content/uploads/2026/11/the-corcoran-report_manhattan-market-update_october-2026.pdf",
+      "basis": "500万ドル超の価格帯、同月契約件数、前年比−11%",
+      "yoy_pct": -11,
+      "series": [
+        {
+          "period": "2025-10",
+          "value": 90
+        },
+        {
+          "period": "2026-10",
+          "value": 80
+        }
+      ],
+      "note": "価格帯別の契約数。マンハッタンの高所得者の支出総額を表すものではない。"
+    },
+    {
+      "id": "bofa-card",
+      "category": "spending",
+      "name": "BofA 世帯当たりカード支出",
+      "metric": "total_card_spending_growth_yoy",
+      "value": 5.8,
+      "unit": "pct",
+      "period": "2026-10",
+      "period_end": "2026-10-31",
+      "released_at": "2026-11-12",
+      "publisher": "Bank of America Institute",
+      "source_url": "https://institute.bankofamerica.com/economic-insights/consumer-checkpoint-november-2026.html",
+      "basis": "BofA内部のクレジット・デビットカード支出、世帯当たり前年比",
+      "series": [
+        {
+          "period": "2026-09",
+          "value": 6.2,
+          "source_url": "https://institute.bankofamerica.com/economic-insights/consumer-checkpoint-october-2026.html"
+        },
+        {
+          "period": "2026-10",
+          "value": 5.8
+        }
+      ],
+      "note": "全所得層の合計であり、富裕層だけの数値ではない。上位5％の裁量的支出は相対的に強いと報告。"
+    }
+  ]
+}
