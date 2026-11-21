@@ -76,7 +76,7 @@ def four_week_change(series: dict) -> dict | None:
         return None
     return {"from_date": previous["date"], "to_date": latest["date"],
             "difference": round(latest["value"] - previous["value"], 6),
-            "percent_change": round((latest["value"] / previous["value"] - 1) * 100, 6) if previous["value"] else None}
+            "percent_change": round((latest["value"] / previous["value"] - 1) * 100, 6) if previous["value"] > 0 and latest["value"] >= 0 else None}
 
 
 def assess(series: dict, today: date) -> dict:
@@ -115,7 +115,13 @@ def collect(today: date | None = None) -> dict:
     for series_id, (unit, frequency, required) in SERIES.items():
         try:
             raw, url = fetch(series_id, today)
-            rows = parse_csv(raw, series_id)
+            all_rows = parse_csv(raw, series_id)
+            # FRED can publish future effective-date values (for example IORB).
+            # They are not observations as of this collection date.
+            rows = [row for row in all_rows if row["date"] <= today.isoformat()]
+            if len(rows) < 8:
+                raise ValueError(f"not enough observations as of {today}: {series_id}")
+            future_count = len(all_rows) - len(rows)
         except (OSError, ValueError) as exc:
             if required:
                 raise
@@ -125,11 +131,11 @@ def collect(today: date | None = None) -> dict:
         series[series_id] = {
             "unit": unit, "frequency": frequency, "source_url": f"https://fred.stlouisfed.org/series/{series_id}",
             "download_url": url, "source_sha256": hashlib.sha256(raw).hexdigest(),
-            "observations": rows, "latest": rows[-1],
+            "observations": rows, "latest": rows[-1], "future_dated_rows_excluded": future_count,
             "change_4w": four_week_change({"observations": rows}),
             "stale": (today - observed).days > (10 if frequency == "daily" else 21),
         }
-    signature = hashlib.sha256(json.dumps({k: v["source_sha256"] for k, v in sorted(series.items())}, sort_keys=True).encode()).hexdigest()
+    signature = hashlib.sha256(json.dumps({"collector_revision": 2, "sources": {k: v["source_sha256"] for k, v in sorted(series.items())}}, sort_keys=True).encode()).hexdigest()
     return {"schema_version": 1, "publisher": "Federal Reserve Bank of St. Louis (FRED); individual source publishers vary",
             "dataset": "US financial market liquidity observations", "retrieved_at": now,
             "observation_cutoff": today.isoformat(), "source_signature": signature,

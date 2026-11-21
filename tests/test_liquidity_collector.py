@@ -38,6 +38,10 @@ class LiquidityTest(unittest.TestCase):
         s["SOFR"]["stale"] = True
         self.assertEqual(mod.assess(s, today)["status"], "unverified")
 
+    def test_negative_index_change_has_no_meaningless_percentage(self):
+        rows = [{"date": "2026-10-01", "value": -1.0}, {"date": "2026-11-01", "value": -0.5}]
+        self.assertIsNone(mod.four_week_change({"observations": rows})["percent_change"])
+
     def test_snapshot_dedup_and_change(self):
         with tempfile.TemporaryDirectory() as d:
             root = Path(d)

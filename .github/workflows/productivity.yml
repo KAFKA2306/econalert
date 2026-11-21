@@ -71,6 +71,8 @@ jobs:
         run: python scripts/collect_liquidity.py
       - name: Commit liquidity independently of BLS release
         if: github.event_name != 'pull_request'
+        env:
+          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         run: |
           if test -z "$(git status --porcelain -- data/official/fred-liquidity api/v1/liquidity)"; then
             echo 'FRED liquidity observations unchanged.'
@@ -81,6 +83,7 @@ jobs:
           git add data/official/fred-liquidity api/v1/liquidity
           git commit -m 'data: update market liquidity observations'
           git push
+          gh workflow run pages.yml --ref main
       - name: Collect current BLS productivity snapshot
         if: github.event_name != 'pull_request'
         run: python scripts/collect_productivity.py
