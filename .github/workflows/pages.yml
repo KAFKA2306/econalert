@@ -61,6 +61,7 @@ jobs:
           python -m json.tool api/v1/latest.json >/dev/null
           python -m json.tool api/v1/categories.json >/dev/null
           python -m json.tool api/v1/ai-productivity/evidence.json >/dev/null
+          python -m json.tool api/v1/liquidity/latest.json >/dev/null
           python - <<'PY'
           import json
           from pathlib import Path
@@ -68,6 +69,7 @@ jobs:
           cpi=json.loads(Path('api/v1/latest.json').read_text())
           cats=json.loads(Path('api/v1/categories.json').read_text())
           ai=json.loads(Path('api/v1/ai-productivity/evidence.json').read_text())
+          liq=json.loads(Path('api/v1/liquidity/latest.json').read_text())
           rows=prod['observations']
           assert len(rows)>=2 and rows[-1]['period']=='2026-Q2'
           assert prod['rate_basis']=='percent change from previous quarter at annual rate'
@@ -84,6 +86,9 @@ jobs:
           assert cats['period']=='2026-06' and cats['freshness']=='older_detail_vintage_than_latest_headline'
           assert {r['evidence_type'] for r in ai['records']}=={'adoption_survey','measured_productivity_effect'}
           assert 'must not be combined' in ai['contract']['rule']
+          assert liq['schema_version']==1 and liq['series']['SOFR']['latest']['date']<=liq['observation_cutoff']
+          assert liq['series']['IORB']['latest']['date']<=liq['observation_cutoff']
+          assert Path('web/liquidity.html').exists()
           html=Path('web/index.html').read_text()
           for marker in ('Release state','AI productivity research','api/v1/ai-productivity/evidence.json','Missing July categories were not fabricated.'):
               assert marker in html
@@ -126,6 +131,7 @@ jobs:
         run: |
           python - <<'PY'
           import json, os, time
+          from pathlib import Path
           from urllib.parse import urljoin
           from urllib.request import urlopen
           base=os.environ['PAGE_URL']; expected=os.environ['GITHUB_SHA']; last=None
@@ -135,6 +141,8 @@ jobs:
                   with urlopen(urljoin(base,'api/v1/productivity/latest.json'),timeout=10) as r: prod=json.load(r)
                   with urlopen(urljoin(base,'api/v1/latest.json'),timeout=10) as r: cpi=json.load(r)
                   with urlopen(urljoin(base,'api/v1/ai-productivity/evidence.json'),timeout=10) as r: ai=json.load(r)
+                  with urlopen(urljoin(base,'api/v1/liquidity/latest.json'),timeout=10) as r: liq=json.load(r)
+                  with urlopen(urljoin(base,'liquidity.html'),timeout=10) as r: liq_html=r.read().decode()
                   with urlopen(base,timeout=10) as r: html=r.read().decode()
                   assert dep['source_commit']==expected, dep
                   assert prod['release']['release_date']=='2026-09-03' and prod['release']['release_status']=='revised'
@@ -144,6 +152,11 @@ jobs:
                   assert cpi['period']=='2026-07' and cpi['release_date']=='2026-08-12'
                   assert {r['evidence_type'] for r in ai['records']}=={'adoption_survey','measured_productivity_effect'}
                   assert 'Release state' in html and 'AI productivity research' in html
+                  local_liq=json.loads(Path('api/v1/liquidity/latest.json').read_text())
+                  assert liq['source_signature']==local_liq['source_signature']
+                  assert liq['series']['SOFR']['latest']['date']<=liq['observation_cutoff']
+                  assert liq['series']['IORB']['latest']['date']<=liq['observation_cutoff']
+                  assert '米国市場の流動性' in liq_html
                   print({'page_url':base,'source_commit':expected,'productivity_period':prod['observations'][-1]['period'],'productivity_release':prod['release']['release_date'],'cpi_period':cpi['period'],'cpi_release':cpi['release_date'],'ai_records':len(ai['records'])})
                   break
               except Exception as exc:
