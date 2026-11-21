@@ -13,6 +13,7 @@ on:
       - scripts/build_productivity_views.py
       - scripts/collect_productivity.py
       - scripts/verify_profit_distribution_publication.py
+      - scripts/verify_liquidity_browser.py
       - tests/test_profit_distribution_publication.py
       - .github/workflows/pages.yml
   pull_request:
@@ -27,6 +28,7 @@ on:
       - scripts/build_productivity_views.py
       - scripts/collect_productivity.py
       - scripts/verify_profit_distribution_publication.py
+      - scripts/verify_liquidity_browser.py
       - tests/test_profit_distribution_publication.py
       - .github/workflows/pages.yml
   workflow_dispatch:
@@ -62,6 +64,7 @@ jobs:
           python -m json.tool api/v1/categories.json >/dev/null
           python -m json.tool api/v1/ai-productivity/evidence.json >/dev/null
           python -m json.tool api/v1/liquidity/latest.json >/dev/null
+          python -m py_compile scripts/verify_liquidity_browser.py
           python - <<'PY'
           import json
           from pathlib import Path
@@ -167,6 +170,22 @@ jobs:
           python scripts/verify_profit_distribution_publication.py \
             --base-url "$PAGE_URL" \
             --expected-manifest api/v1/profit-distribution/manifest.json
+      - name: Browser-check actual desktop and mobile Pages UI
+        env:
+          PAGE_URL: ${{ steps.deployment.outputs.page_url }}
+        run: |
+          command -v google-chrome || command -v google-chrome-stable || command -v chromium
+          command -v chromedriver
+          python -m pip install --disable-pip-version-check selenium==4.53.0
+          python scripts/verify_liquidity_browser.py --base-url "$PAGE_URL"
+      - name: Save browser screenshots
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: liquidity-pages-browser-${{ github.sha }}
+          path: browser-evidence/*.png
+          if-no-files-found: ignore
+          retention-days: 14
       - name: Record production evidence on Issue 24
         env:
           PAGE_URL: ${{ steps.deployment.outputs.page_url }}

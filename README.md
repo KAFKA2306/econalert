@@ -19,10 +19,10 @@ GitHub Pagesは`api/v1/`をread-onlyで投影します。monthly CPIとquarterly
 
 ## U.S. market liquidity
 
-- [Liquidity dashboard](https://kafka2306.github.io/econalert/liquidity.html) — SOFR/FF, credit spreads, reserves, and financial-stress observations. The first public reading is available only after a successful collector run and Pages deployment.
+- [Liquidity dashboard](https://kafka2306.github.io/econalert/liquidity.html) — root navigationからも開けるSOFR/FF、信用スプレッド、準備預金、金融ストレスの画面。 The first public reading is available only after a successful collector run and Pages deployment.
 - [Canonical latest JSON](api/v1/liquidity/latest.json) — observation date, unit, source URL, raw CSV SHA-256, recent history, 4-week same-series changes, and independent risk signals.
 - [Collector](scripts/collect_liquidity.py) — weekdays at 23:20 Japan time on the **existing** macro data workflow; it adds no extra GitHub-hosted job. BLS productivity is collected only on its existing Thursday slot (or on explicit manual dispatch). The collector also snapshots each changed source signature to `data/official/fred-liquidity/`. Unchanged source data do not create duplicate snapshots. Each change triggers the existing Pages workflow, and screening status transitions are recorded on [Issue #36](https://github.com/KAFKA2306/econalert/issues/36). Collector failures remain visible in GitHub Actions. The scheduled job may be delayed by GitHub.
-- Tests: `python -m unittest discover -s tests -p test_liquidity_collector.py -v`.
+- Tests: `python -m unittest discover -s tests -p test_liquidity_collector.py -v`. Pages公開後はChromeでトップページ → 流動性 → 実測表と出典 → 生JSONの動線をデスクトップと390pxスマホで検証し、スクリーンショットをGitHub Actionsに保存する。
 
 This is **not a real-time feed**. The FRED graph CSV is a public download surface, not a versioned REST API; a source/header failure stops the update instead of silently inventing observations. Daily/weekly series and million/billion USD units remain separate. The `normal / attention / warning / unverified` classification is a screening rule, **not** an official liquidity-crisis determination. Missing or stale mandatory series yield `unverified`. Financial-market liquidity and wealthy-household spending are hypotheses to test separately.
 
