@@ -66,27 +66,39 @@ jobs:
           assert release['headline']['real_hourly_compensation']==latest['observations'][-1]['real_hourly_compensation']==-3.3
           assert release['headline']['unit_labor_costs']==latest['observations'][-1]['unit_labor_costs']==1.2
           PY
+      - name: Collect market liquidity using FRED
+        if: github.event_name != 'pull_request'
+        run: python scripts/collect_liquidity.py
+      - name: Commit liquidity independently of BLS release
+        if: github.event_name != 'pull_request'
+        run: |
+          if test -z "$(git status --porcelain -- data/official/fred-liquidity api/v1/liquidity)"; then
+            echo 'FRED liquidity observations unchanged.'
+            exit 0
+          fi
+          git config user.name 'github-actions[bot]'
+          git config user.email '41898282+github-actions[bot]@users.noreply.github.com'
+          git add data/official/fred-liquidity api/v1/liquidity
+          git commit -m 'data: update market liquidity observations'
+          git push
       - name: Collect current BLS productivity snapshot
         if: github.event_name != 'pull_request'
         run: python scripts/collect_productivity.py
       - name: Build distribution files
         if: github.event_name != 'pull_request'
         run: python scripts/build_productivity_views.py
-      - name: Collect market liquidity using FRED
-        if: github.event_name != 'pull_request'
-        run: python scripts/collect_liquidity.py
       - name: Commit evidence and views
         id: publish
         if: github.event_name != 'pull_request'
         run: |
-          if test -z "$(git status --porcelain -- data/official/bls-productivity-current api/v1/productivity data/official/fred-liquidity api/v1/liquidity)"; then
+          if test -z "$(git status --porcelain -- data/official/bls-productivity-current api/v1/productivity)"; then
             echo 'No BLS productivity source or view changes.'
             echo 'changed=false' >> "$GITHUB_OUTPUT"
             exit 0
           fi
           git config user.name 'github-actions[bot]'
           git config user.email '41898282+github-actions[bot]@users.noreply.github.com'
-          git add data/official/bls-productivity-current api/v1/productivity data/official/fred-liquidity api/v1/liquidity
+          git add data/official/bls-productivity-current api/v1/productivity
           git commit -m 'data: update BLS productivity views'
           git push
           echo 'changed=true' >> "$GITHUB_OUTPUT"
