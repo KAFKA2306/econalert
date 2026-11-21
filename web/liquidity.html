@@ -38,6 +38,7 @@ th{background:#f8faf7;color:var(--muted);font-size:.8rem}td small{display:block;
 const labels={SOFR:'SOFR',DFF:'実効FF金利',BAMLH0A0HYM2:'ハイイールド債OAS',BAMLC0A0CM:'投資適格債OAS',WRESBAL:'銀行準備預金',STLFSI4:'金融ストレス指数',IORB:'準備預金付利',WALCL:'FRB総資産',WTREGEN:'TGA（週平均）',RRPONTSYD:'翌日物RRP'};
 const units={percent:'%',million_usd:'百万ドル',million_usd_weekly_average:'百万ドル（週平均）',billion_usd:'十億ドル',index:'指数'};
 const states={normal:'正常',attention:'注意',warning:'警戒',unverified:'未判定'};
+const reasons={'illustrative screen, not an official crisis threshold':'監視用の暫定判定です。公的な金融危機の判定ではありません。','required series missing or stale':'必須指標が未取得または更新遅延のため判定できません。'};
 const esc=s=>String(s??'').replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
 const n=v=>Number.isFinite(v)?v.toLocaleString('ja-JP',{maximumFractionDigits:3}):'未取得';
 function spark(rows){const a=rows.slice(-60).map(r=>r.value).filter(Number.isFinite);if(a.length<2)return '—';const lo=Math.min(...a),d=Math.max(...a)-lo||1;const points=a.map((v,i)=>(i*114/(a.length-1)).toFixed(1)+','+(29-(v-lo)/d*25).toFixed(1)).join(' ');return '<svg class="spark" viewBox="0 0 115 32" aria-label="直近観測の推移" role="img"><polyline points="'+points+'" stroke="#244b67" stroke-width="2" fill="none"/></svg>'}
@@ -45,8 +46,9 @@ function spark(rows){const a=rows.slice(-60).map(r=>r.value).filter(Number.isFin
 const response=await fetch('api/v1/liquidity/latest.json',{cache:'no-store'});if(!response.ok)throw Error('公開データ HTTP '+response.status);
 const data=await response.json();if(data.schema_version!==1||!data.assessment||!data.series)throw Error('JSONの形式が異なります');
 const assessment=data.assessment;document.getElementById('summary').className='panel '+assessment.status;
-document.getElementById('summary').innerHTML='<strong>'+esc(states[assessment.status]||'未判定')+'</strong><p>'+esc(assessment.reason)+'</p>';
-document.getElementById('meta').textContent='取得日時: '+data.retrieved_at+' ／ 取得基準日: '+data.observation_cutoff+'。リアルタイム値ではありません。';
+document.getElementById('summary').innerHTML='<strong>'+esc(states[assessment.status]||'未判定')+'</strong><p>'+esc(reasons[assessment.reason]||assessment.reason)+'</p>';
+const retrieved=new Date(data.retrieved_at);const japanTime=Number.isFinite(retrieved.getTime())?retrieved.toLocaleString('ja-JP',{timeZone:'Asia/Tokyo',hour12:false}):'日時不明';
+document.getElementById('meta').textContent='取得日時（日本時間）: '+japanTime+' ／ 取得基準日: '+data.observation_cutoff+'。リアルタイム値ではありません。';
 document.getElementById('rows').innerHTML=Object.entries(labels).map(([id,label])=>{
 const s=data.series[id];if(!s)return '<tr><td>'+esc(label)+'</td><td colspan="5">未取得</td></tr>';
 const ch=s.change_4w;const delta=ch?n(ch.difference)+(s.unit==='percent'?'ポイント':' '+(units[s.unit]||s.unit))+'<small>'+esc(ch.from_date)+' → '+esc(ch.to_date)+'</small>':'—';
