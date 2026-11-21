@@ -2,9 +2,9 @@
   "schema_version": 1,
   "publisher": "Federal Reserve Bank of St. Louis (FRED); individual source publishers vary",
   "dataset": "US financial market liquidity observations",
-  "retrieved_at": "2026-11-21T03:02:09.327723+00:00",
+  "retrieved_at": "2026-11-21T03:03:20.425894+00:00",
   "observation_cutoff": "2026-11-21",
-  "source_signature": "19ab4cc62087b4a518f0249e110182a1f170524ecc9c0a8a8431dde79111514c",
+  "source_signature": "bf12e8c831856cced1c1aa4c6e402e19fd1e000ddd86aaeaaf4befa5ff69d2bd",
   "series": {
     "SOFR": {
       "unit": "percent",
@@ -618,6 +618,7 @@
         "date": "2026-11-19",
         "value": 3.91
       },
+      "future_dated_rows_excluded": 0,
       "change_4w": {
         "from_date": "2026-10-22",
         "to_date": "2026-11-19",
@@ -1238,6 +1239,7 @@
         "date": "2026-11-19",
         "value": 3.88
       },
+      "future_dated_rows_excluded": 0,
       "change_4w": {
         "from_date": "2026-10-22",
         "to_date": "2026-11-19",
@@ -1858,6 +1860,7 @@
         "date": "2026-11-19",
         "value": 3.52
       },
+      "future_dated_rows_excluded": 0,
       "change_4w": {
         "from_date": "2026-10-22",
         "to_date": "2026-11-19",
@@ -2478,6 +2481,7 @@
         "date": "2026-11-19",
         "value": 0.94
       },
+      "future_dated_rows_excluded": 0,
       "change_4w": {
         "from_date": "2026-10-22",
         "to_date": "2026-11-19",
@@ -3098,6 +3102,7 @@
         "date": "2026-11-18",
         "value": 2979656.0
       },
+      "future_dated_rows_excluded": 0,
       "change_4w": {
         "from_date": "2026-10-21",
         "to_date": "2026-11-18",
@@ -3718,11 +3723,12 @@
         "date": "2026-11-13",
         "value": -0.8655
       },
+      "future_dated_rows_excluded": 0,
       "change_4w": {
         "from_date": "2026-10-16",
         "to_date": "2026-11-13",
         "difference": -0.2331,
-        "percent_change": 36.859583
+        "percent_change": null
       },
       "stale": false
     },
@@ -4324,23 +4330,16 @@
         {
           "date": "2026-11-21",
           "value": 3.9
-        },
-        {
-          "date": "2026-11-22",
-          "value": 3.9
-        },
-        {
-          "date": "2026-11-23",
-          "value": 3.9
         }
       ],
       "latest": {
-        "date": "2026-11-23",
+        "date": "2026-11-21",
         "value": 3.9
       },
+      "future_dated_rows_excluded": 2,
       "change_4w": {
-        "from_date": "2026-10-26",
-        "to_date": "2026-11-23",
+        "from_date": "2026-10-24",
+        "to_date": "2026-11-21",
         "difference": 0.0,
         "percent_change": 0.0
       },
@@ -4958,6 +4957,7 @@
         "date": "2026-11-18",
         "value": 6741452.0
       },
+      "future_dated_rows_excluded": 0,
       "change_4w": {
         "from_date": "2026-10-21",
         "to_date": "2026-11-18",
@@ -5578,6 +5578,7 @@
         "date": "2026-11-18",
         "value": 916613.0
       },
+      "future_dated_rows_excluded": 0,
       "change_4w": {
         "from_date": "2026-10-21",
         "to_date": "2026-11-18",
@@ -6198,6 +6199,7 @@
         "date": "2026-11-20",
         "value": 0.401
       },
+      "future_dated_rows_excluded": 0,
       "change_4w": {
         "from_date": "2026-10-23",
         "to_date": "2026-11-20",
@@ -6214,6 +6216,6 @@
     "missing_or_stale": [],
     "signals": []
   },
-  "snapshot_path": "data/official/fred-liquidity/19ab4cc62087b4a5.json",
-  "snapshot_sha256": "7cdc4d69713599f29e8d4efd257b426d16ace49b1cd83ba87566e9b670d71001"
+  "snapshot_path": "data/official/fred-liquidity/bf12e8c831856cce.json",
+  "snapshot_sha256": "67d551403c397bea0bd9e5145dc1fcc56592da4c53d0bb9d0b338601e11df513"
 }
