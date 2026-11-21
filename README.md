@@ -17,6 +17,15 @@ U.S. Bureau of Labor Statistics (BLS) の公式releaseを、**対象期間・rel
 
 GitHub Pagesは`api/v1/`をread-onlyで投影します。monthly CPIとquarterly productivityを同じcadenceや独自scoreへ潰しません。保存済みCPI snapshotの`next_release`が既に過ぎている場合は、未取得の新releaseを推測せず**stale**と表示します。
 
+## U.S. market liquidity
+
+- [Liquidity dashboard](https://kafka2306.github.io/econalert/liquidity.html) — SOFR/FF, credit spreads, reserves, and financial-stress observations. The first public reading is available only after a successful collector run and Pages deployment.
+- [Canonical latest JSON](api/v1/liquidity/latest.json) — observation date, unit, source URL, raw CSV SHA-256, recent history, 4-week same-series changes, and independent risk signals.
+- [Collector](scripts/collect_liquidity.py) — weekly on the **existing** BLS Productivity workflow; it adds no new scheduled GitHub-hosted runner. The collector also snapshots each changed source signature to `data/official/fred-liquidity/`. Unchanged source data do not create duplicate snapshots.
+- Tests: `python -m unittest discover -s tests -p test_liquidity_collector.py -v`.
+
+This is **not a real-time feed**. The FRED graph CSV is a public download surface, not a versioned REST API; a source/header failure stops the update instead of silently inventing observations. Daily/weekly series and million/billion USD units remain separate. The `normal / attention / warning / unverified` classification is a screening rule, **not** an official liquidity-crisis determination. Missing or stale mandatory series yield `unverified`. Financial-market liquidity and wealthy-household spending are hypotheses to test separately.
+
 ## BLS Productivity and Costs
 
 Canonical output:

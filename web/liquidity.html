@@ -1,0 +1,58 @@
+<!doctype html>
+<html lang="ja"><head>
+<meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="description" content="米国市場の流動性を出典と観測日つきで追跡">
+<title>米国市場の流動性 | EconAlert</title>
+<style>
+:root{--bg:#f5f6f3;--paper:#fff;--ink:#171917;--muted:#616c62;--line:#dfe3dc}
+*{box-sizing:border-box}body{margin:0;background:var(--bg);color:var(--ink);font:15px/1.6 system-ui,"Hiragino Sans",sans-serif}
+a{color:inherit}a:focus-visible{outline:3px solid #111;outline-offset:3px}
+main,header .inner,footer .inner{max-width:1100px;padding:0 18px;margin:auto}
+header{padding:16px 0;border-bottom:1px solid var(--line)}header .inner{display:flex;justify-content:space-between;gap:10px;flex-wrap:wrap}
+h1{font-size:clamp(2rem,5vw,3.5rem);letter-spacing:-.045em;line-height:1.14;margin:13px 0}
+h2{font-size:1.3rem;margin:30px 0 10px}.muted{color:var(--muted)}.small{font-size:.82rem}
+.panel{border:1px solid var(--line);background:var(--paper);padding:16px;border-radius:7px}
+#summary{margin:22px 0;border-left:5px solid #888}#summary strong{font-size:1.35rem}
+#summary.normal{border-left-color:#24794b}#summary.attention{border-left-color:#ae780c}#summary.warning{border-left-color:#a33b33}
+.scroll{overflow-x:auto;border:1px solid var(--line);border-radius:7px;background:var(--paper)}
+table{width:100%;min-width:820px;border-collapse:collapse}th,td{text-align:left;padding:10px;border-bottom:1px solid var(--line);font-variant-numeric:tabular-nums}
+th{background:#f8faf7;color:var(--muted);font-size:.8rem}td small{display:block;color:var(--muted)}
+.spark{width:115px;height:32px}.stale{color:#a33b33;font-weight:700}footer{margin-top:35px;border-top:1px solid var(--line);padding:18px 0;color:var(--muted)}
+</style></head><body>
+<header><div class="inner"><strong><a href="./">EconAlert</a> / 流動性</strong><nav><a href="api/v1/liquidity/latest.json">原データJSON</a> · <a href="https://github.com/KAFKA2306/econalert/tree/main/data/official/fred-liquidity">取得履歴</a></nav></div></header>
+<main>
+<p class="muted small">US FINANCIAL MARKET LIQUIDITY</p><h1>米国市場の流動性</h1>
+<p class="muted">短期資金調達・信用スプレッド・銀行準備預金・金融ストレスを独立して追います。高級品消費や株価との因果関係を断定しません。</p>
+<section class="panel" id="summary" role="status"><strong>データ確認中</strong></section>
+<p class="muted small" id="meta">原資料から取得した観測値を表示します。</p>
+<section><h2>指標の推移</h2><div class="scroll"><table>
+<thead><tr><th>指標</th><th>値と単位</th><th>観測日と鮮度</th><th>4週変化</th><th>推移</th><th>出典</th></tr></thead>
+<tbody id="rows"><tr><td colspan="6">読み込み中</td></tr></tbody></table></div>
+<p class="muted small">4週変化は同一系列の約28日前との比較。日次と週次の観測日や単位を揃えず合算しません。空欄はゼロではなく未取得です。</p></section>
+<section><h2>警戒判定と根拠</h2><div class="panel" id="signals">判定中</div>
+<p class="muted small">独自の確認条件：SOFR−FF金利差が直前20共通観測日の中央値より10bp拡大、HY OASが4週で0.5ポイント拡大、銀行準備預金が4週で5%以上減少、金融ストレス指数が0超。独立2系統以上で「警戒」。公的な危機水準ではありません。重要系列が欠損・古い場合は未判定です。</p></section>
+<section><h2>データと注意</h2><p><a href="api/v1/liquidity/latest.json">観測値・単位・取得日時・出典URL・原CSVのSHA-256</a>を公開します。同じ原資料は再保存せず、改訂された場合は別スナップショットを残します。</p>
+<p class="muted small">FREDのグラフCSVを自動取得しています。CSVは公開ダウンロード形式であり、変更時には値を推測せずエラーを記録します。社債OASの原提供元はICE BofAです。</p></section>
+</main><footer><div class="inner">一次観測の比較であり、投資助言ではありません。</div></footer>
+<script>
+const labels={SOFR:'SOFR',DFF:'実効FF金利',BAMLH0A0HYM2:'ハイイールド債OAS',BAMLC0A0CM:'投資適格債OAS',WRESBAL:'銀行準備預金',STLFSI4:'金融ストレス指数',IORB:'準備預金付利',WALCL:'FRB総資産',WTREGEN:'TGA（週平均）',RRPONTSYD:'翌日物RRP'};
+const units={percent:'%',million_usd:'百万ドル',million_usd_weekly_average:'百万ドル（週平均）',billion_usd:'十億ドル',index:'指数'};
+const states={normal:'正常',attention:'注意',warning:'警戒',unverified:'未判定'};
+const esc=s=>String(s??'').replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
+const n=v=>Number.isFinite(v)?v.toLocaleString('ja-JP',{maximumFractionDigits:3}):'未取得';
+function spark(rows){const a=rows.slice(-60).map(r=>r.value).filter(Number.isFinite);if(a.length<2)return '—';const lo=Math.min(...a),d=Math.max(...a)-lo||1;const points=a.map((v,i)=>(i*114/(a.length-1)).toFixed(1)+','+(29-(v-lo)/d*25).toFixed(1)).join(' ');return '<svg class="spark" viewBox="0 0 115 32" aria-label="直近観測の推移" role="img"><polyline points="'+points+'" stroke="#244b67" stroke-width="2" fill="none"/></svg>'}
+(async()=>{try{
+const response=await fetch('api/v1/liquidity/latest.json',{cache:'no-store'});if(!response.ok)throw Error('公開データ HTTP '+response.status);
+const data=await response.json();if(data.schema_version!==1||!data.assessment||!data.series)throw Error('JSONの形式が異なります');
+const assessment=data.assessment;document.getElementById('summary').className='panel '+assessment.status;
+document.getElementById('summary').innerHTML='<strong>'+esc(states[assessment.status]||'未判定')+'</strong><p>'+esc(assessment.reason)+'</p>';
+document.getElementById('meta').textContent='取得日時: '+data.retrieved_at+' ／ 取得基準日: '+data.observation_cutoff+'。リアルタイム値ではありません。';
+document.getElementById('rows').innerHTML=Object.entries(labels).map(([id,label])=>{
+const s=data.series[id];if(!s)return '<tr><td>'+esc(label)+'</td><td colspan="5">未取得</td></tr>';
+const ch=s.change_4w;const delta=ch?n(ch.difference)+(s.unit==='percent'?'ポイント':' '+(units[s.unit]||s.unit))+'<small>'+esc(ch.from_date)+' → '+esc(ch.to_date)+'</small>':'—';
+return '<tr><td><strong>'+esc(label)+'</strong><small>'+esc(s.frequency)+'</small></td><td>'+n(s.latest.value)+' '+esc(units[s.unit]||s.unit)+'</td><td>'+esc(s.latest.date)+'<small class="'+(s.stale?'stale':'')+'">'+(s.stale?'更新遅延':'取得時に有効')+'</small></td><td>'+delta+'</td><td>'+spark(s.observations)+'</td><td><a href="'+esc(s.source_url)+'" rel="noopener" target="_blank">FRED系列</a></td></tr>';
+}).join('');
+const signals=assessment.signals||[];const missed=assessment.missing_or_stale||[];
+document.getElementById('signals').innerHTML=(signals.length?'<ul>'+signals.map(v=>'<li>'+esc(v.group)+' : '+esc(v.metric)+'</li>').join('')+'</ul>':'該当警戒シグナルなし')+(missed.length?'<p>未取得・古い系列：'+esc(missed.join(', '))+'</p>':'');
+}catch(error){document.getElementById('summary').innerHTML='<strong>未判定</strong><p>初回データが未公開、または取得に失敗しました。</p>';document.getElementById('rows').innerHTML='<tr><td colspan="6">データを表示できません。GitHub Actionsの実行状況を確認してください。</td></tr>';document.getElementById('signals').textContent=String(error);document.getElementById('meta').textContent='公開データを確認できません';}})();
+</script></body></html>
