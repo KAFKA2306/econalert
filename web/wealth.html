@@ -1,0 +1,85 @@
+<!doctype html>
+<html lang="ja"><head>
+<meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<meta name="description" content="ティファニー関連売上、高級コンドミニアム、カード支出を一次資料で比較する米国富裕層消費ウォッチ">
+<title>米国富裕層消費ウォッチ | EconAlert</title>
+<style>
+:root{--bg:#f5f6f3;--card:#fff;--ink:#202923;--sub:#586358;--line:#dce1db;--negative:#962e30}
+*{box-sizing:border-box}body{margin:0;background:var(--bg);color:var(--ink);font:16px/1.58 system-ui,"Hiragino Sans",sans-serif}
+a{color:inherit}a:focus-visible,button:focus-visible{outline:3px solid #315e92;outline-offset:3px}
+.wrap{width:min(1060px,calc(100% - 32px));margin:auto}
+header{border-bottom:1px solid var(--line);padding:14px 0}.nav{display:flex;align-items:center;justify-content:space-between;gap:14px;flex-wrap:wrap}.nav a{text-decoration:none}.nav a:hover{text-decoration:underline}
+header strong{font-size:1rem}header nav{display:flex;gap:15px;flex-wrap:wrap;font-size:.83rem}
+main{padding-top:48px}h1{font-size:clamp(2rem,5vw,3.9rem);line-height:1.14;letter-spacing:-.04em;margin:7px 0 16px}
+.lead{max-width:770px;color:var(--sub)}.kicker{letter-spacing:.12em;text-transform:uppercase;font-size:.76rem;font-weight:750}
+.meta,.small{font-size:.83rem;color:var(--sub)}.warning{border-left:4px solid #a26b17;padding:13px 17px;background:#fff;margin:23px 0}
+.filters{display:flex;gap:9px;flex-wrap:wrap;margin:26px 0 18px}
+button{cursor:pointer;border:1px solid #aab5ab;border-radius:999px;background:var(--card);padding:9px 16px;font:inherit;font-size:.88rem}
+button[aria-pressed=true]{background:#203d31;border-color:#203d31;color:#fff}
+.grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:13px}.card{padding:22px;background:var(--card);border:1px solid var(--line);border-radius:9px}
+.category{font-size:.77rem;font-weight:700;color:var(--sub)}.value{font-size:clamp(1.7rem,5vw,2.7rem);font-weight:800;letter-spacing:-.045em;margin:4px 0}
+.negative{color:var(--negative)}.name{font-size:1.08rem;font-weight:800}.basis,.note{font-size:.86rem;color:var(--sub);margin:9px 0}
+.trend{display:flex;flex-wrap:wrap;gap:7px;margin:13px 0}.trend span{font-size:.77rem;border:1px solid var(--line);background:#f7f9f6;border-radius:6px;padding:4px 7px}
+.source{font-size:.87rem;font-weight:700}.card footer{margin-top:15px;border-top:1px solid var(--line);padding-top:12px}
+#state{font-size:.9rem;font-weight:700}#cards[hidden]{display:none}
+.bottom{margin:36px 0;border-top:1px solid var(--line);padding-top:20px}
+@media(max-width:660px){main{padding-top:28px}.grid{grid-template-columns:1fr}.card{padding:17px}}
+</style></head><body>
+<header><div class="wrap nav"><strong><a href="./">EconAlert</a> / 富裕層消費</strong><nav><a href="./">経済統計</a><a href="liquidity.html">市場流動性</a><a href="https://github.com/KAFKA2306/econalert/issues/37">検証記録</a></nav></div></header>
+<main class="wrap">
+<div class="kicker">US WEALTHY-CONSUMER WATCH</div><h1>富裕層の消費は<br>本当に失速しているか？</h1>
+<p class="lead">ティファニー関連の宝飾品、高級住宅、米国カード支出の公表値を、期間・定義・一次資料とともに確認する。株価との因果関係はここでは確定しません。</p>
+<div class="warning"><strong>研究用の手動確認スナップショット</strong><div id="snapshot" class="small">データを確認中</div><div class="small">GitHub Pages上の表示は自動更新・リアルタイム速報ではありません。指標ごとの最終発表日を確認してください。</div></div>
+<div id="state" role="status">公開JSONを読み込み中</div>
+<div class="filters" aria-label="分野で絞り込み">
+<button type="button" data-cat="all" aria-pressed="true">すべて</button>
+<button type="button" data-cat="luxury" aria-pressed="false">高級品・宝飾</button>
+<button type="button" data-cat="housing" aria-pressed="false">高級住宅</button>
+<button type="button" data-cat="spending" aria-pressed="false">カード支出</button>
+</div>
+<section id="cards" class="grid" aria-label="公表済み指標"></section>
+<section class="bottom"><h2>読み方と限界</h2>
+<p>部門売上とティファニー単独売上、住宅の契約と成約、全所得層のカード支出と富裕層のカード支出は、それぞれ違う数字です。異なる期間の指標を合計した「富裕層危機スコア」は作りません。</p>
+<p>今回の動向は一様ではありません。米国株への影響を判断するには、次回発表、所得別支出、企業の利益見通し、金利・為替などの要因を継続して検証します。</p>
+<p class="small"><a href="api/v1/wealth-consumption/latest.json">公開データJSON（期間・出典・観測履歴）</a> · <a href="https://github.com/KAFKA2306/econalert/issues/37">更新・公開の検証記録</a></p>
+</section></main>
+<script>
+const labels={luxury:"高級品・宝飾",housing:"高級住宅",spending:"カード支出"};
+const el=id=>document.getElementById(id);
+const format=(v,unit)=>unit==="contracts"?v.toLocaleString("ja-JP")+" 件":(v>0?"+":"")+v.toLocaleString("ja-JP")+"%";
+let data=null,selected="all";
+function add(parent,tag,cls,content){
+ const node=document.createElement(tag);if(cls)node.className=cls;if(content!==undefined)node.textContent=content;parent.appendChild(node);return node;
+}
+function render(){
+ if(!data)return;
+ const list=data.indicators.filter(x=>selected==="all"||x.category===selected);
+ const root=el("cards");root.replaceChildren();el("state").textContent=list.length+" 指標を表示／全 "+data.indicators.length+" 指標";
+ for(const x of list){
+  const card=add(root,"article","card");
+  add(card,"div","category",labels[x.category]+" · "+x.period);
+  add(card,"div","name",x.name);
+  add(card,"div","value"+(x.unit==="pct"&&x.value<0?" negative":""),format(x.value,x.unit));
+  if(Number.isFinite(x.yoy_pct))add(card,"div",x.yoy_pct<0?"negative":"", "前年同月比 "+(x.yoy_pct>0?"+":"")+x.yoy_pct+"%");
+  add(card,"p","basis",x.basis);
+  const trend=add(card,"div","trend");
+  for(const point of x.series){add(trend,"span","",point.period+" : "+format(point.value,x.unit));}
+  add(card,"p","note",x.note);
+  const footer=add(card,"footer","");
+  add(footer,"div","small","対象終了: "+x.period_end+" ／ 発表: "+x.released_at);
+  const a=add(footer,"a","source","一次資料: "+x.publisher+" を開く");
+  a.href=x.source_url;a.target="_blank";a.rel="noopener noreferrer";
+ }
+}
+for(const button of document.querySelectorAll("button[data-cat]")){
+ button.addEventListener("click",()=>{selected=button.dataset.cat;for(const b of document.querySelectorAll("button[data-cat]"))b.setAttribute("aria-pressed",String(b===button));render();});
+}
+(async()=>{try{
+ const response=await fetch("api/v1/wealth-consumption/latest.json",{cache:"no-store"});
+ if(!response.ok)throw new Error("HTTP "+response.status);
+ const parsed=await response.json();
+ if(parsed.schema_version!==1||!Array.isArray(parsed.indicators)||parsed.indicators.length<5||parsed.indicators.some(x=>!x.source_url?.startsWith("https://")||!x.released_at||!Array.isArray(x.series)))throw new Error("公開データ契約が不正");
+ data=parsed;el("snapshot").textContent="確認基準日: "+data.as_of+" ／ 公開値: "+data.indicators.length+" 指標。";
+ render();
+}catch(err){el("state").textContent="公開データを確認できません（"+err.message+"）。下のJSONとGitHubの公開記録を確認してください。";}})();
+</script></body></html>
