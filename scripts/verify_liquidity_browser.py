@@ -43,8 +43,14 @@ def wait_for_real_values(browser, canonical: dict) -> None:
         raise AssertionError(f'SOFR in browser does not match canonical value {sofr["value"]}')
     if sofr["date"] not in first_row.text:
         raise AssertionError("browser did not show SOFR observation date")
-    if canonical["retrieved_at"] not in browser.find_element(By.ID, "meta").text:
-        raise AssertionError("data retrieval timestamp missing")
+    # The UI now shows Japanese local time rather than raw ISO-8601 UTC.
+    from datetime import datetime
+    from zoneinfo import ZoneInfo
+    observed_jst = datetime.fromisoformat(canonical["retrieved_at"]).astimezone(ZoneInfo("Asia/Tokyo"))
+    expected_day = f"{observed_jst.year}/{observed_jst.month}/{observed_jst.day}"
+    meta_text = browser.find_element(By.ID, "meta").text
+    if expected_day not in meta_text or canonical["observation_cutoff"] not in meta_text:
+        raise AssertionError(f"localized retrieval date or cutoff missing: {meta_text!r}")
     source_links = browser.find_elements(By.CSS_SELECTOR, "#rows td:last-child a")
     if len(source_links) != len(canonical["series"]):
         raise AssertionError(f"source link count mismatch: {len(source_links)}")
