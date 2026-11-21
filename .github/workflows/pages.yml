@@ -200,6 +200,7 @@ jobs:
           fc-list :lang=ja family | grep -Fq 'Noto Sans CJK JP'
           python -m pip install --disable-pip-version-check selenium==4.53.0
           python scripts/verify_liquidity_browser.py --base-url "$PAGE_URL"
+          python scripts/verify_wealth_browser.py --base-url "$PAGE_URL"
       - name: Save browser screenshots
         if: always()
         uses: actions/upload-artifact@v4
