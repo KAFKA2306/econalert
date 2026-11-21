@@ -190,6 +190,14 @@ jobs:
         run: |
           command -v google-chrome || command -v google-chrome-stable || command -v chromium
           command -v chromedriver
+          # The hosted runner lacks CJK fonts by default; screenshots need
+          # legible Japanese rather than missing-glyph boxes.
+          if ! fc-list :lang=ja family | grep -Fq 'Noto Sans CJK JP'; then
+            sudo apt-get update -qq
+            sudo apt-get install -y -qq fonts-noto-cjk
+            fc-cache -f
+          fi
+          fc-list :lang=ja family | grep -Fq 'Noto Sans CJK JP'
           python -m pip install --disable-pip-version-check selenium==4.53.0
           python scripts/verify_liquidity_browser.py --base-url "$PAGE_URL"
       - name: Save browser screenshots
