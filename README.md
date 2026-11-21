@@ -17,6 +17,13 @@ U.S. Bureau of Labor Statistics (BLS) の公式releaseを、**対象期間・rel
 
 GitHub Pagesは`api/v1/`をread-onlyで投影します。monthly CPIとquarterly productivityを同じcadenceや独自scoreへ潰しません。保存済みCPI snapshotの`next_release`が既に過ぎている場合は、未取得の新releaseを推測せず**stale**と表示します。
 
+## U.S. wealthy-consumer watch (research, not a macro release)
+
+- [Public dashboard](https://kafka2306.github.io/econalert/wealth.html): LVMH (including Tiffany within its watches/jewelry segment), Richemont jewellery, Manhattan condominium and $5M+ contract counts, and BofA aggregate card spending.
+- [Read-only source-backed snapshot](api/v1/wealth-consumption/latest.json): observation period, source URL, publisher, released-at, units, historical same-series comparisons and interpretation limits.
+- This lane is a **dated manual evidence snapshot**, not an automatically refreshed feed. No inferred standalone Tiffany sales, no inferred high-income card rate, and no compounded cross-series wealth-crisis score. It must not be confused with this repository's official macro release data.
+- [GitHub Pages usability and deployment evidence](https://github.com/KAFKA2306/econalert/issues/37).
+
 ## U.S. market liquidity
 
 - [Liquidity dashboard](https://kafka2306.github.io/econalert/liquidity.html) — root navigationからも開けるSOFR/FF、信用スプレッド、準備預金、金融ストレスの画面。 The first public reading is available only after a successful collector run and Pages deployment.
