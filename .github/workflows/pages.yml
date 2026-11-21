@@ -92,6 +92,13 @@ jobs:
           assert liq['schema_version']==1 and liq['series']['SOFR']['latest']['date']<=liq['observation_cutoff']
           assert liq['series']['IORB']['latest']['date']<=liq['observation_cutoff']
           assert Path('web/liquidity.html').exists()
+          wealth=json.loads(Path('api/v1/wealth-consumption/latest.json').read_text())
+          assert wealth['schema_version']==1 and wealth['publication_status']=='dated_manual_snapshot'
+          assert len(wealth['indicators'])>=5
+          assert {i['category'] for i in wealth['indicators']}=={'luxury','housing','spending'}
+          assert all(i['source_url'].startswith('https://') and i['released_at'] and i['period'] for i in wealth['indicators'])
+          assert Path('web/wealth.html').exists()
+          assert 'api/v1/wealth-consumption/latest.json' in Path('web/wealth.html').read_text()
           html=Path('web/index.html').read_text()
           for marker in ('Release state','AI productivity research','api/v1/ai-productivity/evidence.json','Missing July categories were not fabricated.'):
               assert marker in html
@@ -146,6 +153,8 @@ jobs:
                   with urlopen(urljoin(base,'api/v1/ai-productivity/evidence.json'),timeout=10) as r: ai=json.load(r)
                   with urlopen(urljoin(base,'api/v1/liquidity/latest.json'),timeout=10) as r: liq=json.load(r)
                   with urlopen(urljoin(base,'liquidity.html'),timeout=10) as r: liq_html=r.read().decode()
+                  with urlopen(urljoin(base,'api/v1/wealth-consumption/latest.json'),timeout=10) as r: wealth=json.load(r)
+                  with urlopen(urljoin(base,'wealth.html'),timeout=10) as r: wealth_html=r.read().decode()
                   with urlopen(base,timeout=10) as r: html=r.read().decode()
                   assert dep['source_commit']==expected, dep
                   assert prod['release']['release_date']=='2026-09-03' and prod['release']['release_status']=='revised'
@@ -160,6 +169,11 @@ jobs:
                   assert liq['series']['SOFR']['latest']['date']<=liq['observation_cutoff']
                   assert liq['series']['IORB']['latest']['date']<=liq['observation_cutoff']
                   assert '米国市場の流動性' in liq_html
+                  local_wealth=json.loads(Path('api/v1/wealth-consumption/latest.json').read_text())
+                  assert wealth==local_wealth, 'production wealth JSON differs from exact source'
+                  assert '米国富裕層消費ウォッチ' in wealth_html
+                  assert 'api/v1/wealth-consumption/latest.json' in wealth_html
+                  assert 'wealth.html' in html, 'wealth entry point missing from production index'
                   print({'page_url':base,'source_commit':expected,'productivity_period':prod['observations'][-1]['period'],'productivity_release':prod['release']['release_date'],'cpi_period':cpi['period'],'cpi_release':cpi['release_date'],'ai_records':len(ai['records'])})
                   break
               except Exception as exc:
