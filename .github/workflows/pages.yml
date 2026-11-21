@@ -14,6 +14,8 @@ on:
       - scripts/collect_productivity.py
       - scripts/verify_profit_distribution_publication.py
       - scripts/verify_liquidity_browser.py
+      - scripts/verify_wealth_browser.py
+      - scripts/verify_liquidity_browser.py
       - tests/test_profit_distribution_publication.py
       - .github/workflows/pages.yml
   pull_request:
@@ -28,6 +30,8 @@ on:
       - scripts/build_productivity_views.py
       - scripts/collect_productivity.py
       - scripts/verify_profit_distribution_publication.py
+      - scripts/verify_liquidity_browser.py
+      - scripts/verify_wealth_browser.py
       - scripts/verify_liquidity_browser.py
       - tests/test_profit_distribution_publication.py
       - .github/workflows/pages.yml
