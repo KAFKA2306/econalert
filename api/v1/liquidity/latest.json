@@ -2,21 +2,17 @@
   "schema_version": 1,
   "publisher": "Federal Reserve Bank of St. Louis (FRED); individual source publishers vary",
   "dataset": "US financial market liquidity observations",
-  "retrieved_at": "2026-11-24T01:43:29.930952+00:00",
+  "retrieved_at": "2026-11-24T23:31:23.524105+00:00",
   "observation_cutoff": "2026-11-24",
-  "source_signature": "73ab5cbadebe0874d75520306484d333805401cfe7c3886aed6fddfa42a740fb",
+  "source_signature": "e2a2b209e371ad51dff3d812a1992e3a41a0c67a729979c085e324b61655cb04",
   "series": {
     "SOFR": {
       "unit": "percent",
       "frequency": "daily",
       "source_url": "https://fred.stlouisfed.org/series/SOFR",
       "download_url": "https://fred.stlouisfed.org/graph/fredgraph.csv?id=SOFR&cosd=2024-01-01",
-      "source_sha256": "82b882c0afff94d83edabe343a69e8c24f2652d193a0bcff7dadd46dee28aaa6",
+      "source_sha256": "ab9814723325d404fff6c76a0067656f574c2adf8a9af313a08729b176483091",
       "observations": [
-        {
-          "date": "2026-04-17",
-          "value": 3.65
-        },
         {
           "date": "2026-04-20",
           "value": 3.63
@@ -612,18 +608,22 @@
         {
           "date": "2026-11-20",
           "value": 3.92
+        },
+        {
+          "date": "2026-11-23",
+          "value": 3.92
         }
       ],
       "latest": {
-        "date": "2026-11-20",
+        "date": "2026-11-23",
         "value": 3.92
       },
       "future_dated_rows_excluded": 0,
       "change_4w": {
-        "from_date": "2026-10-23",
-        "to_date": "2026-11-20",
-        "difference": 0.0,
-        "percent_change": 0.0
+        "from_date": "2026-10-26",
+        "to_date": "2026-11-23",
+        "difference": -0.01,
+        "percent_change": -0.254453
       },
       "stale": false
     },
@@ -632,20 +632,8 @@
       "frequency": "daily",
       "source_url": "https://fred.stlouisfed.org/series/DFF",
       "download_url": "https://fred.stlouisfed.org/graph/fredgraph.csv?id=DFF&cosd=2024-01-01",
-      "source_sha256": "b71e3a59f87d6ad6f35e4dc0210fed2e7477add2dab5b4d7e4725f7c65ef8a3a",
+      "source_sha256": "3a2588560c17ef7c94896e31ef73ec0630e6e44800aa1708037776313c72cf14",
       "observations": [
-        {
-          "date": "2026-06-24",
-          "value": 3.63
-        },
-        {
-          "date": "2026-06-25",
-          "value": 3.63
-        },
-        {
-          "date": "2026-06-26",
-          "value": 3.63
-        },
         {
           "date": "2026-06-27",
           "value": 3.63
@@ -1233,16 +1221,28 @@
         {
           "date": "2026-11-20",
           "value": 3.88
+        },
+        {
+          "date": "2026-11-21",
+          "value": 3.88
+        },
+        {
+          "date": "2026-11-22",
+          "value": 3.88
+        },
+        {
+          "date": "2026-11-23",
+          "value": 3.88
         }
       ],
       "latest": {
-        "date": "2026-11-20",
+        "date": "2026-11-23",
         "value": 3.88
       },
       "future_dated_rows_excluded": 0,
       "change_4w": {
-        "from_date": "2026-10-23",
-        "to_date": "2026-11-20",
+        "from_date": "2026-10-26",
+        "to_date": "2026-11-23",
         "difference": 0.0,
         "percent_change": 0.0
       },
@@ -1253,12 +1253,8 @@
       "frequency": "daily",
       "source_url": "https://fred.stlouisfed.org/series/BAMLH0A0HYM2",
       "download_url": "https://fred.stlouisfed.org/graph/fredgraph.csv?id=BAMLH0A0HYM2&cosd=2024-01-01",
-      "source_sha256": "b9b30e2c5ed9af074f50cac82f04875270b0b5fd5d7c1d690b220b8242f93d7d",
+      "source_sha256": "2b0d26b172755df0b7eded6288eaa980632cae747816a2f67567eb7f7e1e6849",
       "observations": [
-        {
-          "date": "2026-04-28",
-          "value": 2.85
-        },
         {
           "date": "2026-04-29",
           "value": 2.82
@@ -1854,18 +1850,22 @@
         {
           "date": "2026-11-20",
           "value": 3.76
+        },
+        {
+          "date": "2026-11-23",
+          "value": 3.63
         }
       ],
       "latest": {
-        "date": "2026-11-20",
-        "value": 3.76
+        "date": "2026-11-23",
+        "value": 3.63
       },
       "future_dated_rows_excluded": 0,
       "change_4w": {
-        "from_date": "2026-10-23",
-        "to_date": "2026-11-20",
-        "difference": 0.38,
-        "percent_change": 11.242604
+        "from_date": "2026-10-26",
+        "to_date": "2026-11-23",
+        "difference": 0.33,
+        "percent_change": 10.0
       },
       "stale": false
     },
@@ -1874,12 +1874,8 @@
       "frequency": "daily",
       "source_url": "https://fred.stlouisfed.org/series/BAMLC0A0CM",
       "download_url": "https://fred.stlouisfed.org/graph/fredgraph.csv?id=BAMLC0A0CM&cosd=2024-01-01",
-      "source_sha256": "84f8d4f6942a735c108aca4ecb76cc9e02fc435c155d89dcb35f28a02e3830e6",
+      "source_sha256": "4a5d8d8c664d07cbc6fb50161d4c6a6989fddbab86ebd05256c6b5627a21f640",
       "observations": [
-        {
-          "date": "2026-04-28",
-          "value": 0.81
-        },
         {
           "date": "2026-04-29",
           "value": 0.81
@@ -2475,18 +2471,22 @@
         {
           "date": "2026-11-20",
           "value": 0.98
+        },
+        {
+          "date": "2026-11-23",
+          "value": 0.97
         }
       ],
       "latest": {
-        "date": "2026-11-20",
-        "value": 0.98
+        "date": "2026-11-23",
+        "value": 0.97
       },
       "future_dated_rows_excluded": 0,
       "change_4w": {
-        "from_date": "2026-10-23",
-        "to_date": "2026-11-20",
+        "from_date": "2026-10-26",
+        "to_date": "2026-11-23",
         "difference": 0.07,
-        "percent_change": 7.692308
+        "percent_change": 7.777778
       },
       "stale": false
     },
@@ -3737,12 +3737,8 @@
       "frequency": "daily",
       "source_url": "https://fred.stlouisfed.org/series/IORB",
       "download_url": "https://fred.stlouisfed.org/graph/fredgraph.csv?id=IORB&cosd=2024-01-01",
-      "source_sha256": "77b3ce77aa5dee169b2e2c6868e02c9eaef3b4d3e4d01513395f54a2422534a4",
+      "source_sha256": "570971f2701db9e16733e84d8558258fa65f77bf2f5c9820a55b35a3d7bfda1f",
       "observations": [
-        {
-          "date": "2026-06-28",
-          "value": 3.65
-        },
         {
           "date": "2026-06-29",
           "value": 3.65
@@ -4344,7 +4340,7 @@
         "date": "2026-11-24",
         "value": 3.9
       },
-      "future_dated_rows_excluded": 0,
+      "future_dated_rows_excluded": 1,
       "change_4w": {
         "from_date": "2026-10-27",
         "to_date": "2026-11-24",
@@ -5600,12 +5596,8 @@
       "frequency": "daily",
       "source_url": "https://fred.stlouisfed.org/series/RRPONTSYD",
       "download_url": "https://fred.stlouisfed.org/graph/fredgraph.csv?id=RRPONTSYD&cosd=2024-01-01",
-      "source_sha256": "aca3a30b8220096c51da3faf2d3fdeb8c94613108e72c86df89c7f217c70b3fb",
+      "source_sha256": "bd7501b94e03dfc564bf5dcc5e83cb2e19229596963bee04ab248ed2543bdca1",
       "observations": [
-        {
-          "date": "2026-04-20",
-          "value": 0.503
-        },
         {
           "date": "2026-04-21",
           "value": 0.807
@@ -6201,18 +6193,22 @@
         {
           "date": "2026-11-23",
           "value": 0.35
+        },
+        {
+          "date": "2026-11-24",
+          "value": 0.301
         }
       ],
       "latest": {
-        "date": "2026-11-23",
-        "value": 0.35
+        "date": "2026-11-24",
+        "value": 0.301
       },
       "future_dated_rows_excluded": 0,
       "change_4w": {
-        "from_date": "2026-10-26",
-        "to_date": "2026-11-23",
-        "difference": 0.15,
-        "percent_change": 75.0
+        "from_date": "2026-10-27",
+        "to_date": "2026-11-24",
+        "difference": 0.075,
+        "percent_change": 33.185841
       },
       "stale": false
     }
@@ -6224,6 +6220,6 @@
     "missing_or_stale": [],
     "signals": []
   },
-  "snapshot_path": "data/official/fred-liquidity/73ab5cbadebe0874.json",
-  "snapshot_sha256": "e6756dc4cab6754c5d8f5347a538c86c6d49f322a04930d99f2c95f20f7f0b3e"
+  "snapshot_path": "data/official/fred-liquidity/e2a2b209e371ad51.json",
+  "snapshot_sha256": "12acba0e79434b6b6e77c6c15a492694001ed480ba15b6cb53bcd52805f411dd"
 }
