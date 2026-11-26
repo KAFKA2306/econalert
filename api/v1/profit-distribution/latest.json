@@ -1,7 +1,7 @@
 {
   "schema_version": 1,
   "dataset": "U.S. corporate profit share and productivity distribution",
-  "retrieved_at": "2026-11-19T22:27:44.181091+00:00",
+  "retrieved_at": "2026-11-26T23:19:10.104192+00:00",
   "sources": {
     "fred_cprofit_gdi": {
       "retrieval_provider": "Federal Reserve Bank of St. Louis (FRED)",
@@ -21,7 +21,7 @@
           "units": "Billions of Dollars, Seasonally Adjusted Annual Rate"
         }
       },
-      "raw_sha256": "9910ff36e5ae7496d2ec3bf1da9c8912704ef5b23004b612a8539c3c92130180"
+      "raw_sha256": "215dfb0f96b5bc150b00af2f4d94a40a39e45ca620e1fa0dad1d41ab60943bc6"
     },
     "bls_productivity": {
       "publisher": "U.S. Bureau of Labor Statistics",
@@ -197,7 +197,7 @@
           "metric": "unit_profits_qoq_annualized_pct"
         }
       ],
-      "raw_sha256": "d1917b0c286f4412a3f9d0c8ce9b00fd64bb99a9b84bcb62221ffe7f988fe7e9",
+      "raw_sha256": "ab4d7d55f4e17744684da8593139e1178926f610a08d8d15434827d484e05623",
       "series_contract_sha256": "7ab85522ad1a206d31867a1a407e0818df5bf5fa42d82f62fdb71aae7f4b7c24",
       "quarterly_change_semantics": "BLS quarterly percent changes are seasonally adjusted annualized rates."
     }
@@ -211,14 +211,14 @@
   },
   "summary": {
     "schema_version": 1,
-    "retrieved_at": "2026-11-19T22:27:44.181091+00:00",
+    "retrieved_at": "2026-11-26T23:19:10.104192+00:00",
     "corporate_profit_share": {
-      "period": "2026-Q2",
-      "corporate_profits_billion_usd_saar": 4709.453,
-      "gdi_billion_usd_saar": 32752.528,
-      "corporate_profits_gdi_pct": 14.378899,
-      "corporate_profits_yoy_pct": 20.795284,
-      "gdi_yoy_pct": 6.886657
+      "period": "2026-Q3",
+      "corporate_profits_billion_usd_saar": 4915.491,
+      "gdi_billion_usd_saar": 33228.451,
+      "corporate_profits_gdi_pct": 14.793019,
+      "corporate_profits_yoy_pct": 21.296861,
+      "gdi_yoy_pct": 6.611224
     },
     "nonfarm_business": {
       "period": "2026-Q3",
@@ -244,7 +244,7 @@
       "unit_profits_yoy_pct": 15.9,
       "unit_profits_qoq_annualized_pct": 39.1
     },
-    "source_fingerprint_sha256": "652af2602c32737d349f5ecb6a7b5267309e67651cfa2f0f45c008966e7c7269"
+    "source_fingerprint_sha256": "a94f28cf820942558a36a95eef29adbe297013702eba19a2e266feb1c0cf0604"
   },
   "corporate_profit_share": [
     {
@@ -2778,10 +2778,18 @@
     {
       "period": "2026-Q2",
       "corporate_profits_billion_usd_saar": 4709.453,
-      "gdi_billion_usd_saar": 32752.528,
-      "corporate_profits_gdi_pct": 14.378899,
+      "gdi_billion_usd_saar": 32721.521,
+      "corporate_profits_gdi_pct": 14.392525,
       "corporate_profits_yoy_pct": 20.795284,
-      "gdi_yoy_pct": 6.886657
+      "gdi_yoy_pct": 6.785467
+    },
+    {
+      "period": "2026-Q3",
+      "corporate_profits_billion_usd_saar": 4915.491,
+      "gdi_billion_usd_saar": 33228.451,
+      "corporate_profits_gdi_pct": 14.793019,
+      "corporate_profits_yoy_pct": 21.296861,
+      "gdi_yoy_pct": 6.611224
     }
   ],
   "productivity_distribution": {

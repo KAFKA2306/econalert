@@ -1,13 +1,13 @@
 {
   "schema_version": 1,
-  "retrieved_at": "2026-11-19T22:27:44.181091+00:00",
+  "retrieved_at": "2026-11-26T23:19:10.104192+00:00",
   "corporate_profit_share": {
-    "period": "2026-Q2",
-    "corporate_profits_billion_usd_saar": 4709.453,
-    "gdi_billion_usd_saar": 32752.528,
-    "corporate_profits_gdi_pct": 14.378899,
-    "corporate_profits_yoy_pct": 20.795284,
-    "gdi_yoy_pct": 6.886657
+    "period": "2026-Q3",
+    "corporate_profits_billion_usd_saar": 4915.491,
+    "gdi_billion_usd_saar": 33228.451,
+    "corporate_profits_gdi_pct": 14.793019,
+    "corporate_profits_yoy_pct": 21.296861,
+    "gdi_yoy_pct": 6.611224
   },
   "nonfarm_business": {
     "period": "2026-Q3",
@@ -33,5 +33,5 @@
     "unit_profits_yoy_pct": 15.9,
     "unit_profits_qoq_annualized_pct": 39.1
   },
-  "source_fingerprint_sha256": "652af2602c32737d349f5ecb6a7b5267309e67651cfa2f0f45c008966e7c7269"
+  "source_fingerprint_sha256": "a94f28cf820942558a36a95eef29adbe297013702eba19a2e266feb1c0cf0604"
 }
